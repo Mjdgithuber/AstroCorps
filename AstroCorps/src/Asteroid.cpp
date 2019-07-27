@@ -37,11 +37,11 @@ void Asteroid::draw(sf::RenderWindow& window) {
 }
 
 void Asteroid::modifyPlayerGravity(Player& player) {
-	double radius = getDistance(asteroidX, player.playerSprite.getPosition().x + 7.5, asteroidY, player.playerSprite.getPosition().y + 15);
+	double radius = getDistance(asteroidX, player.getPosition().x + 7.5, asteroidY, player.getPosition().y + 15);
 	double force = (blocks.size() / std::pow(radius, 2)) * 10;
 
-	double deltaX = asteroidX - (player.playerSprite.getPosition().x + 7.5);
-	double deltaY = asteroidY - (player.playerSprite.getPosition().y + 15);
+	double deltaX = asteroidX - (player.getPosition().x + 7.5);
+	double deltaY = asteroidY - (player.getPosition().y + 15);
 
 	//double xDistance = getDistance(player.playerSprite.getPosition().x + 7.5, asteroidX);
 	//double yDistance = getDistance(player.playerSprite.getPosition().y + 15, asteroidY);

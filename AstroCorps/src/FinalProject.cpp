@@ -37,7 +37,7 @@ void generateOxygen(std::vector<Asteroid>& asteroids) {
 
 void collectOxygen(Player& player) {
 	for (int i = 0; i < oxygens.size(); i++) {
-		if (((player.playerSprite.getPosition().x  < oxygens[i].getPosition().x + 15) && (player.playerSprite.getPosition().x + player.playerSprite.getGlobalBounds().width > oxygens[i].getPosition().x )) && ((player.playerSprite.getPosition().y < oxygens[i].getPosition().y + 15) && (player.playerSprite.getPosition().y + player.playerSprite.getGlobalBounds().height > oxygens[i].getPosition().y))) {
+		if (((player.getPosition().x  < oxygens[i].getPosition().x + 15) && (player.getPosition().x + player.getGlobalBounds().width > oxygens[i].getPosition().x )) && ((player.getPosition().y < oxygens[i].getPosition().y + 15) && (player.getPosition().y + player.getGlobalBounds().height > oxygens[i].getPosition().y))) {
 			oxygens.erase(oxygens.begin() + i);
 			if (player.oxygenAmount < 1500) {
 				player.oxygenAmount += 500;
@@ -133,7 +133,7 @@ int main() {
 			}
 		}
 
-		//std::cout << player.playerSprite.getGlobalBounds().width << "\n";
+		//std::cout << player.playerSprite.getGlobalBounds().left << "\n";
 
 		profiler.restart();
 		for (int i = 0; i < asteroids.size(); i++)

@@ -24,6 +24,8 @@ public:
 	void init_block();
 
 	void getPlayerCollision();
+
+	bool colliding(const sf::Sprite& s1, const sf::Sprite& s2);
 };
 
 

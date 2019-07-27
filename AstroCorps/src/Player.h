@@ -8,7 +8,7 @@
 #include <cmath>
 #include <random>
 
-class Player {
+class Player : public sf::Sprite {
 public:
 	enum Rotation {
 		NORTH, EAST, SOUTH, WEST
@@ -37,7 +37,6 @@ public:
 
 
 	sf::Texture playerTex;
-	sf::Sprite playerSprite;
 	sf::Vector2f movement;
 	sf::Vector2f velocity;
 	sf::Vector2f acceleration;
@@ -50,8 +49,6 @@ public:
 	void update(sf::RenderWindow& window);
 
 	void stopPlayer();
-
-	void setPosition(int x, int y);
 
 	void draw(sf::RenderWindow& window);
 
