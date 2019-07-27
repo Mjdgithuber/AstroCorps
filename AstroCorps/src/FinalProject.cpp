@@ -1,12 +1,13 @@
-#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
-#include <string>
-#include <cmath>
 #include <random>
+
+#include <SFML/Graphics.hpp>
+
 #include "Asteroid.h"
 #include "Player.h"
-#include "Object.h"
+
+#define DEBUG 0
 
 std::vector< sf::Sprite > oxygens;
 
@@ -60,19 +61,17 @@ void drawOxygen(sf::RenderWindow& window) {
 }
 
 int main() {
+	// load all of the block textures
 	Block::load_block_textures();
 
-	sf::RenderWindow window(sf::VideoMode(600, 600), "Final Project");
+	// make a new window
+	sf::RenderWindow window(sf::VideoMode(600, 600), "Astro Corps");
 	window.setFramerateLimit(60);
-
-	//Textures
-	
 
 	sf::Texture backTex;
 	backTex.loadFromFile("Textures/Background.png");
 
 	//Sprites
-
 	sf::Sprite backSprite;
 	backSprite.setTexture(backTex);
 
@@ -101,7 +100,6 @@ int main() {
 
 	for (int i = 0; i < 1; i++)
 		asteroids.emplace_back(150, 150, 15, player);
-		//asteroids.push_back(Asteroid(150, 150, 15, player));
 
 	while (window.isOpen()) {
 		sf::Event event;
@@ -135,28 +133,30 @@ int main() {
 			}
 		}
 
+		//std::cout << player.playerSprite.getGlobalBounds().width << "\n";
+
 		profiler.restart();
 		for (int i = 0; i < asteroids.size(); i++)
 			asteroids[i].modifyPlayerGravity(player);
-		std::cout << "Modify Player Gravity: " << profiler.getElapsedTime().asSeconds() << "\n";
+		if(DEBUG) std::cout << "Modify Player Gravity: " << profiler.getElapsedTime().asSeconds() << "\n";
 
 
 		profiler.restart();
 		player.checkRotation();
-		std::cout << "Check Rotation:        " << profiler.getElapsedTime().asSeconds() << "\n";
+		if (DEBUG) std::cout << "Check Rotation:        " << profiler.getElapsedTime().asSeconds() << "\n";
 
 
 		profiler.restart();
 		for (int i = 0; i < asteroids.size(); i++)
 			asteroids[i].getPlayerCollision();
-		std::cout << "Player Collision:      " << profiler.getElapsedTime().asSeconds() << "\n";
+		if (DEBUG) std::cout << "Player Collision:      " << profiler.getElapsedTime().asSeconds() << "\n";
 		
 
 		window.clear();
 
 		profiler.restart();
 		player.update(window);
-		std::cout << "Player Update:         " << profiler.getElapsedTime().asSeconds() << "\n";
+		if (DEBUG) std::cout << "Player Update:         " << profiler.getElapsedTime().asSeconds() << "\n";
 
 
 
@@ -165,12 +165,12 @@ int main() {
 		profiler.restart();
 		for (int i = 0; i < asteroids.size(); i++)
 			asteroids[i].draw(window);
-		std::cout << "Draw Astro:            " << profiler.getElapsedTime().asSeconds() << "\n";
+		if (DEBUG) std::cout << "Draw Astro:            " << profiler.getElapsedTime().asSeconds() << "\n";
 
 		profiler.restart();
 		player.draw(window);
-		std::cout << "Draw Player:           " << profiler.getElapsedTime().asSeconds() << "\n";
-		std::cout << "---------------------------------------------------------------------------\n";
+		if (DEBUG) std::cout << "Draw Player:           " << profiler.getElapsedTime().asSeconds() << "\n";
+		if (DEBUG) std::cout << "---------------------------------------------------------------------------\n";
 
 		window.display();
 	}

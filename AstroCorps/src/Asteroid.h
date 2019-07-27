@@ -1,17 +1,17 @@
-#ifndef ASTEROID__H
-#define ASTEROID__H
+#ifndef __ASTEROID_H__
+#define __ASTEROID_H__
+
+#include <vector>
 
 #include <SFML/Graphics.hpp>
-#include <vector>
+
 #include "Block.h"
+
 class Asteroid {
 private:
 	sf::Texture m_block_textures[3];
 public:
-	void load_block_textures();
-
 	const int BLOCK_SIZE = 15;
-	sf::Texture femma;
 	std::vector<Block> blocks;
 
 	void makeBlock(int x, int y, Player& player);

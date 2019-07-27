@@ -21,13 +21,7 @@
     <ClCompile Include="src\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\FinalProject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Drill.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Block.cpp">
@@ -36,12 +30,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Object.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Drill.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Block.h">

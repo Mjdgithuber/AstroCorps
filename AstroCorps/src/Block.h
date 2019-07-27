@@ -1,8 +1,7 @@
-#ifndef BLOCK__H
-#define BLOCK__H
+#ifndef __BLOCK_H__
+#define __BLOCK_H__
 
 #include "Player.h"
-#include "Object.h"
 #include <SFML/Graphics.hpp>
 
 class Block : public sf::Sprite {
@@ -22,7 +21,7 @@ public:
 
 	Block(int x, int y, Player& p1);
 
-	void init_block(sf::Texture& text);
+	void init_block();
 
 	void getPlayerCollision();
 };

@@ -1,5 +1,5 @@
-#ifndef PLAYER__H
-#define PLAYER__H
+#ifndef __PLAYER_H__
+#define __PLAYER_H__
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -7,9 +7,6 @@
 #include <string>
 #include <cmath>
 #include <random>
-
-#include "Object.h"
-#include "Drill.h"
 
 class Player {
 public:
@@ -35,7 +32,6 @@ public:
 	sf::RectangleShape oxygenBar;
 	sf::RectangleShape tempOxygenBar;
 
-	std::vector<Object> inventory;
 	std::vector<sf::RectangleShape> inventoryBoxes;
 
 

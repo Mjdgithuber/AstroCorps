@@ -6,13 +6,11 @@ Player::Player() {
 	movement = sf::Vector2f(0, 0);
 	acceleration = sf::Vector2f(0, 0);
 
-	inventory.push_back(Drill(0));
 	gravity = sf::Vector2f(0, 0);
 	inventoryBoxes.push_back(sf::RectangleShape());
 	inventoryBoxes.push_back(sf::RectangleShape());
 	inventoryBoxes.push_back(sf::RectangleShape());
 	inventoryBoxes.push_back(sf::RectangleShape());
-	inventory.push_back(Drill(0));
 }
 
 void Player::checkRotation() {
@@ -183,16 +181,12 @@ void Player::draw(sf::RenderWindow& window) {
 void Player::drawInventory(sf::RenderWindow& window) {
 
 	for (int i = 0; i < 4; i++) {
-		inventoryBoxes[i].setFillColor(sf::Color::Transparent);
+		/*inventoryBoxes[i].setFillColor(sf::Color::Transparent);
 		inventoryBoxes[i].setSize(sf::Vector2f(16, 16));
 		inventoryBoxes[i].setOutlineThickness(2);
 		inventoryBoxes[i].setOutlineColor(sf::Color::Yellow);
 		inventoryBoxes[i].setPosition(sf::Vector2f(window.getView().getCenter().x - (30 - (i * 17)), window.getView().getCenter().y + 95));
-		window.draw(inventoryBoxes[i]);
-	}
-
-	for (int i = 0; i < ((inventory.size() < 4) ? inventory.size() : 4); i++) {
-		inventory[i].drawObject(window, window.getView().getCenter().x - (30 - (i * 15)), window.getView().getCenter().y + 95);
+		window.draw(inventoryBoxes[i]); */
 	}
 
 

@@ -5,6 +5,7 @@ sf::Texture Block::m_block_textures[3];
 
 Block::Block(int x, int y, Player& p1) : player(p1) {
 	setPosition(x, y);
+	init_block();
 }
 
 void Block::load_block_textures() {
@@ -13,7 +14,7 @@ void Block::load_block_textures() {
 	m_block_textures[COPPER].loadFromFile("Textures/Blocks/Copper.png");
 }
 
-void Block::init_block(sf::Texture& text) {
+void Block::init_block() {
 	BLOCK_TYPE b;
 	std::uniform_int_distribution<int> generator(0, 201);
 	std::random_device randDevice;
@@ -66,19 +67,6 @@ void Block::getPlayerCollision() {
 		if (((playerPosition.x + 30 > blockPosition.x) && (playerPosition.x < blockPosition.x + 15)) && ((playerPosition.y + 15 > blockPosition.y) && (playerPosition.y < blockPosition.y))) {
 			player.stopPlayer();
 		}
-		/*
-		else if (((playerPosition.x - 30 < blockPosition.x) && (playerPosition.x < blockPosition.x + 15)) && ((playerPosition.y - 15 > blockPosition.y) && (playerPosition.y < blockPosition.y + 15))) {
-			player.stopPlayer();
-		}
-		//right & left
-		if (((playerPosition.x + 15 < blockPosition.x) && (playerPosition.x < blockPosition.x + 0)) && ((playerPosition.y - 30 > blockPosition.y) && (playerPosition.y < blockPosition.y + 15))) {
-			player.stopPlayer();
-		}
-		else if (((playerPosition.x - 30 < blockPosition.x) && (playerPosition.x < blockPosition.x + 15)) && ((playerPosition.y - 30 > blockPosition.y) && (playerPosition.y < blockPosition.y + 15))) {
-			player.stopPlayer();
-
-		}
-		*/
 	}
 
 	//bottom & top
