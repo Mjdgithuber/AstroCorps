@@ -39,6 +39,8 @@ public:
 
 	void draw(sf::RenderWindow& window);
 
+	double get_acceleration() const;
+
 };
 
 #endif

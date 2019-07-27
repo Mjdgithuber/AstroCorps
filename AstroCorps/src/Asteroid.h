@@ -14,21 +14,21 @@ public:
 	const int BLOCK_SIZE = 15;
 	std::vector<Block> blocks;
 
-	void makeBlock(int x, int y, Player& player);
+	void makeBlock(int x, int y);
 	int asteroidX;
 	int asteroidY;
 
-	Asteroid(int x, int y, int radius, Player& player);
+	Asteroid(int x, int y, int radius);
 
 
-	void getPlayerCollision();
+	void chekCollision(Player& player);
 
 	void draw(sf::RenderWindow& window);
 
 	void modifyPlayerGravity(Player& player);
 
-	double getDistance(int x, int y);
-	double getDistance(int x1, int x2, int y1, int y2);
+	float getDistance(float x, float y);
+	float getDistance(float x1, float x2, float y1, float y2);
 };
 
 

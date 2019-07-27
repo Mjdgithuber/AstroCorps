@@ -19,13 +19,11 @@ public:
 
 	static void load_block_textures();
 
-	Player& player;
-
-	Block(int x, int y, Player& p1);
+	Block(int x, int y);
 
 	void init_block();
 
-	void getPlayerCollision();
+	void getPlayerCollision(Player& player);
 };
 
 

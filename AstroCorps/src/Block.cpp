@@ -5,8 +5,8 @@
 // define static texture array
 sf::Texture Block::m_block_textures[3];
 
-Block::Block(int x, int y, Player& p1) : player(p1) {
-	setPosition(x, y);
+Block::Block(int x, int y) {
+	setPosition((float) x, (float) y);
 	init_block();
 }
 
@@ -26,11 +26,12 @@ void Block::init_block() {
 		b = TIN;
 	else
 		b = ASTRO_ROCK;
-	
+
 	setTexture(m_block_textures[b], true);
+	//std::cout << "Femma: " << getGlobalBounds().height << "\n";
 }
 
-void Block::getPlayerCollision() {
+void Block::getPlayerCollision(Player& player) {
 	sf::Vector2f stoppedMovement = sf::Vector2f(0, 0);
 	sf::Vector2f playerPosition = player.getPosition();
 	sf::Vector2f blockPosition = getPosition();

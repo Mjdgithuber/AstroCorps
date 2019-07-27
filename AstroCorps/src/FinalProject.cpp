@@ -22,7 +22,7 @@ void generateOxygen(std::vector<Asteroid>& asteroids) {
 	if (wait >= waitCounter) {
 		sf::Sprite oxygen;
 		
-		oxygen.setPosition(x, y);
+		oxygen.setPosition(x * 1.0f, y * 1.0f);
 
 		oxygens.push_back(oxygen);
 
@@ -44,12 +44,55 @@ void drawOxygen(sf::RenderWindow& window) {
 	}
 }
 
+sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight) {
+
+	// Compares the aspect ratio of the window to the aspect ratio of the view,
+	// and sets the view's viewport accordingly in order to archieve a letterbox effect.
+	// A new view (with a new viewport set) is returned.
+
+	float windowRatio = windowWidth / (float)windowHeight;
+	float viewRatio = view.getSize().x / (float)view.getSize().y;
+	float sizeX = 1;
+	float sizeY = 1;
+	float posX = 0;
+	float posY = 0;
+
+	bool horizontalSpacing = true;
+	if (windowRatio < viewRatio)
+		horizontalSpacing = false;
+
+	// If horizontalSpacing is true, the black bars will appear on the left and right side.
+	// Otherwise, the black bars will appear on the top and bottom.
+
+	if (horizontalSpacing) {
+		sizeX = viewRatio / windowRatio;
+		posX = (1 - sizeX) / 2.f;
+	}
+
+	else {
+		sizeY = windowRatio / viewRatio;
+		posY = (1 - sizeY) / 2.f;
+	}
+
+	view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
+
+	return view;
+}
+
 int main() {
 	// load all of the block textures
 	Block::load_block_textures();
 
-	// make a new window
-	sf::RenderWindow window(sf::VideoMode(600, 600), "Astro Corps");
+	sf::RenderWindow window(sf::VideoMode(1000, 800), "Astro Corps", sf::Style::Fullscreen);
+
+	//int width = 500;
+	//int height = 500;
+
+	int width = window.getSize().x / 2;
+	int height = window.getSize().y / 2;
+
+	//double sfx = (float) width
+
 	window.setFramerateLimit(60);
 
 	sf::Texture backTex;
@@ -60,10 +103,18 @@ int main() {
 	backSprite.setTexture(backTex);
 
 	//Camera
-	sf::View camera(sf::FloatRect(50, 50, 150, 150));
-	camera.setSize(300, 300);
-	camera.setCenter(150, 150);
-	window.setView(camera);
+	sf::View main_camera(sf::FloatRect(0, 0, width * 1.0f, height * 1.0f));
+	//camera.setSize(300, 300);
+	main_camera.setCenter(150, 150);
+	//camera = getLetterboxView(camera, window.getSize().x, window.getSize().y);
+
+
+	window.setView(main_camera);
+
+	// mini map
+	sf::View mini_map = main_camera;
+	mini_map.zoom(.5f);
+	mini_map.setViewport(sf::FloatRect(.8f, 0, .2f, .15f));
 
 
 	sf::Clock timer;
@@ -83,7 +134,7 @@ int main() {
 	sf::Clock profiler;
 
 	for (int i = 0; i < 1; i++)
-		asteroids.emplace_back(150, 150, 15, player);
+		asteroids.emplace_back(150, 150, 15);
 
 	while (window.isOpen()) {
 		sf::Event event;
@@ -114,12 +165,41 @@ int main() {
 					player.down = false;
 				if (event.key.code == sf::Keyboard::Space)
 					player.jetPack = false;
+				if (event.key.code == sf::Keyboard::Escape)
+					window.close();
 			}
 		}
 
+		for (int i = 0; i < asteroids.size(); i++)
+			asteroids[i].modifyPlayerGravity(player);
+		
+		player.checkRotation();
+
+		for (int i = 0; i < asteroids.size(); i++)
+			asteroids[i].chekCollision(player);
+
+		player.update(window);
+
+		window.clear();
+
+		for (int i = 0; i < 2; i++) {
+			window.draw(backSprite);
+
+			for (int i = 0; i < asteroids.size(); i++)
+				asteroids[i].draw(window);
+
+			player.draw(window);
+
+		}
+		window.setView(main_camera);
+
+		window.display();
+
+
+
 		//std::cout << player.playerSprite.getGlobalBounds().left << "\n";
 
-		profiler.restart();
+		/*profiler.restart();
 		for (int i = 0; i < asteroids.size(); i++)
 			asteroids[i].modifyPlayerGravity(player);
 		if(DEBUG) std::cout << "Modify Player Gravity: " << profiler.getElapsedTime().asSeconds() << "\n";
@@ -135,6 +215,7 @@ int main() {
 			asteroids[i].getPlayerCollision();
 		if (DEBUG) std::cout << "Player Collision:      " << profiler.getElapsedTime().asSeconds() << "\n";
 		
+		//std::cout << player.get_acceleration() << "\n";
 
 		profiler.restart();
 		player.update(window);
@@ -142,19 +223,28 @@ int main() {
 
 		window.clear();
 
-		window.draw(backSprite);			
+		for (int i = 0; i < 2; i++) {
+			//sf::View& curr_view = i == 0 ? main_camera : mini_map;
+			//window.setView(curr_view);
 
-		profiler.restart();
-		for (int i = 0; i < asteroids.size(); i++)
-			asteroids[i].draw(window);
-		if (DEBUG) std::cout << "Draw Astro:            " << profiler.getElapsedTime().asSeconds() << "\n";
+			window.draw(backSprite);			
 
-		profiler.restart();
-		player.draw(window);
-		if (DEBUG) std::cout << "Draw Player:           " << profiler.getElapsedTime().asSeconds() << "\n";
-		if (DEBUG) std::cout << "---------------------------------------------------------------------------\n";
+			profiler.restart();
+			for (int i = 0; i < asteroids.size(); i++)
+				asteroids[i].draw(window);
+			if (DEBUG) std::cout << "Draw Astro:            " << profiler.getElapsedTime().asSeconds() << "\n";
 
-		window.display();
+			profiler.restart();
+			player.draw(window);
+			if (DEBUG) std::cout << "Draw Player:           " << profiler.getElapsedTime().asSeconds() << "\n";
+			if (DEBUG) std::cout << "---------------------------------------------------------------------------\n";
+
+		}
+		window.setView(main_camera);
+		
+		window.display(); */
 	}
+
+	std::cin.get();
 }
 

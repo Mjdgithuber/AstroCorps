@@ -74,19 +74,26 @@ void Player::update(sf::RenderWindow& window) {
 	sf::View newView = window.getView();
 	newView.setCenter(sf::Vector2f(getPosition().x + getGlobalBounds().width / 2, getPosition().y + getGlobalBounds().height / 2));
 
+	float jetpack_multipler = 2;
+	float x_dir = 0;
+	float y_dir = 0;
 	if (jetPack) {
 		if (moveLeft)
-			velocity += sf::Vector2f(-0.05, 0);
-		else if (moveRight)
-			velocity += sf::Vector2f(0.05, 0);
-
+			x_dir = -1;		
+		if (moveRight)
+			x_dir = 1;
 		if (down)
-			velocity += sf::Vector2f(0, 0.05);
-		else  if (jump)
-			velocity += sf::Vector2f(0, -0.05);
+			y_dir = 1;
+		if (jump)
+			y_dir = -1;
+
+		x_dir *= y_dir ? 0.70710678 : 1;
+		y_dir *= x_dir ? 0.70710678 : 1;
+
+		acceleration += sf::Vector2f(.05f * jetpack_multipler * x_dir, 0.05f * jetpack_multipler * y_dir);
 
 		if (!moveLeft && !moveRight && !jump && !down)
-			velocity += sf::Vector2f(0, -0.05);
+			acceleration += sf::Vector2f(0.f, -0.05f);
 	}
 
 	velocity += acceleration;
@@ -128,4 +135,8 @@ void Player::draw(sf::RenderWindow& window) {
 	window.draw(oxygenBar);
 	window.draw(tempOxygenBar);
 	//drawInventory(window);
+}
+
+double Player::get_acceleration() const {
+	return std::sqrt(std::pow(acceleration.x, 2) + std::pow(acceleration.y, 2));
 }
