@@ -1,142 +1,118 @@
 #include "Player.h"
 
-
-Player::Player() {
-	rotation = NORTH;
-	acceleration = sf::Vector2f(0, 0);
-
+/* Sets the players acceleration to 0, 0 */
+void Player::reset_acceleration() {
+	m_acceleration = sf::Vector2f(0, 0);
 }
 
-void Player::checkRotation() {
-	
-	/*
-	double x = gravity.x;
-	double y = gravity.y;
+/* This method gets the jetpack's acceleration if it is on */
+void Player::jetpack_acceleration() {
+	if (m_jetpack) {
+		float jetpack_multipler = 2;
+		float x_dir = 0;
+		float y_dir = 0;
 
-	if (x > 0) {
-		if (y > 0) {
-			if (x < y) {
-				rotation = NORTH;
-			}
-			else {
-				rotation = EAST;
-			}
-		}
-		else {
-			if (x < y) {
-				rotation = SOUTH;
-			}
-			else {
-				rotation = EAST;
-			}
-		}
-	}
-	else {
-		if (y > 0) {
-			if (x < y) {
-				rotation = NORTH;
-			}
-			else {
-				rotation = WEST;
-			}
-		}
-		else {
-			if (x < y) {
-				rotation = WEST;
-			}
-			else {
-				rotation = SOUTH;
-			}
-		}
-	}
+		// detect up/down + left/right movement
+		x_dir = m_left ^ m_right ? (m_left ? -1 : 1) : 0;
+		y_dir = m_down ^ m_up ? (m_up ? -1 : 1) : 0;
 
-	if (rotation == NORTH) {
-		rotationInt = 0;
-		setRotation(0);
-	}
-	else if (rotation == EAST) {
-		rotationInt = 1;
-		setRotation(-90);
-	}
-	else if (rotation == SOUTH) {
-		rotationInt = 2;
-		setRotation(180);
-	}
-	else if (rotation == WEST) {
-		rotationInt = 3;
-		setRotation(90);
-	}
+		// ensure that diagnoal movement isn't more powerful
+		x_dir *= y_dir ? .3 : 1;
+		y_dir *= x_dir ? .3 : 1;
 
-	*/
+		// add to acceleration
+		m_acceleration += sf::Vector2f(.05f * jetpack_multipler * x_dir, 0.05f * jetpack_multipler * y_dir);
+	}
 }
 
+/* Makes a new player */
+Player::Player() 
+	: m_left(false), m_right(false), m_up(false), m_down(false),
+	m_jetpack(false), m_on_surface(false) {
+
+	m_acceleration = sf::Vector2f(0, 0);
+}
+
+/* This method takes in a key and a bool and processes them */
+void Player::process_key(sf::Keyboard::Key key, bool pressed) {
+	switch (key) {
+	case sf::Keyboard::D:
+		m_right = pressed;
+		break;
+	case sf::Keyboard::A:
+		m_left = pressed;
+		break;
+	case sf::Keyboard::W:
+		m_up = pressed;
+		break;
+	case sf::Keyboard::S:
+		m_down = pressed;
+		break;
+	case sf::Keyboard::Space:
+		m_jetpack = pressed;
+		break;
+	}
+}
+
+/* This method will updates the players position */
 void Player::update(sf::RenderWindow& window) {
-	sf::View newView = window.getView();
-	newView.setCenter(sf::Vector2f(getPosition().x + getGlobalBounds().width / 2, getPosition().y + getGlobalBounds().height / 2));
+	// determine the players movement
+	if (m_on_surface)
+		walk_on_surface();
+	else
+		jetpack_acceleration();	
 
-	float jetpack_multipler = 2;
-	float x_dir = 0;
-	float y_dir = 0;
-	if (jetPack) {
-		if (moveLeft)
-			x_dir = -1;		
-		if (moveRight)
-			x_dir = 1;
-		if (down)
-			y_dir = 1;
-		if (jump)
-			y_dir = -1;
+	// add player's acceleration to velocity and move by velocity
+	m_velocity += m_acceleration;
+	move(m_velocity);
 
-		x_dir *= y_dir ? 0.70710678 : 1;
-		y_dir *= x_dir ? 0.70710678 : 1;
-
-		acceleration += sf::Vector2f(.05f * jetpack_multipler * x_dir, 0.05f * jetpack_multipler * y_dir);
-
-		if (!moveLeft && !moveRight && !jump && !down)
-			acceleration += sf::Vector2f(0.f, -0.05f);
-	}
-
-	velocity += acceleration;
-	move(velocity);
-
-	acceleration = sf::Vector2f(0, 0);
-
-	window.setView(newView);
+	// ensure that acceleration is set to zero every frame
+	reset_acceleration();
 }
 
-void Player::stopPlayer() {
-	velocity = sf::Vector2f(0, 0);
-	acceleration = sf::Vector2f(0, 0);
-	if (moveLeft) {
-		velocity = sf::Vector2f(-2.75, velocity.y);
-		setTextureRect(sf::IntRect(0, 0, 15, 30));
-	}
-	else if (moveRight) {
-		velocity = sf::Vector2f(2.75, velocity.y);
-		setTextureRect(sf::IntRect(15, 0, -15, 30));
-	}
-	if (jump) {
-		velocity = sf::Vector2f(velocity.x, -2.75);
-	}
-	else if (down) {
-		velocity = sf::Vector2f(velocity.x, 2.75);
-	}
+void Player::set_on_surface(bool on_surface) {
+	m_on_surface = on_surface;
 }
 
+/* Allows the player to move on a surface */
+void Player::walk_on_surface() {
+	// ensure that velocity & acceleration is 0
+	m_velocity = sf::Vector2f(0, 0);
+	m_acceleration = sf::Vector2f(0, 0);
+
+	int x_dir = 0;
+	int y_dir = 0;
+
+	// detect up/down + left/right movement
+	x_dir = m_left ^ m_right ? (m_left ? -1 : 1) : 0;
+	y_dir = m_down ^ m_up ? (m_up ? -1 : 1) : 0;
+
+	m_velocity = sf::Vector2f(2.75 * x_dir, 2.75 * y_dir);
+}
+
+/* Soon to be removed */
 void Player::draw(sf::RenderWindow& window) {
-	if (jetPack) {
-		playerTex.loadFromFile("Textures/CharacterSideOn1.png");
+	if (m_jetpack) {
+		m_texture.loadFromFile("Textures/CharacterSideOn1.png");
 	}
 	else {
-		playerTex.loadFromFile("Textures/CharacterSide.png");
+		m_texture.loadFromFile("Textures/CharacterSide.png");
 	}
-	setTexture(playerTex);
+	setTexture(m_texture);
 	window.draw(*this);
-	window.draw(oxygenBar);
-	window.draw(tempOxygenBar);
-	//drawInventory(window);
 }
 
-double Player::get_acceleration() const {
-	return std::sqrt(std::pow(acceleration.x, 2) + std::pow(acceleration.y, 2));
+void Player::add_force(const sf::Vector2f& force) {
+	m_acceleration += force;
+}
+
+/* This method gets the magnitude of the player's acceleration */
+float Player::get_acceleration() const {
+	return std::sqrt(std::pow(m_acceleration.x, 2) + std::pow(m_acceleration.y, 2));
+}
+
+/* This methods get the player's center coordinates */
+sf::Vector2f Player::get_player_center() const {
+	return sf::Vector2f(getPosition().x + getGlobalBounds().width / 2, 
+		                getPosition().y + getGlobalBounds().height / 2);
 }

@@ -21,7 +21,7 @@ public:
 	Asteroid(int x, int y, int radius);
 
 
-	void chekCollision(Player& player);
+	bool chekCollision(Player& player);
 
 	void draw(sf::RenderWindow& window);
 

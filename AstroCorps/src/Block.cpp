@@ -31,11 +31,10 @@ void Block::init_block() {
 	//std::cout << "Femma: " << getGlobalBounds().height << "\n";
 }
 
-void Block::getPlayerCollision(Player& player) {
+bool Block::getPlayerCollision(Player& player) {
 	sf::Vector2f stoppedMovement = sf::Vector2f(0, 0);
 	sf::Vector2f playerPosition = player.getPosition();
 	sf::Vector2f blockPosition = getPosition();
 
-	if (util::colliding(player, *this))
-		player.stopPlayer();
+	return util::colliding(player, *this);
 }

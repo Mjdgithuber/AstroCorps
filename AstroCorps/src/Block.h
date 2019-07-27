@@ -23,7 +23,7 @@ public:
 
 	void init_block();
 
-	void getPlayerCollision(Player& player);
+	bool getPlayerCollision(Player& player);
 };
 
 

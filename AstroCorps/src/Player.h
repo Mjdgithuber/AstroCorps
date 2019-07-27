@@ -9,38 +9,40 @@
 #include <random>
 
 class Player : public sf::Sprite {
+private:
+	bool m_left;
+	bool m_right;
+	bool m_up;
+	bool m_down;
+	bool m_jetpack;
+
+	bool m_on_surface;
+
+	sf::Texture m_texture;
+	sf::Vector2f m_velocity;
+	sf::Vector2f m_acceleration;
+
+	/* Private helper functions */
+	void reset_acceleration();
+	void jetpack_acceleration();
+	void walk_on_surface();
 public:
-	enum Rotation {
-		NORTH, EAST, SOUTH, WEST
-	};
-
-	int rotationInt;
-
-	Rotation rotation;
-	bool moveLeft = false;
-	bool moveRight = false;
-	bool jump = false;
-	bool down = false;
-	bool jetPack = false;
-	sf::RectangleShape oxygenBar;
-	sf::RectangleShape tempOxygenBar;
-
-	sf::Texture playerTex;
-	sf::Vector2f velocity;
-	sf::Vector2f acceleration;
-
+	/* Constructors & destructors */
 	Player();
+	~Player() = default;
 
-	void checkRotation();
-
+	/* Functions */
 	void update(sf::RenderWindow& window);
-
-	void stopPlayer();
-
+	void add_force(const sf::Vector2f& force);
 	void draw(sf::RenderWindow& window);
+	void process_key(sf::Keyboard::Key key, bool pressed = true);
 
-	double get_acceleration() const;
+	/* Setters */
+	void set_on_surface(bool on_surface);
 
+	/* Getters */
+	float get_acceleration() const;
+	sf::Vector2f get_player_center() const;	
 };
 
 #endif

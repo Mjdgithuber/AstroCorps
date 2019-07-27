@@ -9,89 +9,14 @@
 
 #define DEBUG 0
 
-std::vector< sf::Sprite > oxygens;
-
-int wait = 0;
-int waitCounter = 100;
-
-void generateOxygen(std::vector<Asteroid>& asteroids) {
-	std::uniform_int_distribution<int> random(0, 1001);
-	std::random_device randDevice;
-	int x = random(randDevice);
-	int y = random(randDevice);
-	if (wait >= waitCounter) {
-		sf::Sprite oxygen;
-		
-		oxygen.setPosition(x * 1.0f, y * 1.0f);
-
-		oxygens.push_back(oxygen);
-
-		waitCounter++;
-		wait = 0;
-
-	}
-	else {
-		wait++;
-	}
-}
-
-void drawOxygen(sf::RenderWindow& window) {
-	for (int i = 0; i < oxygens.size(); i++) {
-		sf::Texture oTex;
-		oTex.loadFromFile("Textures/Oxygen.png");
-		oxygens[i].setTexture(oTex);
-		window.draw(oxygens[i]);
-	}
-}
-
-sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight) {
-
-	// Compares the aspect ratio of the window to the aspect ratio of the view,
-	// and sets the view's viewport accordingly in order to archieve a letterbox effect.
-	// A new view (with a new viewport set) is returned.
-
-	float windowRatio = windowWidth / (float)windowHeight;
-	float viewRatio = view.getSize().x / (float)view.getSize().y;
-	float sizeX = 1;
-	float sizeY = 1;
-	float posX = 0;
-	float posY = 0;
-
-	bool horizontalSpacing = true;
-	if (windowRatio < viewRatio)
-		horizontalSpacing = false;
-
-	// If horizontalSpacing is true, the black bars will appear on the left and right side.
-	// Otherwise, the black bars will appear on the top and bottom.
-
-	if (horizontalSpacing) {
-		sizeX = viewRatio / windowRatio;
-		posX = (1 - sizeX) / 2.f;
-	}
-
-	else {
-		sizeY = windowRatio / viewRatio;
-		posY = (1 - sizeY) / 2.f;
-	}
-
-	view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
-
-	return view;
-}
-
 int main() {
 	// load all of the block textures
 	Block::load_block_textures();
 
-	sf::RenderWindow window(sf::VideoMode(1000, 800), "Astro Corps", sf::Style::Fullscreen);
-
-	//int width = 500;
-	//int height = 500;
+	sf::RenderWindow window(sf::VideoMode(1000, 800), "Astro Corps");//, sf::Style::Fullscreen
 
 	int width = window.getSize().x / 2;
 	int height = window.getSize().y / 2;
-
-	//double sfx = (float) width
 
 	window.setFramerateLimit(60);
 
@@ -106,14 +31,11 @@ int main() {
 	sf::View main_camera(sf::FloatRect(0, 0, width * 1.0f, height * 1.0f));
 	//camera.setSize(300, 300);
 	main_camera.setCenter(150, 150);
-	//camera = getLetterboxView(camera, window.getSize().x, window.getSize().y);
-
-
-	window.setView(main_camera);
+	
 
 	// mini map
 	sf::View mini_map = main_camera;
-	mini_map.zoom(.5f);
+	mini_map.zoom(5.f);
 	mini_map.setViewport(sf::FloatRect(.8f, 0, .2f, .15f));
 
 
@@ -125,9 +47,6 @@ int main() {
 	deathScreen.setTexture(deathTex);
 
 	Player player;
-	player.moveLeft = false;
-	player.moveRight = false;
-	player.jump = false;
 	player.setPosition(500, 150);
 	std::vector<Asteroid> asteroids;
 
@@ -143,51 +62,49 @@ int main() {
 			if (event.type == sf::Event::Closed)
 				window.close();
 			if (event.type == sf::Event::KeyPressed) {
-				if (event.key.code == sf::Keyboard::D)
-					player.moveRight = true;
-				if (event.key.code == sf::Keyboard::A)
-					player.moveLeft = true;
-				if (event.key.code == sf::Keyboard::W)
-					player.jump = true;
-				if (event.key.code == sf::Keyboard::S)
-					player.down = true;
-				if (event.key.code == sf::Keyboard::Space)
-					player.jetPack = true;
+				player.process_key(event.key.code);
 			}
 			if (event.type == sf::Event::KeyReleased) {
-				if (event.key.code == sf::Keyboard::D) 
-					player.moveRight = false;
-				if (event.key.code == sf::Keyboard::A)
-					player.moveLeft = false;
-				if (event.key.code == sf::Keyboard::W)
-					player.jump = false;
-				if (event.key.code == sf::Keyboard::S)
-					player.down = false;
-				if (event.key.code == sf::Keyboard::Space)
-					player.jetPack = false;
+				player.process_key(event.key.code, false);
+
 				if (event.key.code == sf::Keyboard::Escape)
 					window.close();
 			}
 		}
 
+		// Check if player is colliding with an astroid
+		bool on_surface = false;
 		for (int i = 0; i < asteroids.size(); i++)
-			asteroids[i].modifyPlayerGravity(player);
-		
-		player.checkRotation();
+			if (asteroids[i].chekCollision(player))
+				on_surface = true;
+		player.set_on_surface(on_surface);
 
-		for (int i = 0; i < asteroids.size(); i++)
-			asteroids[i].chekCollision(player);
+		// only modify gravity if player isn't on an asteroid
+		if (!on_surface) {
+			for (int i = 0; i < asteroids.size(); i++)
+				asteroids[i].modifyPlayerGravity(player);
+		}
 
+		// will move the player
 		player.update(window);
 
+		// clears the screen
 		window.clear();
 
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 1; i++) {
+			// set the correct camera
+			sf::View& camera = i == 0 ? main_camera : mini_map;
+			camera.setCenter(player.get_player_center());
+			window.setView(camera);
+			
+			// draw back ground
 			window.draw(backSprite);
 
+			// draw all asteroids
 			for (int i = 0; i < asteroids.size(); i++)
 				asteroids[i].draw(window);
 
+			// draw player
 			player.draw(window);
 
 		}

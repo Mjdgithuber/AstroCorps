@@ -22,10 +22,11 @@ Asteroid::Asteroid(int x, int y, int radius) {
 }
 
 
-void Asteroid::chekCollision(Player& player) {
-	for (int i = 0; i < blocks.size(); i++) {
-		blocks[i].getPlayerCollision(player);
-	}
+bool Asteroid::chekCollision(Player& player) {
+	for (int i = 0; i < blocks.size(); i++)
+		if (blocks[i].getPlayerCollision(player))
+			return true;
+	return false;
 }
 
 void Asteroid::draw(sf::RenderWindow& window) {
@@ -44,19 +45,16 @@ void Asteroid::modifyPlayerGravity(Player& player) {
 	// gets the radius from the center of the player to the center of the astroid
 	float radius = getDistance((float) asteroidX, player.getPosition().x + width / 2.0f, (float)asteroidY, player.getPosition().y + height / 2.0f);
 
-
 	// calculates the force of gravity on player based on radius and asteroid size
 	float force = (blocks.size() / std::pow(radius, 2)) * 20;
 
+	// gets the componets of radius
 	float deltaX = asteroidX - (player.getPosition().x + width / 2);
 	float deltaY = asteroidY - (player.getPosition().y + height / 2);
 
-	//double xDistance = getDistance(player.playerSprite.getPosition().x + 7.5, asteroidX);
-	//double yDistance = getDistance(player.playerSprite.getPosition().y + 15, asteroidY);
-
-	//int modifierX = (player.playerSprite.getPosition().x > asteroidX) ? -1 : 1;
-	//int modifierY = (player.playerSprite.getPosition().y > asteroidY) ? -1 : 1;
-	player.acceleration += sf::Vector2f((force * (deltaX / radius)), (force * (deltaY / radius)));
+	// calculate gravity on player
+	sf::Vector2f gravity(force * (deltaX / radius), force * (deltaY / radius));
+	player.add_force(gravity);
 }
 
 float Asteroid::getDistance(float x, float y) {
