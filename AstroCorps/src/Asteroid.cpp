@@ -37,25 +37,27 @@ void Asteroid::draw(sf::RenderWindow& window) {
 }
 
 void Asteroid::modifyPlayerGravity(Player& player) {
-	double radius = getDistance(asteroidX, player.getPosition().x + 7.5, asteroidY, player.getPosition().y + 15);
+	float width = player.getGlobalBounds().width;
+	float height = player.getGlobalBounds().height;
+
+	double radius = getDistance(asteroidX, player.getPosition().x + width / 2, asteroidY, player.getPosition().y + height / 2);
 	double force = (blocks.size() / std::pow(radius, 2)) * 10;
 
-	double deltaX = asteroidX - (player.getPosition().x + 7.5);
-	double deltaY = asteroidY - (player.getPosition().y + 15);
+	double deltaX = asteroidX - (player.getPosition().x + width / 2);
+	double deltaY = asteroidY - (player.getPosition().y + height / 2);
 
 	//double xDistance = getDistance(player.playerSprite.getPosition().x + 7.5, asteroidX);
 	//double yDistance = getDistance(player.playerSprite.getPosition().y + 15, asteroidY);
 
 	//int modifierX = (player.playerSprite.getPosition().x > asteroidX) ? -1 : 1;
 	//int modifierY = (player.playerSprite.getPosition().y > asteroidY) ? -1 : 1;
-	player.gravity = sf::Vector2f((force * (deltaX / radius)), (force * (deltaY / radius)));
-	player.acceleration += player.gravity;
+	player.acceleration += sf::Vector2f((force * (deltaX / radius)), (force * (deltaY / radius)));
 }
 
 double Asteroid::getDistance(int x, int y) {
 	return std::sqrt((x * x) + (y*y));
 }
 
-double Asteroid:: getDistance(int x1, int x2, int y1, int y2) {
+double Asteroid::getDistance(int x1, int x2, int y1, int y2) {
 	return std::sqrt(std::pow(x2 - x1, 2) + std::pow(y2 - y1, 2));
 }

@@ -1,8 +1,10 @@
 #ifndef __BLOCK_H__
 #define __BLOCK_H__
 
-#include "Player.h"
 #include <SFML/Graphics.hpp>
+
+#include "Player.h"
+
 
 class Block : public sf::Sprite {
 private:
@@ -24,8 +26,6 @@ public:
 	void init_block();
 
 	void getPlayerCollision();
-
-	bool colliding(const sf::Sprite& s1, const sf::Sprite& s2);
 };
 
 

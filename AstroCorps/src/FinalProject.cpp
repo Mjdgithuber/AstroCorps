@@ -35,22 +35,6 @@ void generateOxygen(std::vector<Asteroid>& asteroids) {
 	}
 }
 
-void collectOxygen(Player& player) {
-	for (int i = 0; i < oxygens.size(); i++) {
-		if (((player.getPosition().x  < oxygens[i].getPosition().x + 15) && (player.getPosition().x + player.getGlobalBounds().width > oxygens[i].getPosition().x )) && ((player.getPosition().y < oxygens[i].getPosition().y + 15) && (player.getPosition().y + player.getGlobalBounds().height > oxygens[i].getPosition().y))) {
-			oxygens.erase(oxygens.begin() + i);
-			if (player.oxygenAmount < 1500) {
-				player.oxygenAmount += 500;
-			}
-			else {
-				player.oxygenAmount = 2000;
-			}
-			
-		}
-	}
-	player.generalOxygen = player.tempOxygenAmount + player.oxygenAmount;
-}
-
 void drawOxygen(sf::RenderWindow& window) {
 	for (int i = 0; i < oxygens.size(); i++) {
 		sf::Texture oTex;
@@ -152,13 +136,11 @@ int main() {
 		if (DEBUG) std::cout << "Player Collision:      " << profiler.getElapsedTime().asSeconds() << "\n";
 		
 
-		window.clear();
-
 		profiler.restart();
 		player.update(window);
 		if (DEBUG) std::cout << "Player Update:         " << profiler.getElapsedTime().asSeconds() << "\n";
 
-
+		window.clear();
 
 		window.draw(backSprite);			
 

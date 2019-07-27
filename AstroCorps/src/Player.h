@@ -14,14 +14,7 @@ public:
 		NORTH, EAST, SOUTH, WEST
 	};
 
-	bool isRotating = false;
-	int frames = 0;
-
 	int rotationInt;
-
-	int generalOxygen = 4000;
-	int oxygenAmount = 2000;
-	int tempOxygenAmount = 2000;
 
 	Rotation rotation;
 	bool moveLeft = false;
@@ -32,15 +25,9 @@ public:
 	sf::RectangleShape oxygenBar;
 	sf::RectangleShape tempOxygenBar;
 
-	std::vector<sf::RectangleShape> inventoryBoxes;
-
-
-
 	sf::Texture playerTex;
-	sf::Vector2f movement;
 	sf::Vector2f velocity;
 	sf::Vector2f acceleration;
-	sf::Vector2f gravity;
 
 	Player();
 
@@ -51,8 +38,6 @@ public:
 	void stopPlayer();
 
 	void draw(sf::RenderWindow& window);
-
-	void drawInventory(sf::RenderWindow& window);
 
 };
 
