@@ -51,11 +51,19 @@ int main() {
 	std::vector<Asteroid> asteroids;
 
 	sf::Clock profiler;
+	
 
 	for (int i = 0; i < 1; i++)
-		asteroids.emplace_back(150, 150, 15);
+		asteroids.emplace_back(500, 500, 15);
+
+	// Delta time init
+	sf::Clock frame_timer;
+	sf::Time delta_time;
 
 	while (window.isOpen()) {
+		delta_time = frame_timer.restart();
+		std::cout << "Last Frame Time: " << delta_time.asSeconds() << "\n";
+
 		sf::Event event;
 
 		while(window.pollEvent(event)){
@@ -86,7 +94,7 @@ int main() {
 		}
 
 		// will move the player
-		player.update(window);
+		player.update(window, delta_time);
 
 		// clears the screen
 		window.clear();

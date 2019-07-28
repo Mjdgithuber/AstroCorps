@@ -8,7 +8,9 @@
 #include <cmath>
 #include <random>
 
-class Player : public sf::Sprite {
+#include "Updatable.h"
+
+class Player : public sf::Sprite, private Updatable {
 private:
 	bool m_left;
 	bool m_right;
@@ -24,15 +26,16 @@ private:
 
 	/* Private helper functions */
 	void reset_acceleration();
-	void jetpack_acceleration();
-	void walk_on_surface();
+	sf::Vector2f jetpack_acceleration();
+	sf::Vector2f surface_velocity();
+	float get_rotation(const sf::Vector2f& force);
 public:
 	/* Constructors & destructors */
 	Player();
 	~Player() = default;
 
 	/* Functions */
-	void update(sf::RenderWindow& window);
+	void update(sf::RenderWindow& window, sf::Time delta_time);
 	void add_force(const sf::Vector2f& force);
 	void draw(sf::RenderWindow& window);
 	void process_key(sf::Keyboard::Key key, bool pressed = true);

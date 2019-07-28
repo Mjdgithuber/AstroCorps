@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "Player.h"
 
 /* Sets the players acceleration to 0, 0 */
@@ -6,7 +8,7 @@ void Player::reset_acceleration() {
 }
 
 /* This method gets the jetpack's acceleration if it is on */
-void Player::jetpack_acceleration() {
+sf::Vector2f Player::jetpack_acceleration() {
 	if (m_jetpack) {
 		float jetpack_multipler = 2;
 		float x_dir = 0;
@@ -21,8 +23,34 @@ void Player::jetpack_acceleration() {
 		y_dir *= x_dir ? .3 : 1;
 
 		// add to acceleration
-		m_acceleration += sf::Vector2f(.05f * jetpack_multipler * x_dir, 0.05f * jetpack_multipler * y_dir);
+		sf::Vector2f force(.05f * jetpack_multipler * x_dir, 0.05f * jetpack_multipler * y_dir);
+
+		return force;
 	}
+
+	return sf::Vector2f(0, 0);
+}
+
+float Player::get_rotation(const sf::Vector2f& force) {
+	float x = force.x;
+	float y = force.y;
+
+	if (y < 0) return 0;
+	else return 180;
+
+
+
+	if (!force.x && !force.y)
+		return 0;
+
+	float x_comp = force.x;
+	float y_comp = force.y;
+
+	// calculate angle and convert to degrees
+	float angle = std::atan(x_comp / y_comp);
+	angle *= (180 / 3.1416f);
+
+	return angle;
 }
 
 /* Makes a new player */
@@ -52,15 +80,18 @@ void Player::process_key(sf::Keyboard::Key key, bool pressed) {
 		m_jetpack = pressed;
 		break;
 	}
+	setTextureRect(sf::IntRect(15 * m_right, 0, (1 - 2 * m_right) * 15, 30));
 }
 
 /* This method will updates the players position */
-void Player::update(sf::RenderWindow& window) {
+void Player::update(sf::RenderWindow& window, sf::Time delta_time) {
+	float frame_adj = delta_time.asSeconds() / EXPECTED_FRAME_TIME;
+
 	// determine the players movement
 	if (m_on_surface)
-		walk_on_surface();
+		m_velocity = surface_velocity() * frame_adj;
 	else
-		jetpack_acceleration();	
+		m_acceleration += jetpack_acceleration() * frame_adj;
 
 	// add player's acceleration to velocity and move by velocity
 	m_velocity += m_acceleration;
@@ -75,7 +106,7 @@ void Player::set_on_surface(bool on_surface) {
 }
 
 /* Allows the player to move on a surface */
-void Player::walk_on_surface() {
+sf::Vector2f Player::surface_velocity() {
 	// ensure that velocity & acceleration is 0
 	m_velocity = sf::Vector2f(0, 0);
 	m_acceleration = sf::Vector2f(0, 0);
@@ -87,7 +118,7 @@ void Player::walk_on_surface() {
 	x_dir = m_left ^ m_right ? (m_left ? -1 : 1) : 0;
 	y_dir = m_down ^ m_up ? (m_up ? -1 : 1) : 0;
 
-	m_velocity = sf::Vector2f(2.75 * x_dir, 2.75 * y_dir);
+	return sf::Vector2f(2.75 * x_dir, 2.75 * y_dir);
 }
 
 /* Soon to be removed */
