@@ -1,9 +1,12 @@
 #ifndef __UPDATABLE_H__
 #define __UPDATABLE_H__
 
+#include <SFML/Graphics.hpp>
+
 class Updatable {
-protected:
-	const float EXPECTED_FRAME_TIME = 1.f / 60.f;
+public:
+	/* Interface functions */
+	virtual void update(sf::Time delta_time) = 0;
 };
 
 #endif

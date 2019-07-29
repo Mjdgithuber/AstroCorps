@@ -9,8 +9,9 @@
 #include <random>
 
 #include "Updatable.h"
+#include "TimeDependent.h"
 
-class Player : public sf::Sprite, private Updatable {
+class Player : public sf::Sprite, public Updatable, private TimeDependent {
 private:
 	bool m_left;
 	bool m_right;
@@ -35,7 +36,7 @@ public:
 	~Player() = default;
 
 	/* Functions */
-	void update(sf::RenderWindow& window, sf::Time delta_time);
+	void update(sf::Time delta_time) override;
 	void add_force(const sf::Vector2f& force);
 	void draw(sf::RenderWindow& window);
 	void process_key(sf::Keyboard::Key key, bool pressed = true);

@@ -90,11 +90,11 @@ int main() {
 		// only modify gravity if player isn't on an asteroid
 		if (!on_surface) {
 			for (int i = 0; i < asteroids.size(); i++)
-				asteroids[i].modifyPlayerGravity(player);
+				asteroids[i].modifyPlayerGravity(player, delta_time);
 		}
 
 		// will move the player
-		player.update(window, delta_time);
+		player.update(delta_time);
 
 		// clears the screen
 		window.clear();

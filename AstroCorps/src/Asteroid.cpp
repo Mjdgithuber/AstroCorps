@@ -8,7 +8,6 @@ void Asteroid::makeBlock(int x, int y) {
 	blocks.emplace_back(x, y);
 }
 
-
 Asteroid::Asteroid(int x, int y, int radius) {
 	asteroidX = x;
 	asteroidY = y;
@@ -37,7 +36,7 @@ void Asteroid::draw(sf::RenderWindow& window) {
 	}
 }
 
-void Asteroid::modifyPlayerGravity(Player& player) {
+void Asteroid::modifyPlayerGravity(Player& player, sf::Time delta_time) {
 	// get the width and height of the player
 	float width = player.getGlobalBounds().width;
 	float height = player.getGlobalBounds().height;
@@ -54,6 +53,8 @@ void Asteroid::modifyPlayerGravity(Player& player) {
 
 	// calculate gravity on player
 	sf::Vector2f gravity(force * (deltaX / radius), force * (deltaY / radius));
+	gravity *= get_frame_adj(delta_time);
+	std::cout << gravity.x << ": EMma\n";
 	player.add_force(gravity);
 }
 

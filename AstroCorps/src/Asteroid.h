@@ -6,8 +6,9 @@
 #include <SFML/Graphics.hpp>
 
 #include "Block.h"
+#include "TimeDependent.h"
 
-class Asteroid {
+class Asteroid : private TimeDependent {
 private:
 	sf::Texture m_block_textures[3];
 public:
@@ -25,7 +26,7 @@ public:
 
 	void draw(sf::RenderWindow& window);
 
-	void modifyPlayerGravity(Player& player);
+	void modifyPlayerGravity(Player& player, sf::Time delta_time);
 
 	float getDistance(float x, float y);
 	float getDistance(float x1, float x2, float y1, float y2);

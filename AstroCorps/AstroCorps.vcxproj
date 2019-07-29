@@ -85,12 +85,18 @@
     <ClCompile Include="src\Block.cpp" />
     <ClCompile Include="src\FinalProject.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\tiles\Tile.cpp" />
+    <ClCompile Include="src\tiles\TileMap.cpp" />
+    <ClCompile Include="src\TimeDependent.cpp" />
     <ClCompile Include="src\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Asteroid.h" />
     <ClInclude Include="src\Block.h" />
     <ClInclude Include="src\Player.h" />
+    <ClInclude Include="src\tiles\Tile.h" />
+    <ClInclude Include="src\tiles\TileMap.h" />
+    <ClInclude Include="src\TimeDependent.h" />
     <ClInclude Include="src\Updatable.h" />
     <ClInclude Include="src\Util.h" />
   </ItemGroup>

@@ -84,14 +84,12 @@ void Player::process_key(sf::Keyboard::Key key, bool pressed) {
 }
 
 /* This method will updates the players position */
-void Player::update(sf::RenderWindow& window, sf::Time delta_time) {
-	float frame_adj = delta_time.asSeconds() / EXPECTED_FRAME_TIME;
-
+void Player::update(sf::Time delta_time) {
 	// determine the players movement
 	if (m_on_surface)
-		m_velocity = surface_velocity() * frame_adj;
+		m_velocity = surface_velocity() * get_frame_adj(delta_time);
 	else
-		m_acceleration += jetpack_acceleration() * frame_adj;
+		m_acceleration += jetpack_acceleration() * get_frame_adj(delta_time);
 
 	// add player's acceleration to velocity and move by velocity
 	m_velocity += m_acceleration;
