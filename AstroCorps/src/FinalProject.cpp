@@ -9,7 +9,7 @@
 
 #define DEBUG 0
 
-int main() {
+int mainx() {
 	// load all of the block textures
 	Block::load_block_textures();
 
@@ -171,5 +171,6 @@ int main() {
 	}
 
 	std::cin.get();
+	return 0;
 }
 

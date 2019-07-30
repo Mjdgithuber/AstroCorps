@@ -1,15 +1,17 @@
-#ifndef __TILE_MAP_H__
-#define __TILE_MAP_H__
+#ifndef __TILE__MAP__H__
+#define __TILE__MAP__H__
 
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
 
 #include "Tile.h"
+#include "..\entities\MovableEntity.h"
+#include "..\interfaces\Updatable.h"
 
 namespace Tiles {
 
-	class TileMap {
+	class TileMap : public Updatable {
 	private:
 		unsigned int m_spritesheet_rows;
 		unsigned int m_spritesheet_cols;
@@ -20,6 +22,7 @@ namespace Tiles {
 		bool m_bordered;
 
 		std::vector<std::vector<Tile>> m_tiles;
+		std::vector<MovableEntity> m_enties;
 		sf::Texture m_mapsheet;
 
 		void set_tile_textures();
@@ -35,6 +38,9 @@ namespace Tiles {
 		unsigned int get_cols() const;
 
 		void load_map(const std::string& map_file);
+		void add_entity(const MovableEntity& e);
+
+		void update(const sf::Time& delta_time) override;
 	};
 
 }

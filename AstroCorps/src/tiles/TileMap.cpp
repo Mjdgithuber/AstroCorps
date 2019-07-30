@@ -14,11 +14,15 @@ namespace Tiles {
 	}
 
 	void TileMap::draw_map(sf::RenderWindow& window) {
-		for (int row = 0; row < m_rows; row++) {
-			for (int col = 0; col < m_cols; col++) {
+		for (unsigned int row = 0; row < m_rows; row++) {
+			for (unsigned int col = 0; col < m_cols; col++) {
 				window.draw(m_tiles[row][col]);
 			}
 		}
+
+		// draw entites
+		for (MovableEntity& e : m_enties)
+			e.draw(window);
 	}
 
 	void TileMap::load_map(const std::string& map_file) {
@@ -47,10 +51,20 @@ namespace Tiles {
 		}
 	}
 
+	void TileMap::update(const sf::Time& delta_time) {
+		for (MovableEntity& e : m_enties)
+			e.update(delta_time);
+	}
+
+	void TileMap::add_entity(const MovableEntity& e) {
+		m_enties.push_back(e);
+		m_enties[0].move_horizontally(false, .5f);
+	}
+
 	void TileMap::set_tile_textures() {
 		std::cout << "Setting the tile textures!\n";
-		for (int r = 0; r < m_rows; r++) {
-			for (int c = 0; c < m_cols; c++) {
+		for (unsigned int r = 0; r < m_rows; r++) {
+			for (unsigned int c = 0; c < m_cols; c++) {
 				Tile& t = m_tiles[r][c];
 				t.setTextureRect(
 					sf::IntRect(m_tile_size * (t.get_texture_location().x * 2 + (m_bordered ? 1 : 0)),
