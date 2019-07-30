@@ -89,6 +89,7 @@
     <ClCompile Include="src\FinalProject.cpp" />
     <ClCompile Include="src\main\Application.cpp" />
     <ClCompile Include="src\main\Driver.cpp" />
+    <ClCompile Include="src\managers\TextureManager.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\tiles\Tile.cpp" />
     <ClCompile Include="src\tiles\TileMap.cpp" />
@@ -104,6 +105,7 @@
     <ClInclude Include="src\entities\SingleFrameEntity.h" />
     <ClInclude Include="src\interfaces\Updatable.h" />
     <ClInclude Include="src\main\Application.h" />
+    <ClInclude Include="src\managers\TextureManager.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\tiles\Tile.h" />
     <ClInclude Include="src\tiles\TileMap.h" />

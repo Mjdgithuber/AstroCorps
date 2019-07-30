@@ -6,9 +6,12 @@
 
 #include "..\entities\SingleFrameEntity.h"
 
+#include "..\managers\TextureManager.h"
+
 namespace Application {
 	static void init() {
 		std::cout << "Init Called!\n";
+		TextureManager::init();
 	}
 
 	static void application_loop(sf::RenderWindow& window) {
