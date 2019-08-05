@@ -3,6 +3,8 @@
 #include "Application.h"
 #include "..\xml\tinyxml2.h"
 
+// DELETE THIS PLEASE
+#include "..\managers\XMLManager.h"
 
 using namespace tinyxml2;
 #ifndef XMLCheckResult
@@ -10,11 +12,11 @@ using namespace tinyxml2;
 #endif
 
 int main() {
-	tinyxml2::XMLDocument xmlDoc;
-	tinyxml2::XMLError eResult = xmlDoc.LoadFile("SavedData.xml");
-	XMLCheckResult(eResult);
+	//bool res = XML::load_map_data("Testing/femma.sv");
+	//std::cout << "Result: " << res << "\n";
 
-	//Application::start_application();
+
+	Application::start_application();
 
 	std::cin.get();
 

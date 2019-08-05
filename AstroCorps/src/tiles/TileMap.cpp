@@ -21,8 +21,8 @@ namespace Tiles {
 		}
 
 		// draw entites
-		for (MovableEntity& e : m_enties)
-			e.draw(window);
+		for (Entity* e : m_enties)
+			(*e).draw(window);
 	}
 
 	void TileMap::load_map(const std::string& map_file) {
@@ -52,13 +52,13 @@ namespace Tiles {
 	}
 
 	void TileMap::update(const sf::Time& delta_time) {
-		for (MovableEntity& e : m_enties)
-			e.update(delta_time);
+		for (Entity* e : m_enties)
+			(*e).update(delta_time);
 	}
 
-	void TileMap::add_entity(const MovableEntity& e) {
+	void TileMap::add_entity(Entity* e) {
 		m_enties.push_back(e);
-		m_enties[0].move_horizontally(false, .5f);
+		(*m_enties[0]).move_horizontally(false, .5f);
 	}
 
 	void TileMap::set_tile_textures() {

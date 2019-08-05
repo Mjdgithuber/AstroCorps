@@ -17,8 +17,9 @@ namespace Application {
 	static void application_loop(sf::RenderWindow& window) {
 		Tiles::TileMap tm("Spritesheets/mapsheet.png", 10, 10, 3);
 		tm.load_map("Maps/map1.txt");
+		tm.toggle_borders();
 		
-		tm.add_entity(SingleFrameEntity(36, 10, 10, "Textures/testentity.png"));
+		tm.add_entity(new SingleFrameEntity(36 * 3, 5, 3, "Textures/testentity.png"));
 
 		sf::Clock frame_timer;
 

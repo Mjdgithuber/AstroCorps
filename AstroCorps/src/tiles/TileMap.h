@@ -6,8 +6,9 @@
 #include <vector>
 
 #include "Tile.h"
-#include "..\entities\MovableEntity.h"
 #include "..\interfaces\Updatable.h"
+#include "..\entities\Entity.h"
+#include "..\entities\SingleFrameEntity.h"
 
 namespace Tiles {
 
@@ -22,7 +23,7 @@ namespace Tiles {
 		bool m_bordered;
 
 		std::vector<std::vector<Tile>> m_tiles;
-		std::vector<MovableEntity> m_enties;
+		std::vector<Entity*> m_enties;
 		sf::Texture m_mapsheet;
 
 		void set_tile_textures();
@@ -38,7 +39,7 @@ namespace Tiles {
 		unsigned int get_cols() const;
 
 		void load_map(const std::string& map_file);
-		void add_entity(const MovableEntity& e);
+		void add_entity(Entity* e);
 
 		void update(const sf::Time& delta_time) override;
 	};
