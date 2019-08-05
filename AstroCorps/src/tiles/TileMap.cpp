@@ -58,7 +58,8 @@ namespace Tiles {
 
 	void TileMap::add_entity(Entity* e) {
 		m_enties.push_back(e);
-		(*m_enties[0]).move_horizontally(false, .5f);
+		//(*m_enties[0]).set_horizontal_movement(true, true);
+		//(*m_enties[0]).move_horizontally(false, .5f);
 	}
 
 	void TileMap::set_tile_textures() {

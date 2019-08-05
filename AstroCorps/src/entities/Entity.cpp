@@ -1,9 +1,9 @@
 #include "Entity.h"
 #include <iostream>
 
-
-Entity::Entity(unsigned int entity_size, unsigned int tile_x, unsigned int tile_y)
-	: m_entity_size(entity_size), m_tile_x(tile_x), m_tile_y(tile_y), m_moving(false) {
+Entity::Entity(unsigned int entity_size, float tile_x, float tile_y, float speed)
+	: m_entity_size(entity_size), m_tile_x(tile_x), m_tile_y(tile_y), m_acceleration(25 * speed),
+	m_max_speed(speed), m_speed(0.f), m_moving_hor(0), m_moving_ver(0), m_hor_movement(0), m_ver_movement(0) {
 	m_sprite.setPosition(entity_size * tile_x, entity_size * tile_y);
 }
 
@@ -13,52 +13,46 @@ void Entity::draw(sf::RenderWindow& window) {
 	window.draw(m_sprite);
 }
 
-void Entity::move(int hor, int vert, float move_time) {
-	if (!m_moving) {
-		m_moving = true;
-		m_move_time = move_time;
-		m_final_tile_x = m_tile_x + hor;
-		m_final_tile_y = m_tile_y + vert;
-		m_elap_time = sf::Time(); // reset time
-		std::cout << "Time: " << m_elap_time.asSeconds() << "\n";
+void Entity::calculate_movement(const sf::Time& delta_time) {
+	if (m_moving_hor || m_moving_ver) {
+		// add acceleration to speed
+		m_speed += m_acceleration * delta_time.asSeconds();
+		m_speed = m_speed > m_max_speed ? m_max_speed : m_speed;
+
+		float mov_x, mov_y;
+		mov_x = mov_y = m_speed * delta_time.asSeconds();
+
+		mov_x *= m_moving_hor * (m_hor_movement ? 1.f : -1.f) * (m_moving_ver ? 0.707106781f : 1.f);
+		mov_y *= m_moving_ver * (m_ver_movement ? 1.f : -1.f) * (m_moving_hor ? 0.707106781f : 1.f);
+
+		m_tile_x += mov_x;
+		m_tile_y += mov_y;
+
+		m_sprite.setPosition((int) (m_tile_x * m_entity_size), (int) (m_tile_y * m_entity_size));
+		//m_sprite.move(mov_x, mov_y);
+	} else {
+		//m_speed -= m_acceleration * delta_time.asSeconds();
+		m_speed = 0;
 	}
+
+	//std::cout << "Speed: " << m_speed << "\n";
 }
 
-void Entity::move_horizontally(bool left, float move_time) {
-	move((left ? -1 : 1), 0, move_time);
+void Entity::set_horizontal_movement(bool moving, bool right) {
+	m_moving_hor = moving;
+	m_hor_movement = right;
 }
 
-void Entity::move_vertically(bool up, float move_time) {
-	move(0, (up ? -1 : 1), move_time);
-}
-
-bool Entity::occupies(unsigned int tile_x, unsigned int tile_y) {
-	if ((m_tile_x == tile_x) && (m_tile_y == tile_y))
-		return true;
-
-	if (m_moving)
-		return (m_final_tile_x == tile_x) && (m_final_tile_y == tile_y);
-
-	return false;
+void Entity::set_vertical_movement(bool moving, bool down) {
+	m_moving_ver = moving;
+	m_ver_movement = down;
 }
 
 void Entity::update(const sf::Time& delta_time) {
-	if (m_moving) {
-		m_elap_time += delta_time;
-		float percent = m_elap_time.asSeconds() / m_move_time;
-		std::cout << percent << "\n";
-		percent = percent > 1.f ? 1.f : percent; // snap to 100%
+	calculate_movement(delta_time);
+}
 
-		float x_off = (m_final_tile_x - m_tile_x) * percent;
-		float y_off = (m_final_tile_y - m_tile_y) * percent;
-
-		m_sprite.setPosition((int)(m_entity_size * (m_tile_x + x_off)),
-			(int)(m_entity_size * (m_tile_y + y_off)));
-		if (percent >= 1.f) {
-			std::cout << "Yeet\n";
-			m_move_time = 0;
-			m_moving = false;
-			m_elap_time = sf::Time(); // reset time
-		}
-	}
+sf::Vector2f Entity::get_center() const {
+	return sf::Vector2f((int) (m_sprite.getPosition().x + m_entity_size / 2),
+		                (int) (m_sprite.getPosition().y + m_entity_size / 2));
 }

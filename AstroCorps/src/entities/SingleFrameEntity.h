@@ -5,8 +5,8 @@
 
 class SingleFrameEntity : public Entity {
 public:
-	SingleFrameEntity(unsigned int entity_size, unsigned int tile_x, 
-		              unsigned int tile_y, const std::string& filename);
+	SingleFrameEntity(unsigned int entity_size, float tile_x, float tile_y, 
+					  const std::string& filename, float speed = 0.0f);
 };
 
 #endif
