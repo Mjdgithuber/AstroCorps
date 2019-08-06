@@ -1,7 +1,7 @@
 # Directories
 .vs/
 bin/
-AstroCorps/Testing
+AstroCorps/assets/testing
 
 # Files
 *.user
