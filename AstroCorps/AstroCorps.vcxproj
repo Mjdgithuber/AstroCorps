@@ -81,24 +81,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Asteroid.cpp" />
-    <ClCompile Include="src\Block.cpp" />
     <ClCompile Include="src\entities\Entity.cpp" />
     <ClCompile Include="src\entities\SingleFrameEntity.cpp" />
-    <ClCompile Include="src\FinalProject.cpp" />
     <ClCompile Include="src\main\Application.cpp" />
     <ClCompile Include="src\main\Driver.cpp" />
     <ClCompile Include="src\managers\TextureManager.cpp" />
     <ClCompile Include="src\managers\XMLManager.cpp" />
-    <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\tiles\Tile.cpp" />
     <ClCompile Include="src\tiles\TileMap.cpp" />
-    <ClCompile Include="src\TimeDependent.cpp" />
     <ClCompile Include="src\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Asteroid.h" />
-    <ClInclude Include="src\Block.h" />
     <ClInclude Include="src\entities\AnimatedEntity.h" />
     <ClInclude Include="src\entities\Entity.h" />
     <ClInclude Include="src\entities\SingleFrameEntity.h" />
@@ -106,11 +99,8 @@
     <ClInclude Include="src\main\Application.h" />
     <ClInclude Include="src\managers\TextureManager.h" />
     <ClInclude Include="src\managers\XMLManager.h" />
-    <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\tiles\Tile.h" />
     <ClInclude Include="src\tiles\TileMap.h" />
-    <ClInclude Include="src\TimeDependent.h" />
-    <ClInclude Include="src\Updatable.h" />
     <ClInclude Include="src\Util.h" />
     <ClInclude Include="src\xml\tinyxml2.h" />
   </ItemGroup>

@@ -1,5 +1,7 @@
-#include "Entity.h"
 #include <iostream>
+#include <cmath>
+
+#include "Entity.h"
 
 Entity::Entity(unsigned int entity_size, float tile_x, float tile_y, float speed)
 	: m_entity_size(entity_size), m_tile_x(tile_x), m_tile_y(tile_y), m_acceleration(25 * speed),
@@ -28,7 +30,10 @@ void Entity::calculate_movement(const sf::Time& delta_time) {
 		m_tile_x += mov_x;
 		m_tile_y += mov_y;
 
-		m_sprite.setPosition((int) (m_tile_x * m_entity_size), (int) (m_tile_y * m_entity_size));
+		float x_pos = std::round(m_tile_x * m_entity_size);
+		float y_pos = std::round(m_tile_y * m_entity_size);
+
+		m_sprite.setPosition(x_pos, y_pos);
 		//m_sprite.move(mov_x, mov_y);
 	} else {
 		//m_speed -= m_acceleration * delta_time.asSeconds();
@@ -53,6 +58,9 @@ void Entity::update(const sf::Time& delta_time) {
 }
 
 sf::Vector2f Entity::get_center() const {
-	return sf::Vector2f((int) (m_sprite.getPosition().x + m_entity_size / 2),
-		                (int) (m_sprite.getPosition().y + m_entity_size / 2));
+	// using round to ensure that position is always a whole number
+	float x_cen = std::round(m_sprite.getPosition().x + m_entity_size / 2);
+	float y_cen = std::round(m_sprite.getPosition().y + m_entity_size / 2);
+
+	return sf::Vector2f(x_cen, y_cen);
 }

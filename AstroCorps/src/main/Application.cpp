@@ -18,11 +18,11 @@ namespace Application {
 	}
 	
 	static void application_loop(sf::RenderWindow& window) {
-		Tiles::TileMap tm("Spritesheets/mapsheet.png", 10, 10, 3);
-		tm.load_map("Maps/map1.txt");
+		Tiles::TileMap tm("assets/spritesheets/mapsheet.png", 10, 10, 3);
+		tm.load_map("assets/maps/map1.txt");
 		//tm.toggle_borders();
 
-		SingleFrameEntity* player = new SingleFrameEntity(36 * 3, 2, 3, "Textures/testentity.png", 5);
+		SingleFrameEntity* player = new SingleFrameEntity(36 * 3, 2, 3, 5);
 		
 		tm.add_entity(player);
 
@@ -67,7 +67,7 @@ namespace Application {
 	static void run() {
 		std::cout << "Run Called!\n";
 
-		sf::RenderWindow window(sf::VideoMode(1000, 800), "Astro Corps");
+		sf::RenderWindow window(sf::VideoMode(1000, 800), "Astro Corps"); //, sf::Style::Fullscreen
 		//window.setFramerateLimit(200);
 
 		application_loop(window);

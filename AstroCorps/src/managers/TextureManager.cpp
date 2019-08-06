@@ -8,7 +8,7 @@ namespace TextureManager {
 
 		void load_all_entites() {
 			using namespace Textures;
-			entity_textures[(int)Entity::TEST].loadFromFile("Textures/testentity.png");
+			entity_textures[(int)Entity::TEST].loadFromFile("assets/textures/testentity.png");
 		}
 
 		void load_all_tile_sheets() {
