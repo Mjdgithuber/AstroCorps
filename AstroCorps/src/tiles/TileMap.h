@@ -31,6 +31,7 @@ namespace Tiles {
 		TileMap(const std::string& mapsheet, unsigned int rows, unsigned int cols, float scale = 1.f);
 
 		Tile& get_tile(unsigned int row, unsigned int col);
+		const Tile& get_tile(unsigned int row, unsigned int col) const;
 
 		void draw_map(sf::RenderWindow& window);
 		void toggle_borders();

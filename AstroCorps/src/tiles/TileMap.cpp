@@ -81,6 +81,7 @@ namespace Tiles {
 	}
 
 	Tile& TileMap::get_tile(unsigned int row, unsigned int col) { return m_tiles[row][col]; }
+	const Tile& TileMap::get_tile(unsigned int row, unsigned int col) const { return m_tiles[row][col]; }
 
 	unsigned int TileMap::get_rows() const { return m_rows; }
 	unsigned int TileMap::get_cols() const { return m_cols; }

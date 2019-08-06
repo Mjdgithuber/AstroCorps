@@ -16,7 +16,7 @@ int main() {
 	//std::cout << "Result: " << res << "\n";
 
 
-	Application::start_application();
+	Application::start_application(36, 3);
 
 	std::cin.get();
 

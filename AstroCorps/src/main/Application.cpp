@@ -10,11 +10,10 @@
 
 namespace Application {
 
-	namespace {
-		void init() {
-			std::cout << "Init Called!\n";
-			TextureManager::init();
-		}
+	////////////////////////////////////////STATIC METHODS////////////////////////////////////////
+	static void init() {
+		std::cout << "Init Called!\n";
+		TextureManager::init();
 	}
 	
 	static void application_loop(sf::RenderWindow& window) {
@@ -73,7 +72,33 @@ namespace Application {
 		application_loop(window);
 	}
 
-	void start_application() {
+	////////////////////////////////////APPLICATION DEFINTIONS////////////////////////////////////
+
+	// application wide constants
+	namespace {
+		float scale;
+		unsigned int tile_size;
+		unsigned int scaled_tile_size;
+	}
+
+	float get_scale() {
+		return scale;
+	}
+
+	unsigned int get_unscaled_tile_size() {
+		return tile_size;
+	}
+
+	unsigned int get_scaled_tile_size() {
+		return scaled_tile_size;
+	}
+
+	void start_application(unsigned int unscaled_tile_size, float sc) {
+		// setup global vars
+		scale = sc;
+		tile_size = unscaled_tile_size;
+		scaled_tile_size = tile_size * scale;
+
 		init();
 		run();
 	}

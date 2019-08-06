@@ -2,17 +2,18 @@
 
 namespace TextureManager {
 	namespace {
+		using namespace Textures;
+
 		bool inited = false;
 		sf::Texture entity_textures[(int)Textures::Entity::CARDINALITY];
 		sf::Texture tile_sheets[(int)Textures::TileSheet::CARDINALITY];
 
 		void load_all_entites() {
-			using namespace Textures;
 			entity_textures[(int)Entity::TEST].loadFromFile("assets/textures/testentity.png");
 		}
 
 		void load_all_tile_sheets() {
-
+			tile_sheets[(int)TileSheet::MASTER_TILE_SHEET].loadFromFile("assets/spritesheets/mapsheet.png");
 		}
 	}
 	

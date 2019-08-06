@@ -87,9 +87,11 @@
     <ClCompile Include="src\main\Driver.cpp" />
     <ClCompile Include="src\managers\TextureManager.cpp" />
     <ClCompile Include="src\managers\XMLManager.cpp" />
+    <ClCompile Include="src\ship\ShipEditor.cpp" />
     <ClCompile Include="src\tiles\Tile.cpp" />
     <ClCompile Include="src\tiles\TileMap.cpp" />
     <ClCompile Include="src\Util.cpp" />
+    <ClCompile Include="src\xml\Register.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entities\AnimatedEntity.h" />
@@ -99,9 +101,11 @@
     <ClInclude Include="src\main\Application.h" />
     <ClInclude Include="src\managers\TextureManager.h" />
     <ClInclude Include="src\managers\XMLManager.h" />
+    <ClInclude Include="src\ship\ShipEditor.h" />
     <ClInclude Include="src\tiles\Tile.h" />
     <ClInclude Include="src\tiles\TileMap.h" />
     <ClInclude Include="src\Util.h" />
+    <ClInclude Include="src\xml\Register.h" />
     <ClInclude Include="src\xml\tinyxml2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

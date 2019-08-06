@@ -11,6 +11,7 @@ namespace Textures {
 
 	enum class TileSheet {
 		TEST,
+		MASTER_TILE_SHEET,
 		CARDINALITY
 	};
 }
