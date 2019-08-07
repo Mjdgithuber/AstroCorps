@@ -24,7 +24,6 @@ namespace Tiles {
 
 		std::vector<std::vector<Tile>> m_tiles;
 		std::vector<Entity*> m_enties;
-		sf::Texture m_mapsheet;
 
 		void set_tile_textures();
 	public:

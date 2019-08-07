@@ -28,16 +28,8 @@ namespace TextureManager {
 	const sf::Texture& get_entity_texture(Textures::Entity e) {
 		return entity_textures[(int)e];
 	}
+
+	const sf::Texture& get_tile_sheet(Textures::TileSheet e) {
+		return tile_sheets[(int)e];
+	}
 }
-
-/*class TextureManager {
-private:
-	std::vector<sf::Texture> m_entity_texture;
-	std::vector<sf::Texture> m_tile_spritesheets;
-
-	static void init();
-public:
-	TextureManager() = default;
-
-	const sf::Texture get_entity_texture(int i) const;
-}; */

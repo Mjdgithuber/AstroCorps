@@ -2,12 +2,14 @@
 
 #include <iostream>
 
+#include "..\tiles\TilePackage.h"
+
 namespace XML {
 
 	using namespace tinyxml2;
 	#ifndef XMLCheckResult
-		#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("Error: %i\n", a_eResult); return false; }
-		#define ERROR_CHECK(result) if(!result) { printf("ERROR_CHECK FAILED!\n"); return false; }
+		#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("XML Error: %i\n", a_eResult); return false; }
+		#define XMLNullCheck(ptr, error) if(ptr == nullptr) { printf("XML Null Ptr Error: %i\n", error); }
 	#endif
 
 	namespace {
@@ -17,53 +19,74 @@ namespace XML {
 
 			return true;
 		}
-	}
 
-	bool load_map_data(const char* map_filepath) {
-		XMLDocument xmlDoc;
-		XMLError err_res; // stores errors we might heave
+		/* Loads width and height from element */
+		bool load_size_element(XMLNode* parent_node, unsigned int& width, unsigned int& height) {
+			XMLError err_res;
 
-		ERROR_CHECK(load_xml_file(xmlDoc, map_filepath));
+			XMLElement* size_element = parent_node->FirstChildElement("Size");
+			XMLNullCheck(size_element, XML_ERROR_PARSING_ELEMENT);
 
-		// parent root is the root node of the xml file
-		XMLNode* parent_root = xmlDoc.FirstChild();
-		if (parent_root == nullptr) return XML_ERROR_FILE_READ_ERROR;
+			err_res = size_element->QueryUnsignedAttribute("width", &width);
+			XMLCheckResult(err_res);
+			err_res = size_element->QueryUnsignedAttribute("height", &height);
+			XMLCheckResult(err_res);
 
-		XMLElement* size_element = parent_root->FirstChildElement("Size");
-		if (size_element == nullptr) return XML_ERROR_PARSING_ELEMENT;
-
-		// get width and height from xml file
-		int width, height;
-		err_res = size_element->QueryIntAttribute("width", &width);
-		XMLCheckResult(err_res);
-		err_res = size_element->QueryIntAttribute("height", &height);
-		XMLCheckResult(err_res);
-
-		printf("Width: %d Height: %d\n", width, height);
-
-		// get all of the tiles
-		XMLElement* tile_element = parent_root->FirstChildElement("Tile");
-		while (tile_element != nullptr) {
-			std::string text;
-			int x, y;
-			
-			const char* raw_text = nullptr;
-			raw_text = tile_element->Attribute("name");// ->q->QueryStringAttribute("name", name);
-			tile_element->QueryIntAttribute("x", &x);
-			tile_element->QueryIntAttribute("y", &y);
-
-			if (!raw_text)
-				return 0;
-
-			text = raw_text;
-
-
-			std::cout << "X: " << x << " Y: " << y << " Name: " << text << "\n";
-			tile_element = tile_element->NextSiblingElement("Tile");
+			return true;
 		}
 
+		void load_all_tiles(XMLNode* parent_node, Tiles::TilePackage* tp) {
+			// get all of the tiles
+			XMLElement* tile_element = parent_node->FirstChildElement("Tile");
+			while (tile_element != nullptr) {
+				unsigned int x, y, reg_num, modifier_reg_num;
+				std::string script;
+				
+				// load a single tile
+				const char* raw_text = nullptr;
+				tile_element->QueryUnsignedAttribute("x", &x);
+				tile_element->QueryUnsignedAttribute("y", &y);
+				tile_element->QueryUnsignedAttribute("reg_num", &reg_num);
+				tile_element->QueryUnsignedAttribute("modifier_reg_num", &modifier_reg_num);
+				raw_text = tile_element->Attribute("script");
 
-		return true;
+				if (raw_text != nullptr)
+					script = raw_text;
+
+				std::cout << "X: " << x << " Y: " << y << ", Reg Num: " << reg_num << ", Mod Num: " << modifier_reg_num << ", Script: " << script << "\n";
+
+				// load tile into package
+				tp->modify_tile(x, y, reg_num, modifier_reg_num, script);
+				
+				// go to next tile, will be nullptr if there isn't any more
+				tile_element = tile_element->NextSiblingElement("Tile");
+			}
+		}
+	}
+
+	Tiles::TilePackage* load_map(const char* map_filepath) {
+		// make a xml doc to load xml data DOM model
+		XMLDocument xmlDoc;
+
+		// open the file
+		load_xml_file(xmlDoc, map_filepath);
+
+		// parent root is the root node of the xml file
+		XMLNode* root = xmlDoc.FirstChild();
+		XMLNullCheck(root, XML_ERROR_FILE_READ_ERROR);
+
+		// get width and height from xml file
+		unsigned int width, height;
+		load_size_element(root, width, height);
+
+		// make a new tile package to hold all tile information
+		Tiles::TilePackage* tp = new Tiles::TilePackage(width, height);
+		printf("Width: %d Height: %d\n", width, height);
+
+		// load tiles
+		load_all_tiles(root, tp);
+
+		return tp;
 	}
 
 }

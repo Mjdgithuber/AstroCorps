@@ -61,6 +61,8 @@ namespace Application {
 
 			window.display();
 		}
+
+		delete player;
 	}
 
 	static void run() {
@@ -94,6 +96,8 @@ namespace Application {
 	}
 
 	void start_application(unsigned int unscaled_tile_size, float sc) {
+		std::cout << "Femma\n";
+
 		// setup global vars
 		scale = sc;
 		tile_size = unscaled_tile_size;

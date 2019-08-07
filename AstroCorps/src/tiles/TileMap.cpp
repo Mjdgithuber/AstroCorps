@@ -2,15 +2,15 @@
 #include <fstream>
 
 #include "TileMap.h"
+#include "..\managers\TextureManager.h"
 
 namespace Tiles {
 
 	TileMap::TileMap(const std::string& mapsheet, unsigned int rows, unsigned int cols, float scale)
 		: m_spritesheet_rows(rows), m_spritesheet_cols(cols), m_rows(0), m_cols(0), m_scale(scale), m_bordered(false) {
-
-		m_mapsheet.loadFromFile(mapsheet);
-		//m_mapsheet.setSmooth(true);
-		m_tile_size = m_mapsheet.getSize().x / cols; // size is assumed to be square
+		
+		// TODO this needs to be fixed to use application size thingy
+		m_tile_size = TextureManager::get_tile_sheet(Textures::TileSheet::MASTER_TILE_SHEET).getSize().x / cols; // size is assumed to be square
 	}
 
 	void TileMap::draw_map(sf::RenderWindow& window) {
@@ -26,6 +26,8 @@ namespace Tiles {
 	}
 
 	void TileMap::load_map(const std::string& map_file) {
+		const sf::Texture& tile_sheet = TextureManager::get_tile_sheet(Textures::TileSheet::MASTER_TILE_SHEET);
+
 		std::ifstream file(map_file);
 
 		file >> m_rows >> m_cols;
@@ -41,7 +43,7 @@ namespace Tiles {
 				file >> tile_no;
 
 				Tile t(BLOCKED, Point(tile_no, 0));
-				t.setTexture(m_mapsheet);
+				t.setTexture(tile_sheet);
 				t.setTextureRect(sf::IntRect(m_tile_size * (tile_no * 2 + (m_bordered ? 1 : 0)), 0, m_tile_size, m_tile_size));
 				t.setScale(m_scale, m_scale);
 				t.setPosition(c * m_tile_size * m_scale, r * m_tile_size * m_scale);

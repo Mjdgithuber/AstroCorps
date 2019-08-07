@@ -4,11 +4,11 @@
 #include <string>
 
 #include "..\xml\tinyxml2.h"
-#include "..\tiles\TileMap.h"
+#include "..\tiles\TilePackage.h"
 
 namespace XML {
 
-	bool load_map_data(const char* map_filepath);
+	Tiles::TilePackage* load_map(const char* map_filepath);
 
 }
 
