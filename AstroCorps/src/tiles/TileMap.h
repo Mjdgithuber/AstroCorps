@@ -14,8 +14,6 @@ namespace Tiles {
 
 	class TileMap : public Updatable {
 	private:
-		unsigned int m_spritesheet_rows;
-		unsigned int m_spritesheet_cols;
 		unsigned int m_rows;
 		unsigned int m_cols;
 		unsigned int m_tile_size;
@@ -27,7 +25,7 @@ namespace Tiles {
 
 		void set_tile_textures();
 	public:
-		TileMap(const std::string& mapsheet, unsigned int rows, unsigned int cols, float scale = 1.f);
+		TileMap(float scale = 1.f);
 
 		Tile& get_tile(unsigned int row, unsigned int col);
 		const Tile& get_tile(unsigned int row, unsigned int col) const;
@@ -38,7 +36,7 @@ namespace Tiles {
 		unsigned int get_rows() const;
 		unsigned int get_cols() const;
 
-		void load_map(const std::string& map_file);
+		void load_map(const char* map_file);
 		void add_entity(Entity* e);
 
 		void update(const sf::Time& delta_time) override;

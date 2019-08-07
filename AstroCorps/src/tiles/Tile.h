@@ -1,37 +1,28 @@
 #ifndef __TILE__H__
 #define __TILE__H__
 
+#include <string>
+
 #include <SFML/Graphics.hpp>
 
 namespace Tiles {
 
-	enum TileState {
-		NULL_T,
-		BLOCKED,
-		WALKABLE,
-		INTERACT
-	};
-
-	struct Point {
-	public:
-		unsigned int x, y;
-
-		/* Constructors */
-		Point(unsigned int x, unsigned int y);
-		Point(const Point& p) = default;
-	};
+	/*unsigned int** m_modifier_reg_numbers;
+	std::string** m_scripts; */
 
 	class Tile : public sf::Sprite {
 	private:
-		TileState m_state;
-		Point m_texture_loc;
+		unsigned int m_reg_num;
+		unsigned int m_modifier_reg_num;
+		std::string m_script;
 	public:
 		/* Constructor */
-		Tile(TileState state, Point texture_loc);
+		Tile(unsigned int reg_num, unsigned int modifier_reg_num, const std::string& script);
 
 		/* Getters */
-		TileState get_state() const;
-		Point get_texture_location() const;
+		unsigned int get_register_number() const;
+		unsigned int get_modifier_register_number() const;
+		const std::string& get_script() const;
 	};
 
 }

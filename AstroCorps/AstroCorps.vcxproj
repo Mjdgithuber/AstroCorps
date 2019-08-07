@@ -94,7 +94,7 @@
     <ClCompile Include="src\tiles\Tile.cpp" />
     <ClCompile Include="src\tiles\TileMap.cpp" />
     <ClCompile Include="src\tiles\TilePackage.cpp" />
-    <ClCompile Include="src\Util.cpp" />
+    <ClCompile Include="src\util\Util.cpp" />
     <ClCompile Include="src\xml\Register.cpp" />
     <ClCompile Include="src\xml\tinyxml2.cpp" />
   </ItemGroup>
@@ -110,7 +110,7 @@
     <ClInclude Include="src\tiles\Tile.h" />
     <ClInclude Include="src\tiles\TileMap.h" />
     <ClInclude Include="src\tiles\TilePackage.h" />
-    <ClInclude Include="src\Util.h" />
+    <ClInclude Include="src\util\Util.h" />
     <ClInclude Include="src\xml\Register.h" />
     <ClInclude Include="src\xml\tinyxml2.h" />
   </ItemGroup>

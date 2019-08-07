@@ -1,11 +1,12 @@
 #include "Tile.h"
 
 namespace Tiles {
-	Point::Point(unsigned int x, unsigned int y) : x(x), y(y) {}
 
-	Tile::Tile(TileState state, Point texture_loc) 
-		: m_state(state), m_texture_loc(texture_loc) {}
+	Tile::Tile(unsigned int reg_num, unsigned int modifier_reg_num, const std::string& script)
+		: m_reg_num(reg_num), m_modifier_reg_num(modifier_reg_num), m_script(script) {}
 
-	TileState Tile::get_state() const { return m_state; }
-	Point Tile::get_texture_location() const { return m_texture_loc; }
+	unsigned int Tile::get_register_number() const { return m_reg_num; }
+	unsigned int Tile::get_modifier_register_number() const { return m_modifier_reg_num; }
+	const std::string& Tile::get_script() const { return m_script; }
+
 }

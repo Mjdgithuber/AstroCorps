@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "..\tiles\TilePackage.h"
+#include "..\util\Util.h"
 
 namespace XML {
 
@@ -13,6 +14,7 @@ namespace XML {
 	#endif
 
 	namespace {
+		// Think about returning root node
 		bool load_xml_file(XMLDocument& doc, const char* filepath) {
 			XMLError eResult = doc.LoadFile(filepath);
 			XMLCheckResult(eResult);
@@ -42,7 +44,8 @@ namespace XML {
 				unsigned int x, y, reg_num, modifier_reg_num;
 				std::string script;
 				
-				// load a single tile
+				// load a single tile 
+				////////////////////////////////////////////////// NEED TO ERROR CHECK HERE!!!!
 				const char* raw_text = nullptr;
 				tile_element->QueryUnsignedAttribute("x", &x);
 				tile_element->QueryUnsignedAttribute("y", &y);
@@ -87,6 +90,35 @@ namespace XML {
 		load_all_tiles(root, tp);
 
 		return tp;
+	}
+
+	bool load_tile_register(std::vector<Util::Point>& locations, const char* register_path) {
+		// make a xml doc to load xml data DOM model
+		XMLDocument xmlDoc;
+
+		// open the file
+		load_xml_file(xmlDoc, register_path);
+		
+		// get node of xml doc
+		XMLNode* root = xmlDoc.FirstChild();
+		XMLNullCheck(root, XML_ERROR_FILE_READ_ERROR);
+
+		// get the tile register head
+		XMLElement* tile_register_head = root->FirstChildElement("TileRegister");
+		XMLNullCheck(tile_register_head, XML_NO_ATTRIBUTE);
+
+		// get the tile information
+		XMLElement* tile_entry = tile_register_head->FirstChildElement("Tile");
+		while (tile_entry != nullptr) {
+			// get tilesheet x & y
+			unsigned int x, y;
+			XMLCheckResult(tile_entry->QueryUnsignedAttribute("spritesheet_x", &x));
+			XMLCheckResult(tile_entry->QueryUnsignedAttribute("spritesheet_y", &y));
+			locations.emplace_back(x, y);
+
+			// increment to next registry entry
+			tile_entry = tile_entry->NextSiblingElement("Tile");
+		}
 	}
 
 }

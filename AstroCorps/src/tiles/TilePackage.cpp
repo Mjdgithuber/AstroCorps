@@ -42,4 +42,24 @@ namespace Tiles {
 		m_scripts[y][x] = script;
 	}
 
+	unsigned int TilePackage::get_rows() const {
+		return m_rows;
+	}
+
+	unsigned int TilePackage::get_cols() const {
+		return m_cols;
+	}
+
+	unsigned int TilePackage::get_register_num(unsigned int x, unsigned int y) const {
+		return m_reg_numbers[y][x];
+	}
+
+	unsigned int TilePackage::get_modifier_register_num(unsigned int x, unsigned int y) const {
+		return m_modifier_reg_numbers[y][x];
+	}
+
+	const std::string& TilePackage::get_script(unsigned int x, unsigned int y) const {
+		return m_scripts[y][x];
+	}
+
 }

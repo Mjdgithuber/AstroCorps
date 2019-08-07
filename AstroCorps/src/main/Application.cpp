@@ -3,9 +3,8 @@
 
 #include "Application.h"
 #include "..\tiles\TileMap.h"
-
 #include "..\entities\SingleFrameEntity.h"
-
+#include "..\xml\Register.h"
 #include "..\managers\TextureManager.h"
 
 namespace Application {
@@ -13,12 +12,15 @@ namespace Application {
 	////////////////////////////////////////STATIC METHODS////////////////////////////////////////
 	static void init() {
 		std::cout << "Init Called!\n";
+		Register::init();
 		TextureManager::init();
 	}
 	
 	static void application_loop(sf::RenderWindow& window) {
-		Tiles::TileMap tm("assets/spritesheets/mapsheet.png", 10, 10, 3);
-		tm.load_map("assets/maps/map1.txt");
+		std::cout << "Application Loop Started!\n";
+
+		Tiles::TileMap tm(3.f);
+		tm.load_map("assets/maps/xmltest.xml");
 		//tm.toggle_borders();
 
 		SingleFrameEntity* player = new SingleFrameEntity(36 * 3, 2, 3, 5);
