@@ -1,6 +1,6 @@
 <Level>
 <Size width="10" height="10"></Size>
-<Tile name="TREE" reg_num="2" x="0" y="0" modifier_reg_num="1" script=""></Tile>
+<Tile name="TREE" reg_num="2" x="0" y="0" modifier_reg_num="1" script="emma"></Tile>
 <Tile name="TREE" reg_num="2" x="1" y="0" modifier_reg_num="1" script=""></Tile>
 <Tile name="TREE" reg_num="2" x="2" y="0" modifier_reg_num="1" script=""></Tile>
 <Tile name="TREE" reg_num="2" x="3" y="0" modifier_reg_num="1" script=""></Tile>

@@ -78,29 +78,31 @@ namespace Application {
 
 	////////////////////////////////////APPLICATION DEFINTIONS////////////////////////////////////
 
-	// application wide constants
+	/* application wide constants */
 	namespace {
 		float scale;
 		unsigned int tile_size;
 		unsigned int scaled_tile_size;
 	}
 
+	/* Get the global scale factor of the tiles */
 	float get_scale() {
 		return scale;
 	}
 
+	/* Get the unscaled size of a tile */
 	unsigned int get_unscaled_tile_size() {
 		return tile_size;
 	}
 
+	/* Get the scaled size of a tile */
 	unsigned int get_scaled_tile_size() {
 		return scaled_tile_size;
 	}
 
+	/* Setup and run the application */
 	void start_application(unsigned int unscaled_tile_size, float sc) {
-		std::cout << "Femma\n";
-
-		// setup global vars
+		// setup global vars that will never change
 		scale = sc;
 		tile_size = unscaled_tile_size;
 		scaled_tile_size = tile_size * scale;

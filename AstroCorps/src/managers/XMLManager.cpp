@@ -10,51 +10,66 @@ namespace XML {
 	using namespace tinyxml2;
 	#ifndef XMLCheckResult
 		#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("XML Error: %i\n", a_eResult); return false; }
+	#endif
+	#ifndef XMLNullCheck
 		#define XMLNullCheck(ptr, error) if(ptr == nullptr) { printf("XML Null Ptr Error: %i\n", error); }
 	#endif
 
+	/* Anonymous namespace allows for private functions without, 
+	   wrapping in a class because there would be no point of 
+	   having more than one XML manager per project! */
 	namespace {
-		// Think about returning root node
-		bool load_xml_file(XMLDocument& doc, const char* filepath) {
+		/* Given a filepath it will attempt (if filepath is valid)
+		   to load it into the passed in XMLDocument. It will also
+		   get the root node and return it. NOTE: all XML files
+		   must have a node otherwise it is malformed*/
+		XMLNode* load_xml_file(XMLDocument& doc, const char* filepath) {
+			// attempt to load file
 			XMLError eResult = doc.LoadFile(filepath);
 			XMLCheckResult(eResult);
 
-			return true;
+			// get the root of the document
+			XMLNode* root = doc.FirstChild();
+			XMLNullCheck(root, XML_ERROR_FILE_READ_ERROR);
+
+			// return the node
+			return root;
 		}
 
-		/* Loads width and height from element */
+		/* Loads width and height from the size element in
+		   file. The node is the root node of the doc, and
+		   the return values are passed in by reference. */
 		bool load_size_element(XMLNode* parent_node, unsigned int& width, unsigned int& height) {
-			XMLError err_res;
-
+			// attempt to locate the size element from the node
 			XMLElement* size_element = parent_node->FirstChildElement("Size");
 			XMLNullCheck(size_element, XML_ERROR_PARSING_ELEMENT);
 
-			err_res = size_element->QueryUnsignedAttribute("width", &width);
-			XMLCheckResult(err_res);
-			err_res = size_element->QueryUnsignedAttribute("height", &height);
-			XMLCheckResult(err_res);
+			// get the width and height from the size element
+			XMLCheckResult(size_element->QueryUnsignedAttribute("width", &width));
+			XMLCheckResult(size_element->QueryUnsignedAttribute("height", &height));
 
+			// if this is reached then it was successful
 			return true;
 		}
 
-		void load_all_tiles(XMLNode* parent_node, Tiles::TilePackage* tp) {
+		bool load_all_tiles(XMLNode* parent_node, Tiles::TilePackage* tp) {
 			// get all of the tiles
 			XMLElement* tile_element = parent_node->FirstChildElement("Tile");
 			while (tile_element != nullptr) {
+				// varibles to be pull from xml file
 				unsigned int x, y, reg_num, modifier_reg_num;
 				std::string script;
 				
-				// load a single tile 
-				////////////////////////////////////////////////// NEED TO ERROR CHECK HERE!!!!
+				// load one tile from xml file w/ error checking
 				const char* raw_text = nullptr;
-				tile_element->QueryUnsignedAttribute("x", &x);
-				tile_element->QueryUnsignedAttribute("y", &y);
-				tile_element->QueryUnsignedAttribute("reg_num", &reg_num);
-				tile_element->QueryUnsignedAttribute("modifier_reg_num", &modifier_reg_num);
-				raw_text = tile_element->Attribute("script");
+				XMLCheckResult(tile_element->QueryUnsignedAttribute("x", &x));
+				XMLCheckResult(tile_element->QueryUnsignedAttribute("y", &y));
+				XMLCheckResult(tile_element->QueryUnsignedAttribute("reg_num", &reg_num));
+				XMLCheckResult(tile_element->QueryUnsignedAttribute("modifier_reg_num", &modifier_reg_num));
+				XMLNullCheck((raw_text = tile_element->Attribute("script")), XML_NO_ATTRIBUTE);
 
-				if (raw_text != nullptr)
-					script = raw_text;
+				// convert char* to string
+				script = raw_text;
 
 				std::cout << "X: " << x << " Y: " << y << ", Reg Num: " << reg_num << ", Mod Num: " << modifier_reg_num << ", Script: " << script << "\n";
 
@@ -67,16 +82,16 @@ namespace XML {
 		}
 	}
 
+	/* This function takes in a filepath to a map xml file. This
+	   will allocate and return a TilePackage with all of the
+	   information contained in the map file. This TilePackage
+	   MUST be deleted (freed) by the caller of this function! */
 	Tiles::TilePackage* load_map(const char* map_filepath) {
 		// make a xml doc to load xml data DOM model
 		XMLDocument xmlDoc;
 
-		// open the file
-		load_xml_file(xmlDoc, map_filepath);
-
-		// parent root is the root node of the xml file
-		XMLNode* root = xmlDoc.FirstChild();
-		XMLNullCheck(root, XML_ERROR_FILE_READ_ERROR);
+		// load the file and get the root node
+		XMLNode* root = load_xml_file(xmlDoc, map_filepath);
 
 		// get width and height from xml file
 		unsigned int width, height;
@@ -92,16 +107,16 @@ namespace XML {
 		return tp;
 	}
 
+	/* This method takes in a vector of points by reference which it 
+	   uses to store the location of each tile's texture on the tile
+	   sheet. The register_path is the path the the register file 
+	   containing the location data. */
 	bool load_tile_register(std::vector<Util::Point>& locations, const char* register_path) {
 		// make a xml doc to load xml data DOM model
 		XMLDocument xmlDoc;
 
-		// open the file
-		load_xml_file(xmlDoc, register_path);
-		
-		// get node of xml doc
-		XMLNode* root = xmlDoc.FirstChild();
-		XMLNullCheck(root, XML_ERROR_FILE_READ_ERROR);
+		// load the file and get the root node
+		XMLNode* root = load_xml_file(xmlDoc, register_path);
 
 		// get the tile register head
 		XMLElement* tile_register_head = root->FirstChildElement("TileRegister");

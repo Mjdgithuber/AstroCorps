@@ -2,6 +2,7 @@
 
 namespace Tiles {
 
+	/* Makes a new tile package given a width & height */
 	TilePackage::TilePackage(unsigned int width, unsigned int height) {
 		// save width and height
 		m_rows = height;
@@ -20,6 +21,7 @@ namespace Tiles {
 		}
 	}
 
+	/* Frees all resources used by the package */
 	TilePackage::~TilePackage() {
 		// delete all cols
 		for (unsigned int row = 0; row < m_rows; row++) {
@@ -34,6 +36,8 @@ namespace Tiles {
 		delete[] m_scripts;
 	}
 
+	/* Modifies the information of a specific tile. NOTE: 
+	   by default the tile information is uninitalized! */
 	void TilePackage::modify_tile(unsigned int x, unsigned int y, unsigned int reg_num,
 		unsigned int modifier_reg_num, const std::string& script) {
 		// save tile info
@@ -41,6 +45,8 @@ namespace Tiles {
 		m_modifier_reg_numbers[y][x] = modifier_reg_num;
 		m_scripts[y][x] = script;
 	}
+
+	/* ========================= Getters ========================= */
 
 	unsigned int TilePackage::get_rows() const {
 		return m_rows;

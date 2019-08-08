@@ -2,9 +2,8 @@
 
 namespace Util {
 
-	Point::Point(unsigned int x, unsigned int y) {
-		this->x = x;
-		this->y = y;
-	}
+	/* Inits the point object */
+	Point::Point(unsigned int x, unsigned int y) 
+		: x(x), y(y) {}
 
 }
