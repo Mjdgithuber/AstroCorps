@@ -23,6 +23,14 @@ namespace Util {
 		Point(unsigned int x, unsigned int y);
 	};
 
+	enum Direction {
+		STATIONARY,
+		NORTH,
+		EAST,
+		SOUTH,
+		WEST
+	};
+
 }
 
 #endif

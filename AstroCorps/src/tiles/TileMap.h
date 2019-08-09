@@ -8,7 +8,6 @@
 #include "Tile.h"
 #include "..\interfaces\Updatable.h"
 #include "..\entities\Entity.h"
-#include "..\entities\SingleFrameEntity.h"
 
 namespace Tiles {
 
@@ -16,8 +15,6 @@ namespace Tiles {
 	private:
 		unsigned int m_rows;
 		unsigned int m_cols;
-		unsigned int m_tile_size;
-		float m_scale;
 		bool m_bordered;
 
 		std::vector<std::vector<Tile>> m_tiles;
@@ -37,10 +34,8 @@ namespace Tiles {
 		/// Makes a new tile map that has no associated map with it.
 		/// A map must be loaded into it by using the load_map() 
 		/// function.
-		/// Params:
-		/// scale - GOING TO BE REMOVED!!!!!
 		////////////////////////////////////////////////////////////
-		TileMap(float scale = 1.f);
+		TileMap();
 
 
 		/* =========================================================== */

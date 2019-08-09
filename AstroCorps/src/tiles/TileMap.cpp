@@ -7,18 +7,15 @@
 #include "..\managers\TextureManager.h"
 #include "..\managers\XMLManager.h"
 #include "..\tiles\TilePackage.h"
+#include "..\main\Application.h"
 
 namespace Tiles {
 
 	/* ============== Constructors and Destructors =============== */
 
 	/* Makes a new empty tile map */
-	TileMap::TileMap(float scale)
-		: m_rows(0), m_cols(0), m_scale(scale), m_bordered(false) {
-		
-		// TODO this needs to be fixed to use application size thingy
-		m_tile_size = TextureManager::get_tile_sheet(Textures::TileSheet::MASTER_TILE_SHEET).getSize().x / 10; // size is assumed to be square
-	}
+	TileMap::TileMap()
+		: m_rows(0), m_cols(0), m_bordered(false) {}
 
 	/* ======================== Functions ======================== */
 
@@ -53,6 +50,10 @@ namespace Tiles {
 		// load the tile map
 		m_tiles.reserve(m_rows);
 
+		// global tile data
+		float scale = Application::get_scale();
+		unsigned int tile_size = Application::get_unscaled_tile_size();
+
 		for (unsigned int r = 0; r < m_rows; r++) {
 			std::vector<Tile> tile_col;
 			tile_col.reserve(m_cols);
@@ -68,9 +69,9 @@ namespace Tiles {
 				// make a new tile
 				Tile t(reg_num, mod_num, script);
 				t.setTexture(tile_sheet);
-				t.setTextureRect(sf::IntRect(m_tile_size * (location.x * 2 + (m_bordered ? 1 : 0)), 0, m_tile_size, m_tile_size));
-				t.setScale(m_scale, m_scale);
-				t.setPosition(c * m_tile_size * m_scale, r * m_tile_size * m_scale);
+				t.setTextureRect(sf::IntRect(tile_size * (location.x * 2 + (m_bordered ? 1 : 0)), 0, tile_size, tile_size));
+				t.setScale(scale, scale);
+				t.setPosition(c * tile_size * scale, r * tile_size * scale);
 				tile_col.push_back(t); // move semantics please
 			}
 			m_tiles.push_back(std::move(tile_col));
@@ -95,6 +96,9 @@ namespace Tiles {
 	void TileMap::set_tile_textures() {
 		std::cout << "Setting the tile textures!\n";
 
+		// get tile size (to locate texture)
+		unsigned int tile_size = Application::get_unscaled_tile_size();
+
 		// loop though each tile by row
 		for (unsigned int r = 0; r < m_rows; r++) {
 			for (unsigned int c = 0; c < m_cols; c++) {
@@ -106,8 +110,8 @@ namespace Tiles {
 
 				// set the tile's texture
 				t.setTextureRect(
-					sf::IntRect(m_tile_size * (location.x * 2 + (m_bordered ? 1 : 0)),
-					0, m_tile_size, m_tile_size));
+					sf::IntRect(tile_size * (location.x * 2 + (m_bordered ? 1 : 0)),
+					0, tile_size, tile_size));
 			}
 		}
 	}

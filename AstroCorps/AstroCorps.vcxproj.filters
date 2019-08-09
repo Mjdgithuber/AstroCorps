@@ -30,9 +30,6 @@
     <ClCompile Include="src\entities\Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\entities\SingleFrameEntity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\managers\TextureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -54,6 +51,9 @@
     <ClCompile Include="src\util\Util.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\entities\Character.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\tiles\Tile.h">
@@ -69,12 +69,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\interfaces\Updatable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\entities\AnimatedEntity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\entities\SingleFrameEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\managers\TextureManager.h">
@@ -96,6 +90,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\util\Util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\Character.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,12 +1,13 @@
 #include <iostream>
 #include <cmath>
 
+#include "..\main\Application.h"
 #include "Entity.h"
 
-Entity::Entity(unsigned int entity_size, float tile_x, float tile_y, float speed)
-	: m_entity_size(entity_size), m_tile_x(tile_x), m_tile_y(tile_y), m_acceleration(25 * speed),
-	m_max_speed(speed), m_speed(0.f), m_moving_hor(0), m_moving_ver(0), m_hor_movement(0), m_ver_movement(0) {
-	m_sprite.setPosition(entity_size * tile_x, entity_size * tile_y);
+Entity::Entity(float tile_x, float tile_y, unsigned int width, unsigned int height)
+	: m_tile_x(tile_x), m_tile_y(tile_y), m_size(width, height) {
+	// sets position based on x & y location and tile size
+	m_sprite.setPosition(Application::get_scaled_tile_size() * tile_x, Application::get_scaled_tile_size() * tile_y);
 }
 
 Entity::~Entity() {}
@@ -15,52 +16,14 @@ void Entity::draw(sf::RenderWindow& window) {
 	window.draw(m_sprite);
 }
 
-void Entity::calculate_movement(const sf::Time& delta_time) {
-	if (m_moving_hor || m_moving_ver) {
-		// add acceleration to speed
-		m_speed += m_acceleration * delta_time.asSeconds();
-		m_speed = m_speed > m_max_speed ? m_max_speed : m_speed;
-
-		float mov_x, mov_y;
-		mov_x = mov_y = m_speed * delta_time.asSeconds();
-
-		mov_x *= m_moving_hor * (m_hor_movement ? 1.f : -1.f) * (m_moving_ver ? 0.707106781f : 1.f);
-		mov_y *= m_moving_ver * (m_ver_movement ? 1.f : -1.f) * (m_moving_hor ? 0.707106781f : 1.f);
-
-		m_tile_x += mov_x;
-		m_tile_y += mov_y;
-
-		float x_pos = std::round(m_tile_x * m_entity_size);
-		float y_pos = std::round(m_tile_y * m_entity_size);
-
-		m_sprite.setPosition(x_pos, y_pos);
-		//m_sprite.move(mov_x, mov_y);
-	} else {
-		//m_speed -= m_acceleration * delta_time.asSeconds();
-		m_speed = 0;
-	}
-
-	//std::cout << "Speed: " << m_speed << "\n";
-}
-
-void Entity::set_horizontal_movement(bool moving, bool right) {
-	m_moving_hor = moving;
-	m_hor_movement = right;
-}
-
-void Entity::set_vertical_movement(bool moving, bool down) {
-	m_moving_ver = moving;
-	m_ver_movement = down;
-}
-
-void Entity::update(const sf::Time& delta_time) {
-	calculate_movement(delta_time);
-}
-
 sf::Vector2f Entity::get_center() const {
+	unsigned int tile_size = Application::get_scaled_tile_size();
+	unsigned int width = m_size.x * tile_size;
+	unsigned int height = m_size.y * tile_size;
+
 	// using round to ensure that position is always a whole number
-	float x_cen = std::round(m_sprite.getPosition().x + m_entity_size / 2);
-	float y_cen = std::round(m_sprite.getPosition().y + m_entity_size / 2);
+	float x_cen = std::round(m_sprite.getPosition().x + width / 2);
+	float y_cen = std::round(m_sprite.getPosition().y + height / 2);
 
 	return sf::Vector2f(x_cen, y_cen);
 }

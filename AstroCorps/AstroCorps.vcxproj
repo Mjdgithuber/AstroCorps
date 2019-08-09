@@ -84,8 +84,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\entities\Character.cpp" />
     <ClCompile Include="src\entities\Entity.cpp" />
-    <ClCompile Include="src\entities\SingleFrameEntity.cpp" />
     <ClCompile Include="src\main\Application.cpp" />
     <ClCompile Include="src\main\Driver.cpp" />
     <ClCompile Include="src\managers\TextureManager.cpp" />
@@ -99,9 +99,8 @@
     <ClCompile Include="src\xml\tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\entities\AnimatedEntity.h" />
+    <ClInclude Include="src\entities\Character.h" />
     <ClInclude Include="src\entities\Entity.h" />
-    <ClInclude Include="src\entities\SingleFrameEntity.h" />
     <ClInclude Include="src\interfaces\Updatable.h" />
     <ClInclude Include="src\main\Application.h" />
     <ClInclude Include="src\managers\TextureManager.h" />

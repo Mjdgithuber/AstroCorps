@@ -3,9 +3,10 @@
 
 #include "Application.h"
 #include "..\tiles\TileMap.h"
-#include "..\entities\SingleFrameEntity.h"
 #include "..\xml\Register.h"
 #include "..\managers\TextureManager.h"
+#include "..\entities\Character.h"
+#include "..\util\Util.h"
 
 namespace Application {
 
@@ -16,14 +17,34 @@ namespace Application {
 		TextureManager::init();
 	}
 	
+	Util::Direction process_direction_keys() {
+		using namespace Util;
+		bool W = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
+		bool A = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
+		bool S = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
+		bool D = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+
+		if (A ^ D) {
+			if (A) return WEST;
+			else return EAST;
+		}
+
+		if (W ^ S) {
+			if (W) return NORTH;
+			else return SOUTH;
+		}
+
+		return STATIONARY;
+	}
+
 	static void application_loop(sf::RenderWindow& window) {
 		std::cout << "Application Loop Started!\n";
 
-		Tiles::TileMap tm(3.f);
+		Tiles::TileMap tm;
 		tm.load_map("assets/maps/xmltest.xml");
 		//tm.toggle_borders();
-
-		SingleFrameEntity* player = new SingleFrameEntity(36 * 3, 2, 3, 5);
+		
+		Character* player = new Character(2, 2, 1, 1, 0.33f);
 		
 		tm.add_entity(player);
 
@@ -43,12 +64,7 @@ namespace Application {
 			}
 
 			// process keys
-			bool W = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
-			bool A = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
-			bool S = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
-			bool D = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
-			player->set_horizontal_movement(A ^ D, D);
-			player->set_vertical_movement(W ^ S, S);
+			player->set_movement(process_direction_keys());
 
 			ttt.restart();
 			tm.update(delta_time);
@@ -71,7 +87,7 @@ namespace Application {
 		std::cout << "Run Called!\n";
 
 		sf::RenderWindow window(sf::VideoMode(1000, 800), "Astro Corps"); //, sf::Style::Fullscreen
-		//window.setFramerateLimit(200);
+		//window.setFramerateLimit(30);
 
 		application_loop(window);
 	}
@@ -106,6 +122,9 @@ namespace Application {
 		scale = sc;
 		tile_size = unscaled_tile_size;
 		scaled_tile_size = tile_size * scale;
+
+		if (scaled_tile_size != tile_size * scale)
+			std::cout << "\n\n=================\nERRRRRROORRRR!\n\nScaled Tile Size doesn't produce whole #\n";
 
 		init();
 		run();
