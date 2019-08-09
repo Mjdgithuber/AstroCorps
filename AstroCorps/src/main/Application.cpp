@@ -49,7 +49,6 @@ namespace Application {
 		tm.add_entity(player);
 
 		sf::Clock frame_timer;
-		sf::Clock ttt;
 
 		// main loop
 		while (window.isOpen()) {
@@ -66,7 +65,6 @@ namespace Application {
 			// process keys
 			player->set_movement(process_direction_keys());
 
-			ttt.restart();
 			tm.update(delta_time);
 
 			sf::View v = window.getView();

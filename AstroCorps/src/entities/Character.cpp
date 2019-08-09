@@ -12,6 +12,7 @@ Character::Character(float tile_x, float tile_y, unsigned int width, unsigned in
 	m_sprite.setScale(sf::Vector2f(scale, scale));
 }
 
+/* Will update the final x & y baded on current direction */
 void Character::update_destination() {
 	// direction enum is contained within Util namespace
 	using namespace Util;
@@ -21,6 +22,7 @@ void Character::update_destination() {
 	m_final_tile_y = m_tile_y + ((m_curr_dir == SOUTH) ? 1 : (m_curr_dir == NORTH ? -1 : 0));
 }
 
+/* Will set the next direction the character will move in */
 bool Character::set_movement(Util::Direction dir) {
 	m_next_dir = dir;
 	
@@ -72,6 +74,7 @@ bool Character::check_percentage(float& percentage) {
 	return false;
 }
 
+/* Will move the character in the correct direction if needed */
 void Character::update(const sf::Time& delta_time) {
 	// only move if not stationary
 	if (m_curr_dir != Util::STATIONARY) {
