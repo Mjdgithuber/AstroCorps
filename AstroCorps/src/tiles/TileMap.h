@@ -6,8 +6,8 @@
 #include <vector>
 
 #include "Tile.h"
-#include "..\interfaces\Updatable.h"
-#include "..\entity\Entity.h"
+#include "interfaces\Updatable.h"
+#include "entity\Entity.h"
 
 namespace Tiles {
 

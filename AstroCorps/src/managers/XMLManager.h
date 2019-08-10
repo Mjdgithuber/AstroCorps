@@ -1,15 +1,13 @@
 #ifndef __XML__MANAGER__H__
 #define __XML__MANAGER__H__
 
-
 #include <vector>
-
 
 #include <SFML/Graphics.hpp>
 
-#include "..\xml\tinyxml2.h"
-#include "..\tiles\TilePackage.h"
-#include "..\util\Util.h"
+#include "xml\tinyxml2.h"
+#include "tiles\TilePackage.h"
+#include "util\Util.h"
 
 // forward declare instead of #including to break circular dependancies
 class Entity;

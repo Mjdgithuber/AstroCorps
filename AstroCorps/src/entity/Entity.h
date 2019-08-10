@@ -4,8 +4,7 @@
 #include <map>
 #include <typeindex>
 
-#include "..\managers\XMLManager.h"
-
+#include "managers\XMLManager.h"
 #include "components\Component.h"
 #include "components\GraphicalBase.h"
 #include "components\Movable.h"

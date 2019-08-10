@@ -2,7 +2,7 @@
 #define __MOVABLE__H__
 
 #include "Transform.h"
-#include "..\..\util\Util.h"
+#include "util\Util.h"
 
 class Movable : public Transform {
 private:

@@ -1,15 +1,14 @@
-#include "XMLManager.h"
-
 #include <iostream>
 
-#include "..\tiles\TilePackage.h"
-#include "..\util\Util.h"
-#include "..\xml\Register.h"
-#include "..\entity\components\Movable.h"
-#include "..\entity\components\GraphicalBase.h"
+#include "XMLManager.h"
 #include "TextureManager.h"
-#include "..\main\Application.h"
-#include "..\entity\Entity.h"
+#include "tiles\TilePackage.h"
+#include "util\Util.h"
+#include "xml\Register.h"
+#include "entity\components\Movable.h"
+#include "entity\components\GraphicalBase.h"
+#include "main\Application.h"
+#include "entity\Entity.h"
 
 namespace XML {
 

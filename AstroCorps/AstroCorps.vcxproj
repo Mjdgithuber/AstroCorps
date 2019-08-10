@@ -56,7 +56,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Matthew\Documents\SFML\SFML-2.5.1-64\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Matthew\Documents\SFML\SFML-2.5.1-64\include;C:\dev\AstroCorps\AstroCorps\src</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
     </ClCompile>
@@ -74,7 +74,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Matthew\Documents\SFML\SFML-2.5.1-64\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Matthew\Documents\SFML\SFML-2.5.1-64\include;C:\dev\AstroCorps\AstroCorps\src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

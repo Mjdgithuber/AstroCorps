@@ -1,9 +1,8 @@
 #include "Entity.h"
-#include "..\managers\XMLManager.h"
+#include "main\Application.h"
 
-#include "..\main\Application.h"
-
-Entity::Entity(const char* filepath) {
+Entity::Entity(const char* filepath)
+	: m_fx_base(nullptr), m_transform(nullptr) {
 	// load entity into component vector
 	XML::load_entity(this, filepath);
 }

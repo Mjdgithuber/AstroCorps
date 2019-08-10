@@ -27,25 +27,30 @@ namespace ShipEditor {
 	bool open_editor(const Tiles::TileMap& tm) {
 		if (is_open) return false;
 
-		for (int row = 0; row < tm.get_rows(); row++) {
-			for (int col = 0; col < tm.get_cols(); col++) {
+		for (unsigned int row = 0; row < tm.get_rows(); row++) {
+			for (unsigned int col = 0; col < tm.get_cols(); col++) {
 
 			}
 		}
+
+		return true;
 	}
 
 	bool close_editor() {
 		if (!is_open) return false;
 
+		return true;
 	}
 
 	bool output_to_tilemap(Tiles::TileMap& tm) {
 		if (is_open) return false;
 
+		return true;
 	}
 
 	bool save_editor_to_file(const std::string& filename) {
 		if (is_open) return false;
 
+		return true;
 	}
 }

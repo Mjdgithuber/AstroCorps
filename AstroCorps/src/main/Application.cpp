@@ -1,14 +1,11 @@
-#include <SFML/Graphics.hpp>
 #include <iostream>
 
-#include "Application.h"
-#include "..\tiles\TileMap.h"
-#include "..\xml\Register.h"
-#include "..\managers\TextureManager.h"
-#include "..\entity\Entity.h"
-#include "..\util\Util.h"
+#include <SFML/Graphics.hpp>
 
-#include "..\entity\components\Movable.h"
+#include "Application.h"
+#include "tiles\TileMap.h"
+#include "xml\Register.h"
+#include "managers\TextureManager.h"
 
 namespace Application {
 
@@ -53,7 +50,7 @@ namespace Application {
 		// setup global vars that will never change
 		scale = sc;
 		tile_size = unscaled_tile_size;
-		scaled_tile_size = tile_size * scale;
+		scaled_tile_size = (unsigned) (tile_size * scale);
 
 		if (scaled_tile_size != tile_size * scale)
 			std::cout << "\n\n=================\nERRRRRROORRRR!\n\nScaled Tile Size doesn't produce whole #\n";
@@ -173,7 +170,7 @@ namespace Application {
 		std::cout << "Run Called!\n";
 
 		//sf::RenderWindow window(sf::VideoMode(1000, 800), "Astro Corps"); //, sf::Style::Fullscreen
-		(*global_window).setFramerateLimit(30);
+		//(*global_window).setFramerateLimit(100);
 
 		application_loop(*global_window);
 	}

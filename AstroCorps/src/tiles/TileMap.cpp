@@ -2,12 +2,12 @@
 #include <fstream>
 
 #include "TileMap.h"
-#include "..\util\Util.h"
-#include "..\xml\Register.h"
-#include "..\managers\TextureManager.h"
-#include "..\managers\XMLManager.h"
-#include "..\tiles\TilePackage.h"
-#include "..\main\Application.h"
+#include "util\Util.h"
+#include "xml\Register.h"
+#include "managers\TextureManager.h"
+#include "managers\XMLManager.h"
+#include "tiles\TilePackage.h"
+#include "main\Application.h"
 
 namespace Tiles {
 

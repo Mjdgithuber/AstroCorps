@@ -1,5 +1,4 @@
 #include "Movable.h"
-#include "..\..\main\Application.h"
 
 int Movable::get_hor_offset(Util::Direction dir) const {
 	return ((m_curr_dir == Util::EAST) ? 1 : (m_curr_dir == Util::WEST ? -1 : 0));
@@ -42,6 +41,7 @@ bool Movable::check_percentage(float& percentage) {
 		}
 		else {
 			m_elap = sf::seconds((percentage - 1.f) * m_speed);
+			percentage -= 1.f;
 			// signal for x & y update
 			return true;
 		}
@@ -76,8 +76,6 @@ Component::Flag Movable::update(const sf::Time& delta_time) {
 
 	return Component::NIL;
 }
-
-
 
 bool Movable::is_moving() const {
 	return m_moving;
