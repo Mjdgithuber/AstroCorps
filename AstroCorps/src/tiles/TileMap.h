@@ -7,7 +7,7 @@
 
 #include "Tile.h"
 #include "..\interfaces\Updatable.h"
-#include "..\entities\Entity.h"
+#include "..\entity\Entity.h"
 
 namespace Tiles {
 

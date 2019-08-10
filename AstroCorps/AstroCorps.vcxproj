@@ -84,8 +84,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\entities\Character.cpp" />
-    <ClCompile Include="src\entities\Entity.cpp" />
+    <ClCompile Include="src\entity\components\GraphicalBase.cpp" />
+    <ClCompile Include="src\entity\components\Movable.cpp" />
+    <ClCompile Include="src\entity\components\Transform.cpp" />
+    <ClCompile Include="src\entity\Entity.cpp" />
+    <ClCompile Include="src\inventory\Item.cpp" />
     <ClCompile Include="src\main\Application.cpp" />
     <ClCompile Include="src\main\Driver.cpp" />
     <ClCompile Include="src\managers\TextureManager.cpp" />
@@ -99,9 +102,14 @@
     <ClCompile Include="src\xml\tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\entities\Character.h" />
-    <ClInclude Include="src\entities\Entity.h" />
+    <ClInclude Include="src\entity\components\Component.h" />
+    <ClInclude Include="src\entity\components\GraphicalBase.h" />
+    <ClInclude Include="src\entity\components\Movable.h" />
+    <ClInclude Include="src\entity\components\Transform.h" />
+    <ClInclude Include="src\entity\Entity.h" />
     <ClInclude Include="src\interfaces\Updatable.h" />
+    <ClInclude Include="src\inventory\Inventory.h" />
+    <ClInclude Include="src\inventory\Item.h" />
     <ClInclude Include="src\main\Application.h" />
     <ClInclude Include="src\managers\TextureManager.h" />
     <ClInclude Include="src\managers\XMLManager.h" />

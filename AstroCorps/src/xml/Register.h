@@ -23,6 +23,15 @@ namespace Register {
 	/// at 0.
 	////////////////////////////////////////////////////////////
 	const Util::Point& get_tilesheet_location(unsigned int reg_num);
+
+	////////////////////////////////////////////////////////////
+	/// Given a register number of a font, this will return 
+	/// that font (loaded from the register file). It returns
+	/// by reference.
+	////////////////////////////////////////////////////////////
+	const sf::Font& get_font(unsigned int reg_num);
+
+	const std::string& get_component_name(unsigned int reg_num);
 }
 
 #endif
