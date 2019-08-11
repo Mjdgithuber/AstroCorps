@@ -6,6 +6,7 @@
 #include "tiles\TileMap.h"
 #include "xml\Register.h"
 #include "managers\TextureManager.h"
+#include "log_system/Log.h"
 
 namespace Application {
 
@@ -64,6 +65,13 @@ namespace Application {
 
 	////////////////////////////////////////STATIC/PRIVATE METHODS////////////////////////////////////////
 	static void init() {
+		Log::init();
+		LOG_INFO("Emma");
+		LOG_TRACE("Feea{0}", "Emma");
+		LOG_ERROR("Elto");
+		LOG_CRITICAL("EEE");
+		LOG_DEBUG("DDDDD");
+		Log::get_logger()->warn("Started");
 		std::cout << "Init Called!\n";
 		Register::init();
 		TextureManager::init();
