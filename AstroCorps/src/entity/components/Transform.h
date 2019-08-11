@@ -23,6 +23,8 @@ public:
 	unsigned int get_height() const;
 	float get_x_offset() const;
 	float get_y_offset() const;
+
+	std::string get_name() override;
 };
 
 #endif

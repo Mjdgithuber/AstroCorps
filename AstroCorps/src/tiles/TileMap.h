@@ -6,12 +6,11 @@
 #include <vector>
 
 #include "Tile.h"
-#include "interfaces\Updatable.h"
 #include "entity\Entity.h"
 
 namespace Tiles {
 
-	class TileMap : public Updatable {
+	class TileMap {
 	private:
 		unsigned int m_rows;
 		unsigned int m_cols;
@@ -78,7 +77,7 @@ namespace Tiles {
 		/// Params:
 		/// delta_time - The time it took to render last frame
 		////////////////////////////////////////////////////////////
-		void update(const sf::Time& delta_time) override;
+		void update(const sf::Time& delta_time);
 
 
 		/* =========================================================== */

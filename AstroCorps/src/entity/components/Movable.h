@@ -2,7 +2,7 @@
 #define __MOVABLE__H__
 
 #include "Transform.h"
-#include "util\Util.h"
+#include "Core.h"
 
 class Movable : public Transform {
 private:
@@ -27,6 +27,8 @@ public:
 	bool set_movement(Util::Direction dir = Util::STATIONARY);
 
 	bool is_moving() const;
+
+	std::string get_name() override;
 };
 
 #endif

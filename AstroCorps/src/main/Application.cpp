@@ -2,11 +2,10 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Application.h"
+#include "Core.h"
 #include "tiles\TileMap.h"
 #include "xml\Register.h"
 #include "managers\TextureManager.h"
-#include "log_system/Log.h"
 
 namespace Application {
 
@@ -54,7 +53,7 @@ namespace Application {
 		scaled_tile_size = (unsigned) (tile_size * scale);
 
 		if (scaled_tile_size != tile_size * scale)
-			std::cout << "\n\n=================\nERRRRRROORRRR!\n\nScaled Tile Size doesn't produce whole #\n";
+			LOG_ERROR("Scaled Tile Size ({0}) must equal {1}", scaled_tile_size, (scale));
 
 		init();
 		run();
@@ -66,17 +65,13 @@ namespace Application {
 	////////////////////////////////////////STATIC/PRIVATE METHODS////////////////////////////////////////
 	static void init() {
 		Log::init();
-		LOG_INFO("Emma");
-		LOG_TRACE("Feea{0}", "Emma");
-		LOG_ERROR("Elto");
-		LOG_CRITICAL("EEE");
-		LOG_DEBUG("DDDDD");
-		Log::get_logger()->warn("Started");
-		std::cout << "Init Called!\n";
+		LOG_INFO("Initializing System");
+
 		Register::init();
 		TextureManager::init();
 
 		global_window = new sf::RenderWindow(sf::VideoMode(1000, 800), "Astro Corps"); //, sf::Style::Fullscreen
+		LOG_INFO("System Initialization Complete");
 	}
 
 	static void cleanup() {
@@ -126,18 +121,16 @@ namespace Application {
 	}
 
 	static void application_loop(sf::RenderWindow& window) {
-		setup_inventory();
+		LOG_DEBUG("Application Loop Started");
 
-		std::cout << "Application Loop Started!\n";
+		setup_inventory();
 
 		Tiles::TileMap tm;
 		tm.load_map("assets/maps/xmltest.xml");
 		tm.toggle_borders();
 		
 		Entity* player = new Entity("assets/entities/tester.xml");
-		Movable* player_movement = player->get_component<Movable>(player->get_component_index<Movable>());
-		int emma = player->get_component_index<Movable>();
-		std::cout << "Index: " << emma << "\n";
+		Movable* player_movement = player->get_component<Movable>();
 
 		tm.add_entity(player);
 
@@ -179,7 +172,7 @@ namespace Application {
 	}
 
 	static void run() {
-		std::cout << "Run Called!\n";
+		LOG_DEBUG("Run Called");
 
 		//sf::RenderWindow window(sf::VideoMode(1000, 800), "Astro Corps"); //, sf::Style::Fullscreen
 		//(*global_window).setFramerateLimit(10);

@@ -1,7 +1,7 @@
 #ifndef __REGISTER__H__
 #define __REGISTER__H__
 
-#include "util\Util.h"
+#include "Core.h"
 
 ////////////////////////////////////////////////////////////
 /// The Register namespace handles everything dealing with

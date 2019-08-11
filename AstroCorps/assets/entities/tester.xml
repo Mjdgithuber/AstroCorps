@@ -1,4 +1,8 @@
 <Entity name="Player">
 	<Component reg_num="1"></Component>
-	<Component reg_num="2"></Component>
+	<Component reg_num="2">
+        <Size width="1" height="1"></Size>
+        <Location x="5" y="2"></Location>
+        <Speed speed=".33"></Speed>   
+    </Component>
 </Entity>

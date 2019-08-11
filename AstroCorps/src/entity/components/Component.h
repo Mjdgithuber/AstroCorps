@@ -14,6 +14,7 @@ public:
 	virtual Flag update(const sf::Time& delta_time) = 0;
 
 	virtual std::string get_base_name() = 0;
+	virtual std::string get_name() = 0;
 };
 
 #endif

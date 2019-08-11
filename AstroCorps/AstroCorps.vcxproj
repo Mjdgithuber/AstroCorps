@@ -93,7 +93,9 @@
     <ClCompile Include="src\main\Application.cpp" />
     <ClCompile Include="src\main\Driver.cpp" />
     <ClCompile Include="src\managers\TextureManager.cpp" />
-    <ClCompile Include="src\managers\XMLManager.cpp" />
+    <ClCompile Include="src\xml\parsers\EntityParser.cpp" />
+    <ClCompile Include="src\xml\parsers\MapParser.cpp" />
+    <ClCompile Include="src\xml\parsers\RegisterParser.cpp" />
     <ClCompile Include="src\ship\ShipEditor.cpp" />
     <ClCompile Include="src\tiles\Tile.cpp" />
     <ClCompile Include="src\tiles\TileMap.cpp" />
@@ -101,20 +103,24 @@
     <ClCompile Include="src\util\Util.cpp" />
     <ClCompile Include="src\xml\Register.cpp" />
     <ClCompile Include="src\xml\tinyxml2.cpp" />
+    <ClCompile Include="src\xml\parsers\XMLUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entity\components\Component.h" />
     <ClInclude Include="src\entity\components\GraphicalBase.h" />
+    <ClInclude Include="src\entity\components\IncludeComponents.h" />
     <ClInclude Include="src\entity\components\Movable.h" />
     <ClInclude Include="src\entity\components\Transform.h" />
     <ClInclude Include="src\entity\Entity.h" />
-    <ClInclude Include="src\interfaces\Updatable.h" />
     <ClInclude Include="src\inventory\Inventory.h" />
     <ClInclude Include="src\inventory\Item.h" />
     <ClInclude Include="src\log_system\Log.h" />
     <ClInclude Include="src\main\Application.h" />
+    <ClInclude Include="src\Core.h" />
     <ClInclude Include="src\managers\TextureManager.h" />
-    <ClInclude Include="src\managers\XMLManager.h" />
+    <ClInclude Include="src\xml\parsers\EntityParser.h" />
+    <ClInclude Include="src\xml\parsers\MapParser.h" />
+    <ClInclude Include="src\xml\parsers\RegisterParser.h" />
     <ClInclude Include="src\ship\ShipEditor.h" />
     <ClInclude Include="src\spdlog\async.h" />
     <ClInclude Include="src\spdlog\async_logger-inl.h" />
@@ -193,6 +199,7 @@
     <ClInclude Include="src\util\Util.h" />
     <ClInclude Include="src\xml\Register.h" />
     <ClInclude Include="src\xml\tinyxml2.h" />
+    <ClInclude Include="src\xml\parsers\XMLUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

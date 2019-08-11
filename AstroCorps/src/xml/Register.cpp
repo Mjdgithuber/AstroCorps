@@ -3,8 +3,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "Register.h"
-#include "util\Util.h"
-#include "managers\XMLManager.h"
+#include "Core.h"
+#include "xml\parsers\RegisterParser.h"
 
 namespace Register {
 	/* anonymous namespace to provide static encapsulation */

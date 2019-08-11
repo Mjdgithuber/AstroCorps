@@ -14,6 +14,8 @@ public:
 	void set_scale(float x_sf, float y_sf);
 	
 	sf::Sprite& get_sprite();
+
+	std::string get_name() override;
 };
 
 #endif

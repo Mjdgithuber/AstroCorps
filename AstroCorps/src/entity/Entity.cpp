@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "Entity.h"
-#include "main\Application.h"
+#include "Core.h"
 
 bool Entity::add_component(Component* comp) {
 	// type id of component to be added
@@ -11,28 +11,46 @@ bool Entity::add_component(Component* comp) {
 	   type was already added */
 	for (unsigned int i = 0; i < m_components.size(); i++) {
 		// check if type of component is the same
-		if (component_id == std::type_index(typeid(m_components[i]))) {
-			std::cout << "Component Already Added!\n";
-			std::cout << "Adding Base: " << comp->get_base_name() << " " << m_components[i]->get_base_name() << "\n";
+		//LOG_WARN("Component With Base \'{0}\' Already Added\nIgnoring", comp->get_base_name());
+		if (component_id == std::type_index(typeid(*m_components[i]))) {
+			LOG_WARN("Component \'{0}\' Already Added To \'{1}\'. Ignoring!", comp->get_name(), m_name);
+			//std::cout << "Component Already Added!\n";
+			//std::cout << "Adding Base: " << comp->get_base_name() << " " << m_components[i]->get_base_name() << "\n";
 			return false;
 		}
 		// check if type is derivative of already added comp
 		if (comp->get_base_name() == m_components[i]->get_base_name()) {
-			std::cout << "Component with same base was already added!\n";
+			LOG_WARN("A Component With Base \'{0}\' Was Already Added To \'{1}\'. Ignoring!", comp->get_base_name(), m_name);
+			//std::cout << "Component with same base was already added!\n";
 			return false;
 		}
 	}
-
-	// all good to add to the map & vector
-	std::cout << "Id: " << " base: " << comp->get_base_name() << "\n";
+	
+	// add component to entity
 	m_component_indices[component_id] = m_components.size();
 	m_components.push_back(comp); // add graphucal base
+
+	if (comp->get_base_name() == "GraphicalBase")
+		m_fx_base = dynamic_cast<GraphicalBase*>(comp);
+	else if (comp->get_base_name() == "Transform")
+		m_transform = dynamic_cast<Transform*>(comp);
+
+
+	LOG_INFO("Added Base {0}", comp->get_base_name());
+
+	return true;
+}
+
+const std::string& Entity::get_name() {
+	return m_name;
 }
 
 Entity::Entity(const char* filepath)
 	: m_fx_base(nullptr), m_transform(nullptr) {
 	// load entity into component vector
 	XML::load_entity(this, filepath);
+
+	update_sprite_position();
 }
 
 Entity::~Entity() {
@@ -44,14 +62,17 @@ Entity::~Entity() {
 void Entity::update(const sf::Time& delta_time) {
 	for (unsigned int i = 0; i < m_components.size(); i++) {
 		Component::Flag f = m_components[i]->update(delta_time);
-		if (f == Component::UPDATE_POS) {
-			float x_pos = m_transform->get_x() + m_transform->get_x_offset();
-			float y_pos = m_transform->get_y() + m_transform->get_y_offset();
-			x_pos *= Application::get_scaled_tile_size();
-			y_pos *= Application::get_scaled_tile_size();
-			m_fx_base->get_sprite().setPosition(x_pos, y_pos);
-		}
+		if (f == Component::UPDATE_POS)
+			update_sprite_position();
 	}		
+}
+
+void Entity::update_sprite_position() {
+	float x_pos = m_transform->get_x() + m_transform->get_x_offset();
+	float y_pos = m_transform->get_y() + m_transform->get_y_offset();
+	x_pos *= Application::get_scaled_tile_size();
+	y_pos *= Application::get_scaled_tile_size();
+	m_fx_base->get_sprite().setPosition(x_pos, y_pos);
 }
 
 void Entity::draw(sf::RenderWindow& window) {

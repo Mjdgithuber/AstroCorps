@@ -19,3 +19,7 @@ void GraphicalBase::set_scale(float x_sf, float y_sf) {
 sf::Sprite& GraphicalBase::get_sprite() {
 	return m_sprite;
 }
+
+std::string GraphicalBase::get_name() {
+	return "GraphicalBase";
+}

@@ -80,3 +80,7 @@ Component::Flag Movable::update(const sf::Time& delta_time) {
 bool Movable::is_moving() const {
 	return m_moving;
 }
+
+std::string Movable::get_name() {
+	return "Movable";
+}

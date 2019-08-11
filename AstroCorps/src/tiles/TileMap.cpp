@@ -5,9 +5,9 @@
 #include "util\Util.h"
 #include "xml\Register.h"
 #include "managers\TextureManager.h"
-#include "managers\XMLManager.h"
+#include "xml\parsers\MapParser.h"
 #include "tiles\TilePackage.h"
-#include "main\Application.h"
+#include "Core.h"
 
 namespace Tiles {
 
@@ -94,7 +94,7 @@ namespace Tiles {
 
 	/* Will reset all of the tile textures */
 	void TileMap::set_tile_textures() {
-		std::cout << "Setting the tile textures!\n";
+		LOG_TRACE("Setting the tile textures");
 
 		// get tile size (to locate texture)
 		unsigned int tile_size = Application::get_unscaled_tile_size();
@@ -118,7 +118,7 @@ namespace Tiles {
 
 	/* Toggles the m_bordered bool and resets the textures */
 	void TileMap::toggle_borders() {
-		std::cout << "Toggling Borders!\n";
+		LOG_TRACE("Toggling Borders!");
 		m_bordered = !m_bordered;
 		set_tile_textures();
 	}

@@ -30,3 +30,7 @@ float Transform::get_x_offset() const {
 float Transform::get_y_offset() const {
 	return m_y_offset;
 }
+
+std::string Transform::get_name() {
+	return "Transform";
+}
