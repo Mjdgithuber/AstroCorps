@@ -13,6 +13,8 @@ protected:
 	float m_x_offset;
 	float m_y_offset;
 public:
+	std::string get_base_name() final;
+
 	Transform(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
 
 	unsigned int get_x() const;

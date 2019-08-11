@@ -4,6 +4,10 @@ Component::Flag GraphicalBase::update(const sf::Time& delta_time) {
 	return NIL;
 }
 
+std::string GraphicalBase::get_base_name() {
+	return "GraphicalBase";
+}
+
 void GraphicalBase::set_position(float x, float y) {
 	m_sprite.setPosition(x, y);
 }

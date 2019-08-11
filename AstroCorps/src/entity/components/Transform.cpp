@@ -1,5 +1,9 @@
 #include "Transform.h"
 
+std::string Transform::get_base_name() {
+	return "Transform";
+}
+
 Transform::Transform(unsigned int x, unsigned int y, unsigned int width, unsigned int height)
 	: m_x(x), m_y(y), m_width(width), m_height(height), m_x_offset(0.f), m_y_offset(0.f) {}
 

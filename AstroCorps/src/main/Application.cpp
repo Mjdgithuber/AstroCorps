@@ -127,7 +127,10 @@ namespace Application {
 		tm.toggle_borders();
 		
 		Entity* player = new Entity("assets/entities/tester.xml");
-		
+		Movable* player_movement = player->get_component<Movable>(player->get_component_index<Movable>());
+		int emma = player->get_component_index<Movable>();
+		std::cout << "Index: " << emma << "\n";
+
 		tm.add_entity(player);
 
 		sf::Clock frame_timer;
@@ -145,7 +148,8 @@ namespace Application {
 			}
 
 			// process keys+
-			player->get_component<Movable>()->set_movement(process_direction_keys());
+
+			player_movement->set_movement(process_direction_keys());
 			//player->mov->set_movement(process_direction_keys());
 
 			tm.update(delta_time);
@@ -170,7 +174,7 @@ namespace Application {
 		std::cout << "Run Called!\n";
 
 		//sf::RenderWindow window(sf::VideoMode(1000, 800), "Astro Corps"); //, sf::Style::Fullscreen
-		//(*global_window).setFramerateLimit(100);
+		//(*global_window).setFramerateLimit(10);
 
 		application_loop(*global_window);
 	}

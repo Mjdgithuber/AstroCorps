@@ -149,7 +149,8 @@ namespace XML {
 			if (type == "Movable") {
 				Movable* mov = new Movable(0, 0, 1, 1, .33f);
 				entity->m_transform = mov;
-				entity->m_components[typeid(Movable)] = mov;// .push_back(mov);
+				entity->add_component(mov);
+				//entity->m_components[typeid(Movable)] = mov;// .push_back(mov);
 				//please_remove->mov = new Movable(0, 0, 1, 1, .33f);
 				//component_list.push_back(please_remove->mov);
 			}
@@ -160,7 +161,8 @@ namespace XML {
 				fx_sprite.setScale(Application::get_scale(), Application::get_scale());
 				fx_sprite.setPosition(0, 0);
 				entity->m_fx_base = fx_base;
-				entity->m_components[typeid(GraphicalBase)] = fx_base;
+				entity->add_component(fx_base);
+				//entity->m_components[typeid(GraphicalBase)] = fx_base;
 			}
 
 			component = component->NextSiblingElement("Component");
