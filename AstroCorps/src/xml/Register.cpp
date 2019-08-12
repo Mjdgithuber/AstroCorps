@@ -4,7 +4,7 @@
 
 #include "Register.h"
 #include "Core.h"
-#include "xml\parsers\RegisterParser.h"
+#include "xml/parsers/RegisterParser.h"
 
 namespace Register {
 	/* anonymous namespace to provide static encapsulation */

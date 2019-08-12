@@ -4,8 +4,8 @@
 #include <vector>
 #include <string>
 
-#include "tiles\Tile.h"
-#include "tiles\TileMap.h"
+#include "tiles/Tile.h"
+#include "tiles/TileMap.h"
 
 namespace ShipEditor {
 	bool is_editor_open();

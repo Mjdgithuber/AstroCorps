@@ -1,8 +1,8 @@
 #include "EntityParser.h"
 
-#include "xml\Register.h"
-#include "managers\TextureManager.h"
-#include "entity\Entity.h"
+#include "xml/Register.h"
+#include "managers/TextureManager.h"
+#include "entity/Entity.h"
 
 namespace XML {
 

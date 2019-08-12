@@ -3,9 +3,9 @@
 #include <SFML/Graphics.hpp>
 
 #include "Core.h"
-#include "tiles\TileMap.h"
-#include "xml\Register.h"
-#include "managers\TextureManager.h"
+#include "tiles/TileMap.h"
+#include "xml/Register.h"
+#include "managers/TextureManager.h"
 
 namespace Application {
 

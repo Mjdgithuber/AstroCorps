@@ -2,7 +2,7 @@
 #define __MAP__PARSER__H__
 
 #include "XMLUtils.h"
-#include "tiles\TilePackage.h"
+#include "tiles/TilePackage.h"
 
 namespace XML {
 

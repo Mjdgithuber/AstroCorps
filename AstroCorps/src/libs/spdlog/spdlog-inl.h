@@ -7,8 +7,8 @@
 #include "spdlog/spdlog.h"
 #endif
 
-#include "spdlog/common.h"
-#include "spdlog/details/pattern_formatter.h"
+#include "libs/spdlog/common.h"
+#include "libs/spdlog/details/pattern_formatter.h"
 
 namespace spdlog {
 

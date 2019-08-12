@@ -7,17 +7,17 @@
 #include "spdlog/details/registry.h"
 #endif
 
-#include "spdlog/common.h"
-#include "spdlog/details/periodic_worker.h"
-#include "spdlog/logger.h"
-#include "spdlog/details/pattern_formatter.h"
+#include "libs/spdlog/common.h"
+#include "libs/spdlog/details/periodic_worker.h"
+#include "libs/spdlog/logger.h"
+#include "libs/spdlog/details/pattern_formatter.h"
 
 #ifndef SPDLOG_DISABLE_DEFAULT_LOGGER
 // support for the default stdout color logger
 #ifdef _WIN32
-#include "spdlog/sinks/wincolor_sink.h"
+#include "libs/spdlog/sinks/wincolor_sink.h"
 #else
-#include "spdlog/sinks/ansicolor_sink.h"
+#include "libs/spdlog/sinks/ansicolor_sink.h"
 #endif
 #endif // SPDLOG_DISABLE_DEFAULT_LOGGER
 

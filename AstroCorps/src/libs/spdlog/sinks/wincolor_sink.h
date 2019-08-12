@@ -3,10 +3,10 @@
 
 #pragma once
 
-#include "spdlog/common.h"
-#include "spdlog/details/console_globals.h"
-#include "spdlog/details/null_mutex.h"
-#include "spdlog/sinks/sink.h"
+#include "libs/spdlog/common.h"
+#include "libs/spdlog/details/console_globals.h"
+#include "libs/spdlog/details/null_mutex.h"
+#include "libs/spdlog/sinks/sink.h"
 
 #include <memory>
 #include <mutex>

@@ -5,10 +5,10 @@
 #include <vector>
 #include <typeindex>
 
-#include "xml\parsers\EntityParser.h"
-#include "components\Component.h"
-#include "components\GraphicalBase.h"
-#include "components\Movable.h"
+#include "xml/parsers/EntityParser.h"
+#include "components/Component.h"
+#include "components/GraphicalBase.h"
+#include "components/Movable.h"
 
 class Entity {
 private:

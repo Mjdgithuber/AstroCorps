@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "spdlog/tweakme.h"
+#include "libs/spdlog/tweakme.h"
 
 #include <atomic>
 #include <chrono>
@@ -34,7 +34,7 @@
 #define SPDLOG_INLINE inline
 #endif
 
-#include "spdlog/fmt/fmt.h"
+#include "libs/spdlog/fmt/fmt.h"
 
 // visual studio upto 2013 does not support noexcept nor constexpr
 #if defined(_MSC_VER) && (_MSC_VER < 1900)
