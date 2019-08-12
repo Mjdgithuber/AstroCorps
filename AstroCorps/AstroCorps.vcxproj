@@ -55,14 +55,15 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Matthew\Documents\SFML\SFML-2.5.1-64\include;C:\dev\AstroCorps\AstroCorps\src</AdditionalIncludeDirectories>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\Matthew\Documents\SFML\SFML-2.5.1-64\include;C:\dev\AstroCorps\AstroCorps\src;C:\dev\AstroCorps\AstroCorps\src\libs\lua\include</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Users\Matthew\Documents\SFML\SFML-2.5.1-64\lib;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Matthew\Documents\SFML\SFML-2.5.1-64\lib;C:\dev\AstroCorps\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lua53.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -74,13 +75,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Matthew\Documents\SFML\SFML-2.5.1-64\include;C:\dev\AstroCorps\AstroCorps\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Matthew\Documents\SFML\SFML-2.5.1-64\include;C:\dev\AstroCorps\AstroCorps\src;C:\dev\AstroCorps\AstroCorps\src\libs\lua\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>C:\Users\Matthew\Documents\SFML\SFML-2.5.1-64\lib;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lua53.lib;sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -114,6 +115,13 @@
     <ClInclude Include="src\entity\Entity.h" />
     <ClInclude Include="src\inventory\Inventory.h" />
     <ClInclude Include="src\inventory\Item.h" />
+    <ClInclude Include="src\libs\lua\include\lauxlib.h" />
+    <ClInclude Include="src\libs\lua\include\lua.h" />
+    <ClInclude Include="src\libs\lua\include\lua.hpp" />
+    <ClInclude Include="src\libs\lua\include\luaconf.h" />
+    <ClInclude Include="src\libs\lua\include\lualib.h" />
+    <ClInclude Include="src\libs\sol\forward.hpp" />
+    <ClInclude Include="src\libs\sol\sol.hpp" />
     <ClInclude Include="src\log_system\Log.h" />
     <ClInclude Include="src\main\Application.h" />
     <ClInclude Include="src\Core.h" />
