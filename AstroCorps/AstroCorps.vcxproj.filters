@@ -75,6 +75,12 @@
     <ClCompile Include="src\libs\tinyxml\tinyxml2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\xml\parsers\LuaXMLParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua_interface\LuaTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\tiles\Tile.h">
@@ -378,6 +384,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\libs\sol\sol.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\xml\parsers\LuaXMLParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua_interface\LuaTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
