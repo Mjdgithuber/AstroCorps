@@ -31,64 +31,29 @@ namespace XML {
 	XMLNode* load_xml_file(XMLDocument& doc, const char* filepath);
 
 	////////////////////////////////////////////////////////////
-	/// Will attempt to load a floating point number into the 
-	/// passed in float. Returns the status of the read
-	/// Params:
-	/// element - The element that contains the attribute
-	/// f_name - The name of the float attribute
-	/// f - The float that you want the return value to be in
-	////////////////////////////////////////////////////////////
-	XMLError load_float(XMLElement* element, const char* f_name, float& f);
-
-	////////////////////////////////////////////////////////////
-	/// Will attempt to load a integer number into the passed
-	/// in int. Returns the status of the read
-	/// Params:
-	/// element - The element that contains the attribute
-	/// i_name - The name of the int attribute
-	/// i - The int that you want the return value to be in
-	////////////////////////////////////////////////////////////
-	XMLError load_int(XMLElement* element, const char* i_name, int& i);
-
-	////////////////////////////////////////////////////////////
-	/// Will attempt to load a string into the passed in string.
-	/// Returns the status of the read
-	/// Params:
-	/// element - The element that contains the attribute
-	/// s_name - The name of the string attribute
-	/// s - The string that you want the return value to be in
-	////////////////////////////////////////////////////////////
-	XMLError load_string(XMLElement* element, const char* s_name, std::string& s);
-
-	////////////////////////////////////////////////////////////
-	/// Wrapper for load_float function to allow for calling
-	/// from a templated function. 
+	/// Will attempt to load an attribute with the into the
+	/// varible passed in with the given type.
 	/// Params:
 	/// element - The element that contains the attribute
 	/// name - The name of the attribute
-	/// f - The float that you want the return value to be in
+	/// var - The varible that you want the return value to be in
 	////////////////////////////////////////////////////////////
-	XMLError load_attribute(XMLElement* element, const char* name, float& f);
+	template <typename T>
+	XMLError load_attribute(XMLElement* element, const char* name, T& var);
 
 	////////////////////////////////////////////////////////////
-	/// Wrapper for load_int function to allow for calling
-	/// from a templated function. 
+	/// Explicit template specialization of load_attribute
+	/// so that it works properly with std::string
+	/// NOTE: this must be declared here to tell the compiler
+	/// that it exists and to not use the general function for
+	/// the typename std::string
 	/// Params:
-	/// element - The element that contains the attribute
-	/// name - The name of the attribute
-	/// i - The int that you want the return value to be in
+	/// element - The element that contains the string attribute
+	/// name - The name of the string attribute
+	/// var - The varible that you want the return value to be in
 	////////////////////////////////////////////////////////////
-	XMLError load_attribute(XMLElement* element, const char* name, int& i);
-
-	////////////////////////////////////////////////////////////
-	/// Wrapper for load_string function to allow for calling
-	/// from a templated function. 
-	/// Params:
-	/// element - The element that contains the attribute
-	/// name - The name of the attribute
-	/// s - The string that you want the return value to be in
-	////////////////////////////////////////////////////////////
-	XMLError load_attribute(XMLElement* element, const char* name, std::string& s);
+	template <>
+	XMLError load_attribute<std::string>(XMLElement* element, const char* name, std::string& var);
 	
 	////////////////////////////////////////////////////////////
 	/// Will attempt to load in a size from an element. Returns 
@@ -108,5 +73,7 @@ namespace XML {
 	////////////////////////////////////////////////////////////
 	bool load_location_element(XMLElement* element, unsigned int& x, unsigned int& y);
 }
+
+#include "XMLUtils.hpp"
 
 #endif

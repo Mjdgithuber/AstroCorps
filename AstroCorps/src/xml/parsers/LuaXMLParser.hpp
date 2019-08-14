@@ -1,6 +1,8 @@
 #ifndef __LUA__XML__PARSER__HPP__
 #define __LUA__XML__PARSER__HPP__
 
+/* Gets an attribute from the current element with the
+   given name */
 template <typename T>
 T LuaXMLParser::get_attribute(const std::string& attribute) {
 	// ensure there is an open file and valid element cached

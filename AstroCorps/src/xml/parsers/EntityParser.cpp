@@ -16,7 +16,8 @@ namespace XML {
 
 			if (name == "Size") load_size_element(child, width, height);
 			else if (name == "Location") load_location_element(child, x, y);
-			else if (name == "Speed") load_float(child, "speed", speed);
+			else if (name == "Speed") load_attribute<float>(child, "speed", speed); // <float not need>
+				//load_float(child, "speed", speed);
 
 			child = child->NextSiblingElement();
 		}

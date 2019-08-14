@@ -210,6 +210,7 @@
     <ClInclude Include="src\tiles\TileMap.h" />
     <ClInclude Include="src\tiles\TilePackage.h" />
     <ClInclude Include="src\util\Util.h" />
+    <ClInclude Include="src\xml\parsers\XMLUtils.hpp" />
     <ClInclude Include="src\xml\Register.h" />
     <ClInclude Include="src\libs\tinyxml\tinyxml2.h" />
     <ClInclude Include="src\xml\parsers\XMLUtils.h" />

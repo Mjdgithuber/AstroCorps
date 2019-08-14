@@ -19,50 +19,19 @@ namespace XML {
 		return root;
 	}
 
-	/* Assuming the element contains a float with the name
-	   f_name, this will load that float into f */
-	XMLError load_float(XMLElement* element, const char* f_name, float& f) {
-		// get the float from the element
-		return element->QueryFloatAttribute(f_name, &f);
-	}
-
-	/* Assuming the element contains an int with the name
-	   i_name, this will load that int into i */
-	XMLError load_int(XMLElement* element, const char* i_name, int& i) {
-		// get the int from the element
-		return element->QueryIntAttribute(i_name, &i);
-	}
-
-	/* Assuming the element contains a string with the name
-	   s_name, this will load that string into s */
-	XMLError load_string(XMLElement* element, const char* s_name, std::string& s) {
-		// get the string from the element
+	/* Specialization of load_attribute for strings because
+	   tinyxml doesn't know what a string is. So this uses
+	   c-strings instead and just wraps it in std::string */
+	template <>
+	XMLError load_attribute<std::string>(XMLElement* element, const char* name, std::string& var) {
 		const char* raw_string = nullptr;
-		XMLError result = element->QueryStringAttribute(s_name, &raw_string);
-		
+		XMLError result = element->QueryStringAttribute(name, &raw_string);
+
 		// safely wrap the c string into a c++ string
-		s = std::string(raw_string ? raw_string : "");
+		var = std::string(raw_string ? raw_string : "");
 
 		// return the error code (or success code)
 		return result;
-	}
-
-	/* Wrapper for load float to allow calling from templated
-	   function */
-	XMLError load_attribute(XMLElement* element, const char* name, float& f) {
-		return load_float(element, name, f);
-	}
-
-	/* Wrapper for load int to allow calling from templated
-	   function */
-	XMLError load_attribute(XMLElement* element, const char* name, int& i) {
-		return load_int(element, name, i);
-	}
-
-	/* Wrapper for load string to allow calling from templated
-	   function */
-	XMLError load_attribute(XMLElement* element, const char* name, std::string& s) {
-		return load_string(element, name, s);
 	}
 
 	/* Assuming the element passed in does contain
