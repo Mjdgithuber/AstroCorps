@@ -19,6 +19,14 @@ result = main_parser:open_document('assets/entities/luasTest.xml')
 print('opened file:')
 print_res(result)
 
+result = main_parser:cache_root_element('Entity')
+print('Found entity: ')
+print(result)
+print()
+
+result = main_parser:string_attribute('name')
+print('Name: ' .. result)
+
 result = main_parser:cache_element('Components')
 print('\nfound components')
 print(result)
@@ -32,6 +40,20 @@ print('result: ' .. result)
 
 result = main_parser:string_attribute('name')
 print('\nname result: ' .. result)
+
+print('\nTests =======\n')
+result = main_parser:string_attribute('emma')
+print('String: ' .. result)
+result = main_parser:float_attribute('emma')
+print('Float: ' .. result)
+result = main_parser:int_attribute('emma')
+print('Int: ' .. result)
+
+result = main_parser:check_attribute('x') -- returns true
+print_res(result) 
+
+result = main_parser:check_attribute('elto') -- returns false
+print_res(result)
 
 print('\n' .. [[Who doesn't love some good lua]])
 

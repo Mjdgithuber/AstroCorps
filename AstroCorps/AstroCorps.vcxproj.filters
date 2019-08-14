@@ -392,5 +392,8 @@
     <ClInclude Include="src\lua_interface\LuaTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\xml\parsers\LuaXMLParser.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

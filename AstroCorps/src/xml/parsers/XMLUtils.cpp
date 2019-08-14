@@ -37,14 +37,32 @@ namespace XML {
 	   s_name, this will load that string into s */
 	XMLError load_string(XMLElement* element, const char* s_name, std::string& s) {
 		// get the string from the element
-		const char* raw_string;
+		const char* raw_string = nullptr;
 		XMLError result = element->QueryStringAttribute(s_name, &raw_string);
 		
-		// wrap the c string into a c++ string
-		s = std::string(raw_string);
+		// safely wrap the c string into a c++ string
+		s = std::string(raw_string ? raw_string : "");
 
 		// return the error code (or success code)
 		return result;
+	}
+
+	/* Wrapper for load float to allow calling from templated
+	   function */
+	XMLError load_attribute(XMLElement* element, const char* name, float& f) {
+		return load_float(element, name, f);
+	}
+
+	/* Wrapper for load int to allow calling from templated
+	   function */
+	XMLError load_attribute(XMLElement* element, const char* name, int& i) {
+		return load_int(element, name, i);
+	}
+
+	/* Wrapper for load string to allow calling from templated
+	   function */
+	XMLError load_attribute(XMLElement* element, const char* name, std::string& s) {
+		return load_string(element, name, s);
 	}
 
 	/* Assuming the element passed in does contain

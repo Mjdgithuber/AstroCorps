@@ -59,6 +59,36 @@ namespace XML {
 	/// s - The string that you want the return value to be in
 	////////////////////////////////////////////////////////////
 	XMLError load_string(XMLElement* element, const char* s_name, std::string& s);
+
+	////////////////////////////////////////////////////////////
+	/// Wrapper for load_float function to allow for calling
+	/// from a templated function. 
+	/// Params:
+	/// element - The element that contains the attribute
+	/// name - The name of the attribute
+	/// f - The float that you want the return value to be in
+	////////////////////////////////////////////////////////////
+	XMLError load_attribute(XMLElement* element, const char* name, float& f);
+
+	////////////////////////////////////////////////////////////
+	/// Wrapper for load_int function to allow for calling
+	/// from a templated function. 
+	/// Params:
+	/// element - The element that contains the attribute
+	/// name - The name of the attribute
+	/// i - The int that you want the return value to be in
+	////////////////////////////////////////////////////////////
+	XMLError load_attribute(XMLElement* element, const char* name, int& i);
+
+	////////////////////////////////////////////////////////////
+	/// Wrapper for load_string function to allow for calling
+	/// from a templated function. 
+	/// Params:
+	/// element - The element that contains the attribute
+	/// name - The name of the attribute
+	/// s - The string that you want the return value to be in
+	////////////////////////////////////////////////////////////
+	XMLError load_attribute(XMLElement* element, const char* name, std::string& s);
 	
 	////////////////////////////////////////////////////////////
 	/// Will attempt to load in a size from an element. Returns 

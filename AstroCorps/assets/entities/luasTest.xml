@@ -1,5 +1,6 @@
 <Entity name="Player">
 	<Components>
-		<Component name="Transform" x="1" y="3"></Component>
+		<Component name="Transform" x="1" y="3" emma="69.9943"></Component>
 	</Components>
+	<Emma></Emma>
 </Entity>

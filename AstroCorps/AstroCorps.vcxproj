@@ -131,6 +131,7 @@
     <ClInclude Include="src\managers\TextureManager.h" />
     <ClInclude Include="src\xml\parsers\LuaXMLParser.h" />
     <ClInclude Include="src\xml\parsers\EntityParser.h" />
+    <ClInclude Include="src\xml\parsers\LuaXMLParser.hpp" />
     <ClInclude Include="src\xml\parsers\MapParser.h" />
     <ClInclude Include="src\xml\parsers\RegisterParser.h" />
     <ClInclude Include="src\ship\ShipEditor.h" />

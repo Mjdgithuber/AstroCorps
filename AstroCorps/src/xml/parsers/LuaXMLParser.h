@@ -89,6 +89,12 @@ public:
 	bool close_doc();
 
 	////////////////////////////////////////////////////////////
+	/// Attempts to cache the root node in elemental form. This
+	/// is because cache_element gets a child of the root node.
+	////////////////////////////////////////////////////////////
+	bool cache_root_element(const char* element);
+
+	////////////////////////////////////////////////////////////
 	/// Attempts to cache an element of the given element name.
 	/// This will get the first element with the given name. 
 	/// This will NOT override the currently cached node if
@@ -130,45 +136,33 @@ public:
 
 
 	/* =========================================================== */
-	/* =================== Attribute Retrievers ================== */
+	/* =================== Attribute Retriever =================== */
 	/* =========================================================== */
 	////////////////////////////////////////////////////////////
-	/// Attempts to load an int attribute, with the given name, 
+	/// Attempts to load a T attribute, with the given name, 
 	/// from the currently cached element. Will return the 
-	/// loaded int. 
+	/// loaded T is it can be converted. 
 	/// NOTE: If the attribute doesn't exist or can't be
-	/// converted to an integer an error will print to the
-	/// console and -1 will be returned
+	/// converted to T, an error will print to the console
+	/// Supported Types:
+	/// float, int, string
 	/// Params:
-	/// attribute - The attribute name containing the integer
+	/// attribute - The attribute name containing the T element
 	////////////////////////////////////////////////////////////
-	int int_attribute(const std::string& attribute);
+	template <typename T>
+	T get_attribute(const std::string& attribute);
 
 	////////////////////////////////////////////////////////////
-	/// Attempts to load a float attribute, with the given name, 
-	/// from the currently cached element. Will return the 
-	/// loaded float. 
-	/// NOTE: If the attribute doesn't exist or can't be
-	/// converted to an float an error will print to the console
-	/// and -1.f will be returned
+	/// Checks to see if an attribute exists in the current
+	/// element. NOTE: this will never print errors, and doesn't
+	/// check for types
 	/// Params:
-	/// attribute - The attribute name containing the float
+	/// attribute - The attribute name your looking for
 	////////////////////////////////////////////////////////////
-	float float_attribute(const std::string& attribute);
-
-	////////////////////////////////////////////////////////////
-	/// Attempts to load a string attribute, with the given name, 
-	/// from the currently cached element. Will return the 
-	/// loaded string. 
-	/// NOTE: If the attribute doesn't exist or can't be
-	/// converted to an string, I'd pay good money to see an 
-	/// attribute that can't be converted to a string given they
-	/// are stored as strings :), an error will print to the console
-	/// and "ERROR" will be returned to aid debugging.
-	/// Params:
-	/// attribute - The attribute name containing the string
-	////////////////////////////////////////////////////////////
-	std::string string_attribute(const std::string& attribute);
+	bool check_attribute(const std::string& attribute);
 };
+
+/* Defintion for get_attribute */
+#include "LuaXMLParser.hpp"
 
 #endif
