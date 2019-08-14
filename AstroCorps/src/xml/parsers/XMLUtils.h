@@ -38,7 +38,11 @@ namespace XML {
 	/// f_name - The name of the float attribute
 	/// f - The float that you want the return value to be in
 	////////////////////////////////////////////////////////////
-	bool load_float(XMLElement* element, const char* f_name, float& f);
+	XMLError load_float(XMLElement* element, const char* f_name, float& f);
+
+	XMLError load_int(XMLElement* element, const char* i_name, int& i);
+
+	XMLError load_string(XMLElement* element, const char* s_name, std::string& s);
 	
 	////////////////////////////////////////////////////////////
 	/// Will attempt to load in a size from an element. Returns 

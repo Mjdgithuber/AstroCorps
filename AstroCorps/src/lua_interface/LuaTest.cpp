@@ -6,7 +6,6 @@ namespace Lua {
 
 	namespace {
 		sol::state lua_state;
-
 		void register_utilities() {
 			// allow the parser class to be accessed by scripts
 			sol::usertype<LuaXMLParser> parser_type = lua_state.new_usertype<LuaXMLParser>("Parser",
@@ -15,7 +14,19 @@ namespace Lua {
 
 			// register parser's functions
 			parser_type["open_document"] = &LuaXMLParser::open_doc;
-			parser_type["find_element"] = &LuaXMLParser::find_element;
+			parser_type["cache_element"] = &LuaXMLParser::cache_element;
+
+			// overloading cache_child_element
+			bool (LuaXMLParser::*default_child)(void) = &LuaXMLParser::cache_child_element;
+			bool (LuaXMLParser::*search_child)(const char*) = &LuaXMLParser::cache_child_element;
+			parser_type["cache_child_element"] = sol::overload(search_child, default_child);
+
+			// register attribute getters
+			parser_type["float_attribute"] = &LuaXMLParser::float_attribute;
+			parser_type["int_attribute"] = &LuaXMLParser::int_attribute;
+			parser_type["string_attribute"] = &LuaXMLParser::string_attribute;
+			
+			//parser_type["cach_next_sibling_element"] = &LuaXMLParser::cache_next_sibling_element;
 		}
 
 		sol::protected_function_result check_valid(lua_State*, sol::protected_function_result result) {

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+#define SOL_ALL_SAFETIES_ON 1
 #include "Core.h"
 #include "Application.h"
 #include "libs/sol/sol.hpp"

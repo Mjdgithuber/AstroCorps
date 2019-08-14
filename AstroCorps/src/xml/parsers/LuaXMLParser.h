@@ -17,15 +17,21 @@ private:
 
 	bool check_if_open(const std::string& method_name);
 	bool assert_current_element(XML::XMLElement* element, const std::string& caller);
+	bool valid_file_and_element(const std::string& method_name);
 public:
 	LuaXMLParser(const std::string& name);
 
 	bool open_doc(const char* filename);
 	bool close_doc();
 
-	bool find_element(const char* element);
-	bool find_child_element(const char* child);
-	bool find_next_sibling_element();
+	bool cache_element(const char* element);
+	bool cache_child_element(const char* child);
+	bool cache_child_element();
+	bool cache_next_sibling_element();
+
+	int int_attribute(const std::string& attribute);
+	float float_attribute(const std::string& attribute);
+	std::string string_attribute(const std::string& attribute);
 };
 
 #endif
