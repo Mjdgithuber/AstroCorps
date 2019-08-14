@@ -27,10 +27,12 @@ result = main_parser:cache_child_element()
 print('\nfound child')
 print(result)
 
-result = main_parser:int_attribute('x')
+result = main_parser:int_attribute('y')
 print('result: ' .. result)
 
 result = main_parser:string_attribute('name')
 print('\nname result: ' .. result)
+
+print('\n' .. [[Who doesn't love some good lua]])
 
 print("\nDone")

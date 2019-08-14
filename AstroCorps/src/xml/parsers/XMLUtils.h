@@ -32,7 +32,7 @@ namespace XML {
 
 	////////////////////////////////////////////////////////////
 	/// Will attempt to load a floating point number into the 
-	/// passed in float. Returns an indication of success
+	/// passed in float. Returns the status of the read
 	/// Params:
 	/// element - The element that contains the attribute
 	/// f_name - The name of the float attribute
@@ -40,8 +40,24 @@ namespace XML {
 	////////////////////////////////////////////////////////////
 	XMLError load_float(XMLElement* element, const char* f_name, float& f);
 
+	////////////////////////////////////////////////////////////
+	/// Will attempt to load a integer number into the passed
+	/// in int. Returns the status of the read
+	/// Params:
+	/// element - The element that contains the attribute
+	/// i_name - The name of the int attribute
+	/// i - The int that you want the return value to be in
+	////////////////////////////////////////////////////////////
 	XMLError load_int(XMLElement* element, const char* i_name, int& i);
 
+	////////////////////////////////////////////////////////////
+	/// Will attempt to load a string into the passed in string.
+	/// Returns the status of the read
+	/// Params:
+	/// element - The element that contains the attribute
+	/// s_name - The name of the string attribute
+	/// s - The string that you want the return value to be in
+	////////////////////////////////////////////////////////////
 	XMLError load_string(XMLElement* element, const char* s_name, std::string& s);
 	
 	////////////////////////////////////////////////////////////

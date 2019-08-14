@@ -6,7 +6,7 @@ namespace Lua {
 
 	namespace {
 		sol::state lua_state;
-		void register_utilities() {
+		void register_parser_utilities() {
 			// allow the parser class to be accessed by scripts
 			sol::usertype<LuaXMLParser> parser_type = lua_state.new_usertype<LuaXMLParser>("Parser",
 				// send in the usable constructors
@@ -42,7 +42,7 @@ namespace Lua {
 			sol::lib::string, 
 			sol::lib::table);
 
-		register_utilities();
+		register_parser_utilities();
 	}
 
 	void start(const char* path) {
