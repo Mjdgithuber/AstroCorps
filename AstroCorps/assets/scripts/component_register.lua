@@ -22,6 +22,9 @@ for i = 0, size-1 do
 	load_file('components/' .. dir:get_filename(i))
 end
 
+print('Out of bounds check')
+print('Test :' .. dir:get_filename(1000))
+
 print(GlobalComponentList.Transform)
 
 
