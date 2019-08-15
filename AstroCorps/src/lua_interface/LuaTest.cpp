@@ -1,11 +1,49 @@
 #include "LuaTest.h"
 #include "libs/sol/sol.hpp"
-#include "xml/parsers/LuaXMLParser.h"
+#include "lua_interface/tools/parser/LuaXMLParser.h"
+#include "lua_interface/tools/file_system/Directory.h"
 
 namespace Lua {
 
 	namespace {
+		const char* const SCRIPT_FOLDER = "assets/scripts/";
 		sol::state lua_state;
+
+		sol::protected_function_result check_valid(lua_State*, sol::protected_function_result result) {
+			return result;
+		}
+		
+		bool load_script(const std::string& script_file) {
+			// try to load script
+			LOG_INFO("Loading Script File: '{0}'", script_file);
+			auto result = lua_state.script_file(SCRIPT_FOLDER + script_file, &check_valid);
+
+			// check for errors in script
+			if (!result.valid()) {
+				// wrap result in error & print
+				sol::error err = result;
+				LOG_ERROR("{0}", err.what());
+				return false;
+			}
+			return true;
+		}
+
+		void register_file_utilites() {
+			// register load_file function
+			lua_state["load_file"] = &load_script;
+
+			// register directory user-type
+			sol::usertype<Directory> dir_type = lua_state.new_usertype<Directory>("Directory",
+				// send in the usable constructors
+				sol::constructors<Directory(), Directory(const std::string&)>());
+
+			// register directory functions
+			dir_type["open_dir"] = &Directory::open_dir;
+			dir_type["is_open"] = &Directory::is_open;
+			dir_type["number_of_files"] = &Directory::number_of_files;
+			dir_type["get_filename"] = &Directory::get_filename;
+		}
+
 		void register_parser_utilities() {
 			// allow the parser class to be accessed by scripts
 			sol::usertype<LuaXMLParser> parser_type = lua_state.new_usertype<LuaXMLParser>("Parser",
@@ -29,12 +67,8 @@ namespace Lua {
 			parser_type["float_attribute"] = &LuaXMLParser::get_attribute<float>;
 			parser_type["int_attribute"] = &LuaXMLParser::get_attribute<int>;
 			parser_type["string_attribute"] = &LuaXMLParser::get_attribute<std::string>;
-			
-			//parser_type["cach_next_sibling_element"] = &LuaXMLParser::cache_next_sibling_element;
-		}
 
-		sol::protected_function_result check_valid(lua_State*, sol::protected_function_result result) {
-			return result;
+			//parser_type["cach_next_sibling_element"] = &LuaXMLParser::cache_next_sibling_element;
 		}
 	}
 
@@ -46,18 +80,12 @@ namespace Lua {
 			sol::lib::string, 
 			sol::lib::table);
 
+		register_file_utilites();
 		register_parser_utilities();
 	}
 
 	void start(const char* path) {
-		auto result = lua_state.script_file(path, &check_valid);
-
-		sol::error err = result;
-
-		std::cout << "\n\nDone\n===========================\n";
-
-		std::cout << "Result == " << result.valid() << "\n";
-		std::cout << "What? " << err.what() << "\n";
+		load_script("main.lua");
 	}
 
 }

@@ -1,7 +1,7 @@
 #ifndef __LUA__XML__PARSER__H__
 #define __LUA__XML__PARSER__H__
 
-#include "XMLUtils.h"
+#include "xml/parsers/XMLUtils.h"
 
 ////////////////////////////////////////////////////////////
 /// This is a parser for XML specifically made to be used

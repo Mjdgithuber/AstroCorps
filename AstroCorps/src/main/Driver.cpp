@@ -6,12 +6,17 @@
 #include "Application.h"
 #include "libs/sol/sol.hpp"
 #include "lua_interface/LuaTest.h"
+#include <filesystem>
 
 sol::protected_function_result check_valid(lua_State*, sol::protected_function_result result) {
 	return result;
 }
 
 int main() {
+	std::string path = "assets/scripts/";
+	for (const auto & entry : std::filesystem::directory_iterator(path))
+		std::cout << entry.path() << std::endl;
+
 	// start and run the application
 	//Application::start_application(36, 3);
 	Log::init();

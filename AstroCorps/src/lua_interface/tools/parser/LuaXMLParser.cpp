@@ -1,6 +1,5 @@
 #include "Core.h"
 #include "LuaXMLParser.h"
-#include "XMLUtils.h"
 
 /* =========================================================== */
 /* ============== Constructors and Destructors =============== */
