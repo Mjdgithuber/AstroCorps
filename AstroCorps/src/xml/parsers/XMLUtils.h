@@ -2,7 +2,7 @@
 #define __XML__UTILS__H__
 
 #include "Core.h"
-#include "libs/tinyxml/tinyxml2.h"
+#include "engine/tools/libs/tinyxml/tinyxml2.h"
 
 ////////////////////////////////////////////////////////////
 /// The XML namespace serves as an API to allow easy 

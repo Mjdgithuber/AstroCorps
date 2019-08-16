@@ -1,5 +1,5 @@
 #include "LuaTest.h"
-#include "libs/sol/sol.hpp"
+#include "engine/tools/libs/sol/sol.hpp"
 #include "user_types/parser/LuaXMLParser.h"
 #include "user_types/directory/Directory.h"
 #include "user_types/entity/Entity.h"

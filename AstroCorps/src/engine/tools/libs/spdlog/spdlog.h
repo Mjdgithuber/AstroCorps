@@ -9,11 +9,11 @@
 
 #pragma once
 
-#include "libs/spdlog/common.h"
-#include "libs/spdlog/details/registry.h"
-#include "libs/spdlog/logger.h"
-#include "libs/spdlog/version.h"
-#include "libs/spdlog/details/synchronous_factory.h"
+#include "engine/tools/libs/spdlog/common.h"
+#include "engine/tools/libs/spdlog/details/registry.h"
+#include "engine/tools/libs/spdlog/logger.h"
+#include "engine/tools/libs/spdlog/version.h"
+#include "engine/tools/libs/spdlog/details/synchronous_factory.h"
 
 #include <chrono>
 #include <functional>

@@ -7,7 +7,7 @@
 #include "spdlog/details/log_msg.h"
 #endif
 
-#include "libs/spdlog/details/os.h"
+#include "engine/tools/libs/spdlog/details/os.h"
 
 namespace spdlog {
 namespace details {

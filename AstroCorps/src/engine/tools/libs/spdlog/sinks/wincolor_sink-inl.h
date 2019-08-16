@@ -7,8 +7,8 @@
 #include "libs/spdlog/sinks/wincolor_sink.h"
 #endif
 
-#include "libs/spdlog/common.h"
-#include "libs/spdlog/details/pattern_formatter.h"
+#include "engine/tools/libs/spdlog/common.h"
+#include "engine/tools/libs/spdlog/details/pattern_formatter.h"
 
 namespace spdlog {
 namespace sinks {

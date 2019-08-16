@@ -4,7 +4,7 @@
 #define SOL_ALL_SAFETIES_ON 1
 #include "Core.h"
 #include "Application.h"
-#include "libs/sol/sol.hpp"
+#include "engine/tools/libs/sol/sol.hpp"
 #include "lua_interface/LuaTest.h"
 #include <filesystem>
 

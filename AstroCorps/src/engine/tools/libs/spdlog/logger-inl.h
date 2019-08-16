@@ -7,8 +7,8 @@
 #include "spdlog/logger.h"
 #endif
 
-#include "libs/spdlog/sinks/sink.h"
-#include "libs/spdlog/details/pattern_formatter.h"
+#include "engine/tools/libs/spdlog/sinks/sink.h"
+#include "engine/tools/libs/spdlog/details/pattern_formatter.h"
 
 #include <cstdio>
 

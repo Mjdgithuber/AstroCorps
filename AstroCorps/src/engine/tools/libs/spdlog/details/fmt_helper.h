@@ -4,8 +4,8 @@
 
 #include <chrono>
 #include <type_traits>
-#include "libs/spdlog/fmt/fmt.h"
-#include "libs/spdlog/common.h"
+#include "engine/tools/libs/spdlog/fmt/fmt.h"
+#include "engine/tools/libs/spdlog/common.h"
 
 // Some fmt helpers to efficiently format and pad ints and strings
 namespace spdlog {

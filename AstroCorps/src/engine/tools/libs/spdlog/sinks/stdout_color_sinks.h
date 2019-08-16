@@ -4,12 +4,12 @@
 #pragma once
 
 #ifdef _WIN32
-#include "libs/spdlog/sinks/wincolor_sink.h"
+#include "engine/tools/libs/spdlog/sinks/wincolor_sink.h"
 #else
-#include "libs/spdlog/sinks/ansicolor_sink.h"
+#include "engine/tools/libs/spdlog/sinks/ansicolor_sink.h"
 #endif
 
-#include "libs/spdlog/details/synchronous_factory.h"
+#include "engine/tools/libs/spdlog/details/synchronous_factory.h"
 
 namespace spdlog {
 namespace sinks {
