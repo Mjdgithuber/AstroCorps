@@ -5,13 +5,13 @@ namespace ShipEditor {
 	namespace {
 		struct Unit {
 			unsigned int m_tile_x, m_tile_y;
-			Tiles::Tile* m_tile;
+			Tiles::OldTile* m_tile;
 			
 			/* Constructors */
 			Unit(unsigned int tile_x, unsigned int tile_y)
 				: Unit(tile_x, tile_y, nullptr) {}
 
-			Unit(unsigned int tile_x, unsigned int tile_y, Tiles::Tile* tile)
+			Unit(unsigned int tile_x, unsigned int tile_y, Tiles::OldTile* tile)
 				: m_tile_x(tile_x), m_tile_y(tile_y), m_tile(tile) {}
 		};
 
@@ -24,7 +24,7 @@ namespace ShipEditor {
 		return is_open;
 	}
 
-	bool open_editor(const Tiles::TileMap& tm) {
+	bool open_editor(const Tiles::OldTileMap& tm) {
 		if (is_open) return false;
 
 		for (unsigned int row = 0; row < tm.get_rows(); row++) {
@@ -42,7 +42,7 @@ namespace ShipEditor {
 		return true;
 	}
 
-	bool output_to_tilemap(Tiles::TileMap& tm) {
+	bool output_to_tilemap(Tiles::OldTileMap& tm) {
 		if (is_open) return false;
 
 		return true;

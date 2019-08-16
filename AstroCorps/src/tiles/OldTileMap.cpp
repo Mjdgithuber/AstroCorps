@@ -1,12 +1,11 @@
 #include <iostream>
 #include <fstream>
 
-#include "TileMap.h"
-#include "util/Util.h"
+#include "OldTileMap.h"
 #include "xml/Register.h"
 #include "managers/TextureManager.h"
 #include "xml/parsers/MapParser.h"
-#include "tiles/TilePackage.h"
+#include "tiles/OldTilePackage.h"
 #include "Core.h"
 
 namespace Tiles {
@@ -14,13 +13,13 @@ namespace Tiles {
 	/* ============== Constructors and Destructors =============== */
 
 	/* Makes a new empty tile map */
-	TileMap::TileMap()
+	OldTileMap::OldTileMap()
 		: m_rows(0), m_cols(0), m_bordered(false) {}
 
 	/* ======================== Functions ======================== */
 
 	/* Will draw all of the tiles and entities*/
-	void TileMap::draw_map(sf::RenderWindow& window) {
+	void OldTileMap::draw_map(sf::RenderWindow& window) {
 		// draw tiles
 		for (unsigned int row = 0; row < m_rows; row++) {
 			for (unsigned int col = 0; col < m_cols; col++)
@@ -33,9 +32,9 @@ namespace Tiles {
 	}
 
 	/* Will load a map file into the tile map */
-	void TileMap::load_map(const char* map_file) {
+	void OldTileMap::load_map(const char* map_file) {
 		// load map from xml file passed in
-		Tiles::TilePackage* tp = XML::load_map(map_file);
+		Tiles::OldTilePackage* tp = XML::load_map(map_file);
 
 		// make sure tiles is empty
 		m_tiles.clear();
@@ -51,11 +50,11 @@ namespace Tiles {
 		m_tiles.reserve(m_rows);
 
 		// global tile data
-		float scale = Application::get_scale();
-		unsigned int tile_size = Application::get_unscaled_tile_size();
+		float scale = OldApplication::get_scale();
+		unsigned int tile_size = OldApplication::get_unscaled_tile_size();
 
 		for (unsigned int r = 0; r < m_rows; r++) {
-			std::vector<Tile> tile_col;
+			std::vector<OldTile> tile_col;
 			tile_col.reserve(m_cols);
 			for (unsigned int c = 0; c < m_cols; c++) {
 				// get tile info from packet
@@ -67,7 +66,7 @@ namespace Tiles {
 				const Util::Point& location = Register::get_tilesheet_location(reg_num);
 
 				// make a new tile
-				Tile t(reg_num, mod_num, script);
+				OldTile t(reg_num, mod_num, script);
 				t.setTexture(tile_sheet);
 				t.setTextureRect(sf::IntRect(tile_size * (location.x * 2 + (m_bordered ? 1 : 0)), 0, tile_size, tile_size));
 				t.setScale(scale, scale);
@@ -82,28 +81,28 @@ namespace Tiles {
 	}
 
 	/* As of now updates the entities */
-	void TileMap::update(const sf::Time& delta_time) {
+	void OldTileMap::update(const sf::Time& delta_time) {
 		for (OldEntity* e : m_enties)
 			(*e).update(delta_time);
 	}
 
 	/* Adds an entity to the tile map */
-	void TileMap::add_entity(OldEntity* e) {
+	void OldTileMap::add_entity(OldEntity* e) {
 		m_enties.push_back(e);
 	}
 
 	/* Will reset all of the tile textures */
-	void TileMap::set_tile_textures() {
+	void OldTileMap::set_tile_textures() {
 		LOG_TRACE("Setting the tile textures");
 
 		// get tile size (to locate texture)
-		unsigned int tile_size = Application::get_unscaled_tile_size();
+		unsigned int tile_size = OldApplication::get_unscaled_tile_size();
 
 		// loop though each tile by row
 		for (unsigned int r = 0; r < m_rows; r++) {
 			for (unsigned int c = 0; c < m_cols; c++) {
 				// get the tile
-				Tile& t = m_tiles[r][c];
+				OldTile& t = m_tiles[r][c];
 
 				// get it's texture location
 				const Util::Point& location = Register::get_tilesheet_location(t.get_register_number());
@@ -117,7 +116,7 @@ namespace Tiles {
 	}
 
 	/* Toggles the m_bordered bool and resets the textures */
-	void TileMap::toggle_borders() {
+	void OldTileMap::toggle_borders() {
 		LOG_TRACE("Toggling Borders!");
 		m_bordered = !m_bordered;
 		set_tile_textures();
@@ -125,10 +124,10 @@ namespace Tiles {
 
 	/* ========================= Getters ========================= */
 
-	Tile& TileMap::get_tile(unsigned int row, unsigned int col) { return m_tiles[row][col]; }
-	const Tile& TileMap::get_tile(unsigned int row, unsigned int col) const { return m_tiles[row][col]; }
+	OldTile& OldTileMap::get_tile(unsigned int row, unsigned int col) { return m_tiles[row][col]; }
+	const OldTile& OldTileMap::get_tile(unsigned int row, unsigned int col) const { return m_tiles[row][col]; }
 
-	unsigned int TileMap::get_rows() const { return m_rows; }
-	unsigned int TileMap::get_cols() const { return m_cols; }
+	unsigned int OldTileMap::get_rows() const { return m_rows; }
+	unsigned int OldTileMap::get_cols() const { return m_cols; }
 
 }

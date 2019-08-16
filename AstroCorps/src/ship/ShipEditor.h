@@ -4,16 +4,16 @@
 #include <vector>
 #include <string>
 
-#include "tiles/Tile.h"
-#include "tiles/TileMap.h"
+#include "tiles/OldTile.h"
+#include "tiles/OldTileMap.h"
 
 namespace ShipEditor {
 	bool is_editor_open();
 
-	bool open_editor(const Tiles::TileMap& tm);
+	bool open_editor(const Tiles::OldTileMap& tm);
 	bool close_editor();
 
-	bool output_to_tilemap(Tiles::TileMap& tm);
+	bool output_to_tilemap(Tiles::OldTileMap& tm);
 
 	bool save_editor_to_file(const std::string& filename);
 }

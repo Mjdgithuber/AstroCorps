@@ -6,7 +6,7 @@ namespace XML {
    wrapping in a class because there would be no point of
    having more than one XML manager per project! */
 	namespace {
-		bool load_all_tiles(XMLNode* parent_node, Tiles::TilePackage* tp) {
+		bool load_all_tiles(XMLNode* parent_node, Tiles::OldTilePackage* tp) {
 			// get all of the tiles
 			XMLElement* tile_element = parent_node->FirstChildElement("Tile");
 			while (tile_element != nullptr) {
@@ -44,7 +44,7 @@ namespace XML {
 	   will allocate and return a TilePackage with all of the
 	   information contained in the map file. This TilePackage
 	   MUST be deleted (freed) by the caller of this function! */
-	Tiles::TilePackage* load_map(const char* map_filepath) {
+	Tiles::OldTilePackage* load_map(const char* map_filepath) {
 		LOG_DEBUG("Loading map: {0}", map_filepath);
 
 		// make a xml doc to load xml data DOM model
@@ -60,7 +60,7 @@ namespace XML {
 		load_size_element(size, width, height);
 
 		// make a new tile package to hold all tile information
-		Tiles::TilePackage* tp = new Tiles::TilePackage(width, height);
+		Tiles::OldTilePackage* tp = new Tiles::OldTilePackage(width, height);
 		LOG_TRACE("Width: {0} Height: {1}", width, height);
 
 		// load tiles

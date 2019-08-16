@@ -22,12 +22,12 @@ public:
 	Entity(int x, int y, int width, int height);
 
 	void draw(sf::RenderWindow& window);
-	
+	void update(const sf::Time& delta_time);
 	/*void set_position(unsigned int x, unsigned int y);
 	void draw(sf::RenderWindow& window);
 	void move(int x_off, int y_off);
 	void set_speed();
-	void update();
+	
 	bool is_moving();*/
 
 	int get_x() const;

@@ -63,7 +63,7 @@ namespace XML {
 				GraphicalBase* fx_base = new GraphicalBase();
 				sf::Sprite& fx_sprite = fx_base->get_sprite();
 				fx_sprite.setTexture(TextureManager::get_entity_texture(Textures::Entity::TEST));
-				fx_sprite.setScale(Application::get_scale(), Application::get_scale());
+				fx_sprite.setScale(OldApplication::get_scale(), OldApplication::get_scale());
 				fx_sprite.setPosition(0, 0);
 				//entity->m_fx_base = fx_base;
 				entity->add_component(fx_base);

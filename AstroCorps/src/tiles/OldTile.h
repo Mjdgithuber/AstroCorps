@@ -1,5 +1,5 @@
-#ifndef __TILE__H__
-#define __TILE__H__
+#ifndef __OLD__TILE__H__
+#define __OLD__TILE__H__
 
 #include <string>
 
@@ -7,7 +7,7 @@
 
 namespace Tiles {
 
-	class Tile : public sf::Sprite {
+	class OldTile : public sf::Sprite {
 	private:
 		unsigned int m_reg_num;
 		unsigned int m_modifier_reg_num;
@@ -24,7 +24,7 @@ namespace Tiles {
 		/// modifier_reg_num - The register number of the tile's modifer
 		/// script - The script associated with this tile
 		////////////////////////////////////////////////////////////
-		Tile(unsigned int reg_num, unsigned int modifier_reg_num, const std::string& script);
+		OldTile(unsigned int reg_num, unsigned int modifier_reg_num, const std::string& script);
 
 
 		/* =========================================================== */

@@ -1,9 +1,9 @@
-#include "TilePackage.h"
+#include "OldTilePackage.h"
 
 namespace Tiles {
 
 	/* Makes a new tile package given a width & height */
-	TilePackage::TilePackage(unsigned int width, unsigned int height) {
+	OldTilePackage::OldTilePackage(unsigned int width, unsigned int height) {
 		// save width and height
 		m_rows = height;
 		m_cols = width;
@@ -22,7 +22,7 @@ namespace Tiles {
 	}
 
 	/* Frees all resources used by the package */
-	TilePackage::~TilePackage() {
+	OldTilePackage::~OldTilePackage() {
 		// delete all cols
 		for (unsigned int row = 0; row < m_rows; row++) {
 			delete[] m_reg_numbers[row];
@@ -38,7 +38,7 @@ namespace Tiles {
 
 	/* Modifies the information of a specific tile. NOTE: 
 	   by default the tile information is uninitalized! */
-	void TilePackage::modify_tile(unsigned int x, unsigned int y, unsigned int reg_num,
+	void OldTilePackage::modify_tile(unsigned int x, unsigned int y, unsigned int reg_num,
 		unsigned int modifier_reg_num, const std::string& script) {
 		// save tile info
 		m_reg_numbers[y][x] = reg_num;
@@ -48,23 +48,23 @@ namespace Tiles {
 
 	/* ========================= Getters ========================= */
 
-	unsigned int TilePackage::get_rows() const {
+	unsigned int OldTilePackage::get_rows() const {
 		return m_rows;
 	}
 
-	unsigned int TilePackage::get_cols() const {
+	unsigned int OldTilePackage::get_cols() const {
 		return m_cols;
 	}
 
-	unsigned int TilePackage::get_register_num(unsigned int x, unsigned int y) const {
+	unsigned int OldTilePackage::get_register_num(unsigned int x, unsigned int y) const {
 		return m_reg_numbers[y][x];
 	}
 
-	unsigned int TilePackage::get_modifier_register_num(unsigned int x, unsigned int y) const {
+	unsigned int OldTilePackage::get_modifier_register_num(unsigned int x, unsigned int y) const {
 		return m_modifier_reg_numbers[y][x];
 	}
 
-	const std::string& TilePackage::get_script(unsigned int x, unsigned int y) const {
+	const std::string& OldTilePackage::get_script(unsigned int x, unsigned int y) const {
 		return m_scripts[y][x];
 	}
 

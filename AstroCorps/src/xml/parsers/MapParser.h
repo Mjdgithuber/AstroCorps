@@ -2,7 +2,7 @@
 #define __MAP__PARSER__H__
 
 #include "XMLUtils.h"
-#include "tiles/TilePackage.h"
+#include "tiles/OldTilePackage.h"
 
 namespace XML {
 
@@ -13,7 +13,7 @@ namespace XML {
 	/// (freed) otherwise it will leak which can be very 
 	/// significant depending on how big the map file is!
 	////////////////////////////////////////////////////////////
-	Tiles::TilePackage* load_map(const char* map_filepath);
+	Tiles::OldTilePackage* load_map(const char* map_filepath);
 
 }
 

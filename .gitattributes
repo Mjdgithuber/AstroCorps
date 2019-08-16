@@ -1,2 +1,2 @@
 # Directories to not be included in stats
-AstroCorps/src/libs/* linguist-vendored
+AstroCorps/src/engine/tools/libs/* linguist-vendored

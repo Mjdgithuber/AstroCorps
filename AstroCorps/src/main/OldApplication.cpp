@@ -3,11 +3,11 @@
 #include <SFML/Graphics.hpp>
 
 #include "Core.h"
-#include "tiles/TileMap.h"
+#include "tiles/OldTileMap.h"
 #include "xml/Register.h"
 #include "managers/TextureManager.h"
 
-namespace Application {
+namespace OldApplication {
 
 	/* Prototypes */
 	static void init();
@@ -125,7 +125,7 @@ namespace Application {
 
 		setup_inventory();
 
-		Tiles::TileMap tm;
+		Tiles::OldTileMap tm;
 		tm.load_map("assets/maps/xmltest.xml");
 		tm.toggle_borders();
 		

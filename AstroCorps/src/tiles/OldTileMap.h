@@ -1,22 +1,22 @@
-#ifndef __TILE__MAP__H__
-#define __TILE__MAP__H__
+#ifndef __OLD__TILE__MAP__H__
+#define __OLD__TILE__MAP__H__
 
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
 
-#include "Tile.h"
+#include "OldTile.h"
 #include "entity/OldEntity.h"
 
 namespace Tiles {
 
-	class TileMap {
+	class OldTileMap {
 	private:
 		unsigned int m_rows;
 		unsigned int m_cols;
 		bool m_bordered;
 
-		std::vector<std::vector<Tile>> m_tiles;
+		std::vector<std::vector<OldTile>> m_tiles;
 		std::vector<OldEntity*> m_enties;
 
 		////////////////////////////////////////////////////////////
@@ -34,7 +34,7 @@ namespace Tiles {
 		/// A map must be loaded into it by using the load_map() 
 		/// function.
 		////////////////////////////////////////////////////////////
-		TileMap();
+		OldTileMap();
 
 
 		/* =========================================================== */
@@ -89,14 +89,14 @@ namespace Tiles {
 		/// Params:
 		/// row & col - The row and column of the desired tile
 		////////////////////////////////////////////////////////////
-		Tile& get_tile(unsigned int row, unsigned int col);
+		OldTile& get_tile(unsigned int row, unsigned int col);
 
 		////////////////////////////////////////////////////////////
 		/// Returns a const tile, by reference, at the given position
 		/// Params:
 		/// See non-const get_tile for information
 		////////////////////////////////////////////////////////////
-		const Tile& get_tile(unsigned int row, unsigned int col) const;
+		const OldTile& get_tile(unsigned int row, unsigned int col) const;
 		
 		////////////////////////////////////////////////////////////
 		/// Returns the number of rows contained in this tile map

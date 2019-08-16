@@ -3,8 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "main/Application.h"
+#include "main/OldApplication.h"
 #include "engine/tools/log_system/Log.h"
-#include "util/Util.h"
+#include "engine/tools/util/Util.h"
 
 #endif

@@ -1,11 +1,11 @@
-#ifndef __TILE__PACKAGE__H__
-#define	__TILE__PACKAGE__H__
+#ifndef __OLD__TILE__PACKAGE__H__
+#define	__OLD__TILE__PACKAGE__H__
 
 #include <string>
 
 namespace Tiles {
 
-	class TilePackage {
+	class OldTilePackage {
 	private:
 		unsigned int m_rows;
 		unsigned int m_cols;
@@ -20,8 +20,8 @@ namespace Tiles {
 		/// A TilePackage holds information on a map. It is basically
 		/// a grouping of tiles that make up a given map. 
 		////////////////////////////////////////////////////////////
-		TilePackage(unsigned int width, unsigned int height);
-		~TilePackage();
+		OldTilePackage(unsigned int width, unsigned int height);
+		~OldTilePackage();
 
 
 		/* =========================================================== */

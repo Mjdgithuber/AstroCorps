@@ -3,7 +3,7 @@
 
 #define SOL_ALL_SAFETIES_ON 1
 #include "Core.h"
-#include "Application.h"
+#include "OldApplication.h"
 #include "engine/tools/libs/sol/sol.hpp"
 #include "lua_interface/LuaTest.h"
 #include <filesystem>
@@ -18,8 +18,8 @@ int main() {
 		std::cout << entry.path() << std::endl;
 
 	// start and run the application
-	//Application::start_application(36, 3);
-	Log::init();
+	OldApplication::start_application(36, 3);
+	//Log::init();
 	Lua::init();
 	Lua::start("assets/scripts/main.lua");
 

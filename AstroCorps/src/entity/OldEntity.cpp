@@ -70,8 +70,8 @@ void OldEntity::update(const sf::Time& delta_time) {
 void OldEntity::update_sprite_position() {
 	float x_pos = m_transform->get_x() + m_transform->get_x_offset();
 	float y_pos = m_transform->get_y() + m_transform->get_y_offset();
-	x_pos *= Application::get_scaled_tile_size();
-	y_pos *= Application::get_scaled_tile_size();
+	x_pos *= OldApplication::get_scaled_tile_size();
+	y_pos *= OldApplication::get_scaled_tile_size();
 	m_fx_base->get_sprite().setPosition(x_pos, y_pos);
 }
 

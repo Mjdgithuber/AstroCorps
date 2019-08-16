@@ -85,6 +85,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\main\tile_based\Tile.cpp" />
+    <ClCompile Include="src\engine\main\tile_based\TileMap.cpp" />
+    <ClCompile Include="src\engine\main\tile_based\TilePackage.cpp" />
+    <ClCompile Include="src\engine\core\Application.cpp" />
     <ClCompile Include="src\entity\components\GraphicalBase.cpp" />
     <ClCompile Include="src\entity\components\Movable.cpp" />
     <ClCompile Include="src\entity\components\Transform.cpp" />
@@ -94,7 +98,7 @@
     <ClCompile Include="src\lua_interface\LuaTest.cpp" />
     <ClCompile Include="src\lua_interface\user_types\directory\Directory.cpp" />
     <ClCompile Include="src\lua_interface\user_types\entity\Entity.cpp" />
-    <ClCompile Include="src\main\Application.cpp" />
+    <ClCompile Include="src\main\OldApplication.cpp" />
     <ClCompile Include="src\main\Driver.cpp" />
     <ClCompile Include="src\managers\TextureManager.cpp" />
     <ClCompile Include="src\lua_interface\user_types\parser\LuaXMLParser.cpp" />
@@ -102,15 +106,20 @@
     <ClCompile Include="src\xml\parsers\MapParser.cpp" />
     <ClCompile Include="src\xml\parsers\RegisterParser.cpp" />
     <ClCompile Include="src\ship\ShipEditor.cpp" />
-    <ClCompile Include="src\tiles\Tile.cpp" />
-    <ClCompile Include="src\tiles\TileMap.cpp" />
-    <ClCompile Include="src\tiles\TilePackage.cpp" />
-    <ClCompile Include="src\util\Util.cpp" />
+    <ClCompile Include="src\tiles\OldTile.cpp" />
+    <ClCompile Include="src\tiles\OldTileMap.cpp" />
+    <ClCompile Include="src\tiles\OldTilePackage.cpp" />
+    <ClCompile Include="src\engine\tools\util\Util.cpp" />
     <ClCompile Include="src\xml\Register.cpp" />
     <ClCompile Include="src\engine\tools\libs\tinyxml\tinyxml2.cpp" />
     <ClCompile Include="src\xml\parsers\XMLUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\common.h" />
+    <ClInclude Include="src\engine\main\tile_based\Tile.h" />
+    <ClInclude Include="src\engine\main\tile_based\TileMap.h" />
+    <ClInclude Include="src\engine\main\tile_based\TilePackage.h" />
+    <ClInclude Include="src\engine\core\Application.h" />
     <ClInclude Include="src\entity\components\Component.h" />
     <ClInclude Include="src\entity\components\GraphicalBase.h" />
     <ClInclude Include="src\entity\components\IncludeComponents.h" />
@@ -130,7 +139,7 @@
     <ClInclude Include="src\lua_interface\LuaTest.h" />
     <ClInclude Include="src\lua_interface\user_types\directory\Directory.h" />
     <ClInclude Include="src\lua_interface\user_types\entity\Entity.h" />
-    <ClInclude Include="src\main\Application.h" />
+    <ClInclude Include="src\main\OldApplication.h" />
     <ClInclude Include="src\Core.h" />
     <ClInclude Include="src\managers\TextureManager.h" />
     <ClInclude Include="src\lua_interface\user_types\parser\LuaXMLParser.h" />
@@ -210,10 +219,10 @@
     <ClInclude Include="src\engine\tools\libs\spdlog\spdlog.h" />
     <ClInclude Include="src\engine\tools\libs\spdlog\tweakme.h" />
     <ClInclude Include="src\engine\tools\libs\spdlog\version.h" />
-    <ClInclude Include="src\tiles\Tile.h" />
-    <ClInclude Include="src\tiles\TileMap.h" />
-    <ClInclude Include="src\tiles\TilePackage.h" />
-    <ClInclude Include="src\util\Util.h" />
+    <ClInclude Include="src\tiles\OldTile.h" />
+    <ClInclude Include="src\tiles\OldTileMap.h" />
+    <ClInclude Include="src\tiles\OldTilePackage.h" />
+    <ClInclude Include="src\engine\tools\util\Util.h" />
     <ClInclude Include="src\xml\parsers\XMLUtils.hpp" />
     <ClInclude Include="src\xml\Register.h" />
     <ClInclude Include="src\engine\tools\libs\tinyxml\tinyxml2.h" />
