@@ -129,7 +129,7 @@ namespace Application {
 		tm.load_map("assets/maps/xmltest.xml");
 		tm.toggle_borders();
 		
-		Entity* player = new Entity("assets/entities/tester.xml");
+		OldEntity* player = new OldEntity("assets/entities/tester.xml");
 		Movable* player_movement = player->get_component<Movable>();
 
 		tm.add_entity(player);

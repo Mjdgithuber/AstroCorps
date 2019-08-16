@@ -1,9 +1,9 @@
 #include <iostream>
 
-#include "Entity.h"
+#include "OldEntity.h"
 #include "Core.h"
 
-bool Entity::add_component(Component* comp) {
+bool OldEntity::add_component(Component* comp) {
 	// type id of component to be added
 	std::type_index component_id(typeid(*comp));
 
@@ -41,11 +41,11 @@ bool Entity::add_component(Component* comp) {
 	return true;
 }
 
-const std::string& Entity::get_name() {
+const std::string& OldEntity::get_name() {
 	return m_name;
 }
 
-Entity::Entity(const char* filepath)
+OldEntity::OldEntity(const char* filepath)
 	: m_fx_base(nullptr), m_transform(nullptr) {
 	// load entity into component vector
 	XML::load_entity(this, filepath);
@@ -53,13 +53,13 @@ Entity::Entity(const char* filepath)
 	update_sprite_position();
 }
 
-Entity::~Entity() {
+OldEntity::~OldEntity() {
 	// free components
 	for (unsigned int i = 0; i < m_components.size(); i++)
 		delete m_components[i];
 }
 
-void Entity::update(const sf::Time& delta_time) {
+void OldEntity::update(const sf::Time& delta_time) {
 	for (unsigned int i = 0; i < m_components.size(); i++) {
 		Component::Flag f = m_components[i]->update(delta_time);
 		if (f == Component::UPDATE_POS)
@@ -67,7 +67,7 @@ void Entity::update(const sf::Time& delta_time) {
 	}		
 }
 
-void Entity::update_sprite_position() {
+void OldEntity::update_sprite_position() {
 	float x_pos = m_transform->get_x() + m_transform->get_x_offset();
 	float y_pos = m_transform->get_y() + m_transform->get_y_offset();
 	x_pos *= Application::get_scaled_tile_size();
@@ -75,6 +75,6 @@ void Entity::update_sprite_position() {
 	m_fx_base->get_sprite().setPosition(x_pos, y_pos);
 }
 
-void Entity::draw(sf::RenderWindow& window) {
+void OldEntity::draw(sf::RenderWindow& window) {
 	window.draw(m_fx_base->get_sprite());
 }

@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "Tile.h"
-#include "entity/Entity.h"
+#include "entity/OldEntity.h"
 
 namespace Tiles {
 
@@ -17,7 +17,7 @@ namespace Tiles {
 		bool m_bordered;
 
 		std::vector<std::vector<Tile>> m_tiles;
-		std::vector<Entity*> m_enties;
+		std::vector<OldEntity*> m_enties;
 
 		////////////////////////////////////////////////////////////
 		/// Goes through each tile and sets its texture. This method
@@ -68,7 +68,7 @@ namespace Tiles {
 		/// Params:
 		/// e - The location of the entity you want to add
 		////////////////////////////////////////////////////////////
-		void add_entity(Entity* e);
+		void add_entity(OldEntity* e);
 
 		////////////////////////////////////////////////////////////
 		/// Performs all of the needed logic for everything dealing

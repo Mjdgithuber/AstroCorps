@@ -6,6 +6,10 @@ end
 
 init()
 
+player = Entity.new(-71, 5, 2, 9)
+print()
+info('X: ' .. player:get_x() .. ' Y: ' .. player:get_y())
+
 
 --[[info('Testing print')
 local x = 65

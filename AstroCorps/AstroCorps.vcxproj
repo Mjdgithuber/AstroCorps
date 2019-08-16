@@ -88,11 +88,12 @@
     <ClCompile Include="src\entity\components\GraphicalBase.cpp" />
     <ClCompile Include="src\entity\components\Movable.cpp" />
     <ClCompile Include="src\entity\components\Transform.cpp" />
-    <ClCompile Include="src\entity\Entity.cpp" />
+    <ClCompile Include="src\entity\OldEntity.cpp" />
     <ClCompile Include="src\inventory\Item.cpp" />
     <ClCompile Include="src\log_system\Log.cpp" />
     <ClCompile Include="src\lua_interface\LuaTest.cpp" />
-    <ClCompile Include="src\lua_interface\user_types\file_system\Directory.cpp" />
+    <ClCompile Include="src\lua_interface\user_types\directory\Directory.cpp" />
+    <ClCompile Include="src\lua_interface\user_types\entity\Entity.cpp" />
     <ClCompile Include="src\main\Application.cpp" />
     <ClCompile Include="src\main\Driver.cpp" />
     <ClCompile Include="src\managers\TextureManager.cpp" />
@@ -115,7 +116,7 @@
     <ClInclude Include="src\entity\components\IncludeComponents.h" />
     <ClInclude Include="src\entity\components\Movable.h" />
     <ClInclude Include="src\entity\components\Transform.h" />
-    <ClInclude Include="src\entity\Entity.h" />
+    <ClInclude Include="src\entity\OldEntity.h" />
     <ClInclude Include="src\inventory\Inventory.h" />
     <ClInclude Include="src\inventory\Item.h" />
     <ClInclude Include="src\libs\lua\include\lauxlib.h" />
@@ -127,7 +128,8 @@
     <ClInclude Include="src\libs\sol\sol.hpp" />
     <ClInclude Include="src\log_system\Log.h" />
     <ClInclude Include="src\lua_interface\LuaTest.h" />
-    <ClInclude Include="src\lua_interface\user_types\file_system\Directory.h" />
+    <ClInclude Include="src\lua_interface\user_types\directory\Directory.h" />
+    <ClInclude Include="src\lua_interface\user_types\entity\Entity.h" />
     <ClInclude Include="src\main\Application.h" />
     <ClInclude Include="src\Core.h" />
     <ClInclude Include="src\managers\TextureManager.h" />

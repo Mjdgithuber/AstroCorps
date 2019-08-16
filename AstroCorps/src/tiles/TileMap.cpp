@@ -28,7 +28,7 @@ namespace Tiles {
 		}
 
 		// draw entites
-		for (Entity* e : m_enties)
+		for (OldEntity* e : m_enties)
 			(*e).draw(window);
 	}
 
@@ -83,12 +83,12 @@ namespace Tiles {
 
 	/* As of now updates the entities */
 	void TileMap::update(const sf::Time& delta_time) {
-		for (Entity* e : m_enties)
+		for (OldEntity* e : m_enties)
 			(*e).update(delta_time);
 	}
 
 	/* Adds an entity to the tile map */
-	void TileMap::add_entity(Entity* e) {
+	void TileMap::add_entity(OldEntity* e) {
 		m_enties.push_back(e);
 	}
 

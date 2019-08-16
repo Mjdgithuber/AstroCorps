@@ -2,7 +2,7 @@
 
 #include "xml/Register.h"
 #include "managers/TextureManager.h"
-#include "entity/Entity.h"
+#include "entity/OldEntity.h"
 
 namespace XML {
 
@@ -33,7 +33,7 @@ namespace XML {
 		return nullptr;
 	}
 
-	bool load_entity(Entity* entity, const char* filepath) {
+	bool load_entity(OldEntity* entity, const char* filepath) {
 		LOG_DEBUG("Loading Entity \'{0}\'", filepath);
 
 		// make a xml doc to load xml data DOM model

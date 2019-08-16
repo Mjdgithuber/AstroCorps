@@ -51,9 +51,6 @@
     <ClCompile Include="src\entity\components\Movable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\entity\Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\entity\components\GraphicalBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -78,10 +75,16 @@
     <ClCompile Include="src\lua_interface\LuaTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\lua_interface\user_types\file_system\Directory.cpp">
+    <ClCompile Include="src\lua_interface\user_types\parser\LuaXMLParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\lua_interface\user_types\parser\LuaXMLParser.cpp">
+    <ClCompile Include="src\lua_interface\user_types\directory\Directory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity\OldEntity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua_interface\user_types\entity\Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -123,9 +126,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\entity\components\Transform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\entity\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\entity\components\GraphicalBase.h">
@@ -395,13 +395,19 @@
     <ClInclude Include="src\xml\parsers\XMLUtils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\lua_interface\user_types\file_system\Directory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\lua_interface\user_types\parser\LuaXMLParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\lua_interface\user_types\parser\LuaXMLParser.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua_interface\user_types\directory\Directory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua_interface\user_types\entity\Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\OldEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

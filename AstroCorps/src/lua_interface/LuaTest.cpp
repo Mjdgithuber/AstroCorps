@@ -1,7 +1,8 @@
 #include "LuaTest.h"
 #include "libs/sol/sol.hpp"
-#include "lua_interface/user_types/parser/LuaXMLParser.h"
-#include "lua_interface/user_types/file_system/Directory.h"
+#include "user_types/parser/LuaXMLParser.h"
+#include "user_types/directory/Directory.h"
+#include "user_types/entity/Entity.h"
 
 namespace Lua {
 
@@ -80,6 +81,15 @@ namespace Lua {
 
 			//parser_type["cach_next_sibling_element"] = &LuaXMLParser::cache_next_sibling_element;
 		}
+
+		void register_entity_type() {
+			sol::usertype<Entity> entity_type = lua_state.new_usertype<Entity>("Entity",
+				// send in the usable constructors
+				sol::constructors<Entity(int x, int y, int width, int height)>());
+
+			entity_type["get_x"] = &Entity::get_x;
+			entity_type["get_y"] = &Entity::get_y;
+		}
 	}
 
 	void init() {
@@ -93,6 +103,7 @@ namespace Lua {
 		register_print_utilites();
 		register_file_utilites();
 		register_parser_utilities();
+		register_entity_type();
 	}
 
 	void start(const char* path) {

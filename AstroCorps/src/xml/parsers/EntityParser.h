@@ -8,7 +8,7 @@
    is needed because Entity.h includes this header.
    This file cannot include Entity.h directly because 
    it would produce a circular dependency. */
-class Entity;
+class OldEntity;
 
 namespace XML {
 
@@ -49,7 +49,7 @@ namespace XML {
 	/// entity - The entity you want to add components to
 	/// filepath - The xml file containing the components
 	////////////////////////////////////////////////////////////
-	bool load_entity(Entity* entity, const char* filepath);
+	bool load_entity(OldEntity* entity, const char* filepath);
 
 }
 

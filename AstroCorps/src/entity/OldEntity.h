@@ -1,5 +1,5 @@
-#ifndef __ENTITY__H__
-#define __ENTITY__H__
+#ifndef __ENTITY__OLD__H__
+#define __ENTITY__OLD__H__
 
 #include <map>
 #include <vector>
@@ -10,7 +10,7 @@
 #include "components/GraphicalBase.h"
 #include "components/Movable.h"
 
-class Entity {
+class OldEntity {
 private:
 	std::string m_name;
 
@@ -27,8 +27,8 @@ private:
 	bool add_component(Component* comp);
 	void update_sprite_position();
 public:
-	Entity(const char* filepath);
-	~Entity();
+	OldEntity(const char* filepath);
+	~OldEntity();
 
 	void update(const sf::Time& delta_time);
 	void draw(sf::RenderWindow& window);
@@ -39,11 +39,11 @@ public:
 	const std::string& get_name();
 
 	// allow load_entity to access private varibles
-	friend bool XML::load_entity(Entity* entity, const char* filepath);
+	friend bool XML::load_entity(OldEntity* entity, const char* filepath);
 };
 
 template <typename T>
-T* Entity::get_component() {
+T* OldEntity::get_component() {
 	auto it = m_component_indices.find(std::type_index(typeid(T)));
 	if (it != m_component_indices.end()) {
 		return dynamic_cast<T*>(m_components[it->second]);
