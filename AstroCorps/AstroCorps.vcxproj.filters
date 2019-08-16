@@ -78,10 +78,10 @@
     <ClCompile Include="src\lua_interface\LuaTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\lua_interface\tools\parser\LuaXMLParser.cpp">
+    <ClCompile Include="src\lua_interface\user_types\file_system\Directory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\lua_interface\tools\file_system\Directory.cpp">
+    <ClCompile Include="src\lua_interface\user_types\parser\LuaXMLParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -395,13 +395,13 @@
     <ClInclude Include="src\xml\parsers\XMLUtils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\lua_interface\tools\parser\LuaXMLParser.h">
+    <ClInclude Include="src\lua_interface\user_types\file_system\Directory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\lua_interface\tools\parser\LuaXMLParser.hpp">
+    <ClInclude Include="src\lua_interface\user_types\parser\LuaXMLParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\lua_interface\tools\file_system\Directory.h">
+    <ClInclude Include="src\lua_interface\user_types\parser\LuaXMLParser.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

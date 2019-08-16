@@ -1,7 +1,7 @@
 #include "LuaTest.h"
 #include "libs/sol/sol.hpp"
-#include "lua_interface/tools/parser/LuaXMLParser.h"
-#include "lua_interface/tools/file_system/Directory.h"
+#include "lua_interface/user_types/parser/LuaXMLParser.h"
+#include "lua_interface/user_types/file_system/Directory.h"
 
 namespace Lua {
 
@@ -26,6 +26,16 @@ namespace Lua {
 				return false;
 			}
 			return true;
+		}
+
+		void register_print_utilites() {
+			// register every different type
+			lua_state["info"] = [](const std::string& str) { LOG_LUA_INFO(str); };
+			lua_state["debug"] = [](const std::string& str) { LOG_LUA_DEBUG(str); };
+			lua_state["trace"] = [](const std::string& str) { LOG_LUA_TRACE(str); };
+			lua_state["warn"] = [](const std::string& str) { LOG_LUA_WARN(str); };
+			lua_state["error"] = [](const std::string& str) { LOG_LUA_ERROR(str); };
+			lua_state["critical"] = [](const std::string& str) { LOG_LUA_CRITICAL(str); };
 		}
 
 		void register_file_utilites() {
@@ -80,6 +90,7 @@ namespace Lua {
 			sol::lib::string, 
 			sol::lib::table);
 
+		register_print_utilites();
 		register_file_utilites();
 		register_parser_utilities();
 	}
