@@ -4,8 +4,9 @@
 #define SOL_ALL_SAFETIES_ON 1
 #include "Core.h"
 #include "OldApplication.h"
-#include "engine/tools/libs/sol/sol.hpp"
+#include "engine/tools/libs/lua/include/sol.hpp"
 #include "lua_interface/LuaTest.h"
+#include "lua_interface/user_types/entity/Entity.h"
 #include <filesystem>
 
 sol::protected_function_result check_valid(lua_State*, sol::protected_function_result result) {
@@ -18,13 +19,15 @@ int main() {
 		std::cout << entry.path() << std::endl;
 
 	// start and run the application
-	OldApplication::start_application(36, 3);
-	//Log::init();
+	//OldApplication::start_application(36, 3);
+	Log::init();
 	Lua::init();
 	Lua::start("assets/scripts/main.lua");
 
+	
 
-	std::cin.get();
+
+	//std::cin.get();
 	return 0;
 
 	sf::Clock elto;

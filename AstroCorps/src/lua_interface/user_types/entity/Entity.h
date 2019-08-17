@@ -13,13 +13,16 @@ private:
 	int m_width;
 	int m_height;
 
+	std::string m_name;
+
 	/*std::string m_name;
 
 	void update_sprite_position();
 
 	bool m_moving;*/
 public:
-	Entity(int x, int y, int width, int height);
+	Entity(int x, int y, int width, int height, const std::string& name);
+	~Entity();
 
 	void draw(sf::RenderWindow& window);
 	void update(const sf::Time& delta_time);

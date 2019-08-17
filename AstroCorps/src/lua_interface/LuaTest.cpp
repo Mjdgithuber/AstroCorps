@@ -1,5 +1,5 @@
 #include "LuaTest.h"
-#include "engine/tools/libs/sol/sol.hpp"
+#include "engine/tools/libs/lua/include/sol.hpp"
 #include "user_types/parser/LuaXMLParser.h"
 #include "user_types/directory/Directory.h"
 #include "user_types/entity/Entity.h"
@@ -85,7 +85,7 @@ namespace Lua {
 		void register_entity_type() {
 			sol::usertype<Entity> entity_type = lua_state.new_usertype<Entity>("Entity",
 				// send in the usable constructors
-				sol::constructors<Entity(int x, int y, int width, int height)>());
+				sol::constructors<Entity(int x, int y, int width, int height, const std::string& name)>());
 
 			entity_type["get_x"] = &Entity::get_x;
 			entity_type["get_y"] = &Entity::get_y;
@@ -106,8 +106,33 @@ namespace Lua {
 		register_entity_type();
 	}
 
+	Entity* test;
+	void update(Entity* newTest) {
+		test = newTest;
+		LOG_ERROR("NExt Line");
+		std::cout << test->get_x() << "\n";
+	}
+
+	
 	void start(const char* path) {
+		lua_state["update"] = &update;
 		load_script("main.lua");
+
+		Entity* emma = lua_state["player"];
+		std::cout << "Femma: " << emma << "\n";
+		std::cout << "X: " << emma->get_x() << "\n";
+
+		lua_state["femma"]();
+		std::cout << "Yettle\n";
+		Entity* femma = lua_state["player"];
+		std::cout << "Femma: " << femma << "\n";
+
+		//for (int i = 0; i < 10000; i++) { lua_state["random"](); LOG_INFO("kelto"); };
+
+		std::cout << "X: " << emma->get_x() << "\n";
+		lua_state["elto"]();
+		std::cin.get();
+		//LOG_DEBUG("Emma: {0}", "");
 	}
 
 }

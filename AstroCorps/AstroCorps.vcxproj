@@ -56,7 +56,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Matthew\Documents\SFML\SFML-2.5.1-64\include;C:\dev\AstroCorps\AstroCorps\src;C:\dev\AstroCorps\AstroCorps\src\engine\tools\libs\lua\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Matthew\Documents\SFML\SFML-2.5.1-64\include;C:\dev\AstroCorps\AstroCorps\src;</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -65,6 +65,7 @@
       <AdditionalLibraryDirectories>C:\Users\Matthew\Documents\SFML\SFML-2.5.1-64\lib;C:\dev\AstroCorps\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>lua53.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -133,8 +134,8 @@
     <ClInclude Include="src\engine\tools\libs\lua\include\lua.hpp" />
     <ClInclude Include="src\engine\tools\libs\lua\include\luaconf.h" />
     <ClInclude Include="src\engine\tools\libs\lua\include\lualib.h" />
-    <ClInclude Include="src\engine\tools\libs\sol\forward.hpp" />
-    <ClInclude Include="src\engine\tools\libs\sol\sol.hpp" />
+    <ClInclude Include="src\engine\tools\libs\lua\include\forward.hpp" />
+    <ClInclude Include="src\engine\tools\libs\lua\include\sol.hpp" />
     <ClInclude Include="src\engine\tools\log_system\Log.h" />
     <ClInclude Include="src\lua_interface\LuaTest.h" />
     <ClInclude Include="src\lua_interface\user_types\directory\Directory.h" />
