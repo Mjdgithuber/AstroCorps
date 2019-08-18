@@ -8,12 +8,14 @@ private:
 	// sprite to be drawn
 	sf::Sprite m_sprite;
 
+	std::string m_name;
+	unsigned int m_entry_no;
 	int m_x;
 	int m_y;
 	int m_width;
 	int m_height;
 
-	std::string m_name;
+	
 
 	/*std::string m_name;
 
@@ -21,7 +23,7 @@ private:
 
 	bool m_moving;*/
 public:
-	Entity(int x, int y, int width, int height, const std::string& name);
+	Entity(const std::string& name, unsigned int entry_no, int x, int y, int width, int height);
 	~Entity();
 
 	void draw(sf::RenderWindow& window);
@@ -35,6 +37,7 @@ public:
 
 	int get_x() const;
 	int get_y() const;
+	const std::string& get_name() const;
 	/*int get_width() const;
 	int get_height() const;
 	float get_x_offset() const;

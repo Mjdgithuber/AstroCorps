@@ -1,3 +1,5 @@
+#if 0
+
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
@@ -19,8 +21,8 @@ int main() {
 		std::cout << entry.path() << std::endl;
 
 	// start and run the application
-	//OldApplication::start_application(36, 3);
-	Log::init();
+	OldApplication::start_application(36, 3);
+	//Log::init();
 	Lua::init();
 	Lua::start("assets/scripts/main.lua");
 
@@ -79,3 +81,5 @@ int main() {
 
 	return 0;
 }
+
+#endif

@@ -13,7 +13,7 @@ private:
 	bool m_bordered;
 
 	std::vector<std::vector<Tile>> m_tiles;
-	std::vector<Entity*> m_enties;
+	std::vector<Entity*> m_entities;
 
 	////////////////////////////////////////////////////////////
 	/// Goes through each tile and sets its texture. This method
@@ -31,6 +31,12 @@ public:
 	/// function.
 	////////////////////////////////////////////////////////////
 	TileMap();
+
+	////////////////////////////////////////////////////////////
+	/// Cleans up up all the entity pointers stored inside of
+	/// the vectors
+	////////////////////////////////////////////////////////////
+	~TileMap();
 
 
 	/* =========================================================== */
@@ -60,11 +66,16 @@ public:
 	void load_map(const char* map_file);
 
 	////////////////////////////////////////////////////////////
-	/// Adds an entity into the tile map.
+	/// Makes a new entity and stores it inside of a vector
+	/// managed by the TileMap. It then will return the newly
+	/// created entity by reference
 	/// Params:
-	/// e - The location of the entity you want to add
+	/// name - The name of the new entity
+	/// x & y - The location of the entity
+	/// width & height - The width and height of the entity in
+	/// tiles
 	////////////////////////////////////////////////////////////
-	void register_entity(Entity* e);
+	Entity& new_entity(const std::string& name, int x, int y, int width, int height);
 
 	////////////////////////////////////////////////////////////
 	/// Performs all of the needed logic for everything dealing

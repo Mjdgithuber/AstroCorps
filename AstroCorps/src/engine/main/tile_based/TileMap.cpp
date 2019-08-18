@@ -1,17 +1,29 @@
 #if 1
 
 #include "TileMap.h"
+#include "TilePackage.h"
 #include "engine/common.h"
 #include "xml/Register.h"
+#include "xml/parsers/MapParser.h"
 #include "managers/TextureManager.h"
 
+/* =========================================================== */
 /* ============== Constructors and Destructors =============== */
+/* =========================================================== */
 
-	/* Makes a new empty tile map */
+/* Makes a new empty tile map */
 TileMap::TileMap()
 	: m_rows(0), m_cols(0), m_bordered(false) {}
 
+/* Deletes all entites */
+TileMap::~TileMap() {
+	for (unsigned int i = 0; i < m_entities.size(); i++)
+		delete m_entities[i];
+}
+
+/* =========================================================== */
 /* ======================== Functions ======================== */
+/* =========================================================== */
 
 /* Will draw all of the tiles and entities*/
 void TileMap::draw_map(sf::RenderWindow& window) {
@@ -22,14 +34,14 @@ void TileMap::draw_map(sf::RenderWindow& window) {
 	}
 
 	// draw entites
-	for (Entity* e : m_enties)
+	for (Entity* e : m_entities)
 		(*e).draw(window);
 }
 
 /* Will load a map file into the tile map */
 void TileMap::load_map(const char* map_file) {
 	// load map from xml file passed in
-	/*TilePackage* tp = XML::load_map(map_file);
+	TilePackage* tp = XML::load_map(map_file);
 
 	// make sure tiles is empty
 	m_tiles.clear();
@@ -73,18 +85,20 @@ void TileMap::load_map(const char* map_file) {
 	}
 
 	// free the tile package
-	delete tp;*/
+	delete tp;
 }
 
 /* As of now updates the entities */
 void TileMap::update(const sf::Time& delta_time) {
-	for (Entity* e : m_enties)
+	for (Entity* e : m_entities)
 		(*e).update(delta_time);
 }
 
 /* Adds an entity to the tile map */
-void TileMap::register_entity(Entity* e) {
-	m_enties.push_back(e);
+Entity& TileMap::new_entity(const std::string& name, int x, int y, int width, int height) {
+	m_entities.push_back(new Entity(name, m_entities.size(), x, y, width, height));
+	// return newly created entity
+	return (*m_entities.back());
 }
 
 /* Will reset all of the tile textures */

@@ -3,6 +3,8 @@
 #include "user_types/parser/LuaXMLParser.h"
 #include "user_types/directory/Directory.h"
 #include "user_types/entity/Entity.h"
+#include "engine/main/tile_based/TileMap.h"
+#include "engine/core/Application.h"
 
 namespace Lua {
 
@@ -29,14 +31,18 @@ namespace Lua {
 			return true;
 		}
 
+		void register_application_utilites() {
+			lua_state["load_tile_map"] = &Application::load_tile_map;
+		}
+
 		void register_print_utilites() {
 			// register every different type
-			lua_state["info"] = [](const std::string& str) { LOG_LUA_INFO(str); };
-			lua_state["debug"] = [](const std::string& str) { LOG_LUA_DEBUG(str); };
-			lua_state["trace"] = [](const std::string& str) { LOG_LUA_TRACE(str); };
-			lua_state["warn"] = [](const std::string& str) { LOG_LUA_WARN(str); };
-			lua_state["error"] = [](const std::string& str) { LOG_LUA_ERROR(str); };
-			lua_state["critical"] = [](const std::string& str) { LOG_LUA_CRITICAL(str); };
+			lua_state["INFO"] = [](const std::string& str) { LOG_LUA_INFO(str); };
+			lua_state["DEBUG"] = [](const std::string& str) { LOG_LUA_DEBUG(str); };
+			lua_state["TRACE"] = [](const std::string& str) { LOG_LUA_TRACE(str); };
+			lua_state["WARN"] = [](const std::string& str) { LOG_LUA_WARN(str); };
+			lua_state["ERROR"] = [](const std::string& str) { LOG_LUA_ERROR(str); };
+			lua_state["CRIT"] = [](const std::string& str) { LOG_LUA_CRITICAL(str); };
 		}
 
 		void register_file_utilites() {
@@ -82,11 +88,24 @@ namespace Lua {
 			//parser_type["cach_next_sibling_element"] = &LuaXMLParser::cache_next_sibling_element;
 		}
 
-		void register_entity_type() {
-			sol::usertype<Entity> entity_type = lua_state.new_usertype<Entity>("Entity",
+		void register_tile_map() {
+			sol::usertype<TileMap> tile_map_type = lua_state.new_usertype<TileMap>("TileMap",
 				// send in the usable constructors
-				sol::constructors<Entity(int x, int y, int width, int height, const std::string& name)>());
+				sol::constructors<TileMap()>());
 
+			tile_map_type["toggle_borders"] = &TileMap::toggle_borders;
+			tile_map_type["load_map"] = &TileMap::load_map;
+			tile_map_type["new_entity"] = &TileMap::new_entity;
+			tile_map_type["get_rows"] = &TileMap::get_rows;
+			tile_map_type["get_cols"] = &TileMap::get_cols;
+		}
+
+		void register_entity_type() {
+			sol::usertype<Entity> entity_type = lua_state.new_usertype<Entity>("Entity");//,
+				// send in the usable constructors
+				//sol::constructors<Entity(int x, int y, int width, int height, const std::string& name)>());
+
+			entity_type["get_name"] = &Entity::get_name;
 			entity_type["get_x"] = &Entity::get_x;
 			entity_type["get_y"] = &Entity::get_y;
 		}
@@ -100,39 +119,16 @@ namespace Lua {
 			sol::lib::string, 
 			sol::lib::table);
 
+		register_application_utilites();
 		register_print_utilites();
 		register_file_utilites();
 		register_parser_utilities();
+		register_tile_map();
 		register_entity_type();
 	}
-
-	Entity* test;
-	void update(Entity* newTest) {
-		test = newTest;
-		LOG_ERROR("NExt Line");
-		std::cout << test->get_x() << "\n";
-	}
-
 	
 	void start(const char* path) {
-		lua_state["update"] = &update;
 		load_script("main.lua");
-
-		Entity* emma = lua_state["player"];
-		std::cout << "Femma: " << emma << "\n";
-		std::cout << "X: " << emma->get_x() << "\n";
-
-		lua_state["femma"]();
-		std::cout << "Yettle\n";
-		Entity* femma = lua_state["player"];
-		std::cout << "Femma: " << femma << "\n";
-
-		//for (int i = 0; i < 10000; i++) { lua_state["random"](); LOG_INFO("kelto"); };
-
-		std::cout << "X: " << emma->get_x() << "\n";
-		lua_state["elto"]();
-		std::cin.get();
-		//LOG_DEBUG("Emma: {0}", "");
 	}
 
 }

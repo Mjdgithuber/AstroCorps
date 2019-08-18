@@ -4,6 +4,7 @@
 #include "engine/main/tile_based/TileMap.h"
 #include "xml/Register.h"
 #include "managers/TextureManager.h"
+#include "lua_interface/LuaTest.h"
 
 namespace Application {
 	/* Prototypes */
@@ -22,6 +23,9 @@ namespace Application {
 
 		// main window
 		sf::RenderWindow* global_window;
+
+		// current tile map
+		TileMap* current_tile_map;
 	}
 
 	////////////////////////////////////PUBLIC DEFINTIONS////////////////////////////////////
@@ -53,6 +57,8 @@ namespace Application {
 		init();
 		run();
 		cleanup();
+
+		LOG_INFO("Application Ended");
 	}
 
 
@@ -67,10 +73,20 @@ namespace Application {
 
 		global_window = new sf::RenderWindow(sf::VideoMode(1000, 800), "Astro Corps"); //, sf::Style::Fullscreen
 		LOG_INFO("System Initialization Complete");
+
+		/* make tile map null to make sure we don't
+		   draw it until it is loaded */
+		current_tile_map = nullptr;
+
+		/* Init and start Lua */
+		Lua::init();
+		Lua::start("assets/scripts/main.lua");
 	}
 
 	static void cleanup() {
 		delete global_window;
+
+		LOG_DEBUG("Application Cleaned Up");
 	}
 
 	Util::Direction process_direction_keys() {
@@ -93,6 +109,10 @@ namespace Application {
 		return STATIONARY;
 	}
 
+	void load_tile_map(TileMap* new_tile_map) {
+		current_tile_map = new_tile_map;
+	}
+
 	static void application_loop(sf::RenderWindow& window) {
 		LOG_DEBUG("Application Loop Started");
 
@@ -108,14 +128,18 @@ namespace Application {
 				// closed button was clicked
 				if (event.type == sf::Event::Closed)
 					window.close();
+				//if(event.type == sf::Event::) key pressed & released
 			}
 
 			window.clear();
 
-			// draw the current tile map
+			if (current_tile_map != nullptr)
+				current_tile_map->draw_map(window);
 
 			window.display();
 		}
+
+		LOG_DEBUG("Application Loop Ended");
 	}
 
 	static void run() {

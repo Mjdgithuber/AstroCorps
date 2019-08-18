@@ -34,7 +34,7 @@ namespace Tiles {
 	/* Will load a map file into the tile map */
 	void OldTileMap::load_map(const char* map_file) {
 		// load map from xml file passed in
-		Tiles::OldTilePackage* tp = XML::load_map(map_file);
+		Tiles::OldTilePackage* tp = XML::load_map(map_file, -1);
 
 		// make sure tiles is empty
 		m_tiles.clear();

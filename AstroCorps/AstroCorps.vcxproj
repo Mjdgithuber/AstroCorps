@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\core\Driver.cpp" />
     <ClCompile Include="src\engine\main\tile_based\Tile.cpp" />
     <ClCompile Include="src\engine\main\tile_based\TileMap.cpp" />
     <ClCompile Include="src\engine\main\tile_based\TilePackage.cpp" />
@@ -100,7 +101,7 @@
     <ClCompile Include="src\lua_interface\user_types\directory\Directory.cpp" />
     <ClCompile Include="src\lua_interface\user_types\entity\Entity.cpp" />
     <ClCompile Include="src\main\OldApplication.cpp" />
-    <ClCompile Include="src\main\Driver.cpp" />
+    <ClCompile Include="src\main\OldDriver.cpp" />
     <ClCompile Include="src\managers\TextureManager.cpp" />
     <ClCompile Include="src\lua_interface\user_types\parser\LuaXMLParser.cpp" />
     <ClCompile Include="src\xml\parsers\EntityParser.cpp" />
