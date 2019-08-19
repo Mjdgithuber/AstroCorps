@@ -1,7 +1,7 @@
 #ifndef __XML__UTILS__H__
 #define __XML__UTILS__H__
 
-#include "Core.h"
+#include "engine/common.h"
 #include "engine/tools/libs/tinyxml/tinyxml2.h"
 
 ////////////////////////////////////////////////////////////

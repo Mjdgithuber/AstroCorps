@@ -1,11 +1,9 @@
-#if 1
-
 #include "TileMap.h"
 #include "TilePackage.h"
 #include "engine/common.h"
-#include "xml/Register.h"
-#include "xml/parsers/MapParser.h"
-#include "managers/TextureManager.h"
+#include "engine/tools/xml/Register.h"
+#include "engine/tools/xml/parsers/MapParser.h"
+#include "engine/tools/managers/TextureManager.h"
 
 /* =========================================================== */
 /* ============== Constructors and Destructors =============== */
@@ -139,5 +137,3 @@ const Tile& TileMap::get_tile(unsigned int row, unsigned int col) const { return
 
 unsigned int TileMap::get_rows() const { return m_rows; }
 unsigned int TileMap::get_cols() const { return m_cols; }
-
-#endif

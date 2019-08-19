@@ -1,7 +1,7 @@
 #ifndef __REGISTER__PARSER__H__
 #define __REGISTER__PARSER__H__
 
-#include "Core.h"
+#include "engine/common.h"
 #include "XMLUtils.h"
 
 namespace XML {

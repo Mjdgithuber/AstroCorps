@@ -3,7 +3,7 @@
 -- setup metatable for player
 local PlayerMetatable = {
 	update = function(self)
-		TRACE("Update called for '" .. self.cpp_entity:get_name() .. "'")
+		--TRACE("Update called for '" .. self.cpp_entity:get_name() .. "'")
 		--INFO('Player update called')
 	end,
 	entity_type = 'Player'

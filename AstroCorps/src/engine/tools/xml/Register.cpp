@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Register.h"
-#include "Core.h"
+#include "engine/common.h"
 #include "xml/parsers/RegisterParser.h"
 
 namespace Register {

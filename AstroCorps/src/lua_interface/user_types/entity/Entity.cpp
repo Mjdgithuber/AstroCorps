@@ -1,7 +1,6 @@
 #include "Entity.h"
 #include "engine/common.h"
-#include "managers/TextureManager.h"
-#include <iostream>
+#include "engine/tools/managers/TextureManager.h"
 
 Entity::Entity(const std::string& name, unsigned int entry_no, int x, int y, int width, int height)
 	: m_sprite(), m_name(name), m_entry_no(entry_no), m_x(x), m_y(y), m_width(width), m_height(height) {
@@ -11,7 +10,7 @@ Entity::Entity(const std::string& name, unsigned int entry_no, int x, int y, int
 	m_sprite.setScale(Application::get_scale(), Application::get_scale());
 	m_sprite.setPosition(Application::get_scaled_tile_size() * x, Application::get_scaled_tile_size() * y);
 
-	m_speed = 1.f;
+	m_speed = .33f;
 }
 
 Entity::~Entity() {
@@ -27,13 +26,10 @@ void Entity::update_sprite_position() {
 }
 
 void Entity::update(const sf::Time& delta_time) {
-	LOG_ERROR("Emmmamama");
 	if (m_curr_dir != Util::STATIONARY) {
-		
 		m_elap += delta_time;
 
 		float percentage = m_elap.asSeconds() / m_speed;
-		LOG_ERROR("PErcent: {0}", percentage);
 
 		bool update_location_values = check_percentage(percentage);
 

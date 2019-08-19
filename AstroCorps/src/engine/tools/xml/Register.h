@@ -1,7 +1,7 @@
 #ifndef __REGISTER__H__
 #define __REGISTER__H__
 
-#include "Core.h"
+#include "engine/common.h"
 
 ////////////////////////////////////////////////////////////
 /// The Register namespace handles everything dealing with
