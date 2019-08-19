@@ -94,7 +94,7 @@ void TileMap::update(const sf::Time& delta_time) {
 
 /* Adds an entity to the tile map */
 Entity& TileMap::new_entity(const std::string& name, int x, int y, int width, int height) {
-	m_entities.push_back(new Entity(name, m_entities.size(), x, y, width, height));
+	m_entities.push_back(new Entity(name, ((unsigned int) m_entities.size()), x, y, width, height));
 	// return newly created entity
 	return (*m_entities.back());
 }

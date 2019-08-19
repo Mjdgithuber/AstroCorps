@@ -1,4 +1,4 @@
-#include "Core.h"
+#include "engine/common.h"
 #include "LuaXMLParser.h"
 
 /* =========================================================== */

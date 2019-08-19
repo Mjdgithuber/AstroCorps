@@ -64,7 +64,8 @@ unsigned int Directory::number_of_files() {
 	if (!assert_open("number_of_files()"))
 		return 0;
 
-	return m_files.size();
+	// unsigned int cast to shut compiler up
+	return ((unsigned int) m_files.size());
 }
 
 /* Gets the filename (not path) of the path at the 

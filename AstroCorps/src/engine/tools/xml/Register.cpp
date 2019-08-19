@@ -4,7 +4,7 @@
 
 #include "Register.h"
 #include "engine/common.h"
-#include "xml/parsers/RegisterParser.h"
+#include "engine/tools/xml/parsers/RegisterParser.h"
 
 namespace Register {
 	/* anonymous namespace to provide static encapsulation */

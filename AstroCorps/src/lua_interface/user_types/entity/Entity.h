@@ -8,9 +8,10 @@
 
 class Entity {
 private:
-	// sprite to be drawn
+	/* sprite to be drawn to window */
 	sf::Sprite m_sprite;
 
+	/* general entity information */
 	std::string m_name;
 	unsigned int m_entry_no;
 	int m_x;
@@ -18,51 +19,142 @@ private:
 	int m_width;
 	int m_height;
 
-	/* For movement animation */
+	/* for movement of sprite */
 	bool m_moving;
 	float m_speed;
 	float m_x_offset;
 	float m_y_offset;
-
-	Util::Direction m_curr_dir;
-	Util::Direction m_next_dir;
 	sf::Time m_elap; // elasped movement time
 
-	int get_hor_offset(Util::Direction dir) const;
-	int get_vert_offset(Util::Direction dir) const;
-	bool check_percentage(float& percentage);
-
-	void update_sprite_position();
-
-	/*
-	void update_sprite_position();
-
-	bool m_moving;*/
-public:
-	Entity(const std::string& name, unsigned int entry_no, int x, int y, int width, int height);
-	~Entity();
-
-	void draw(sf::RenderWindow& window);
-	void update(const sf::Time& delta_time);
-	/*void set_position(unsigned int x, unsigned int y);
-	void draw(sf::RenderWindow& window);
-	void move(int x_off, int y_off);
-	void set_speed();
+	/* holds information about where the sprite is
+	   moving. NOTE: we are typedefing unsigned int 
+	   as Direction instead of directly using 
+	   Util::Direction for lua compatibility*/
+	typedef unsigned int Direction;
+	Direction m_curr_dir;
+	Direction m_next_dir;
 	
-	bool is_moving();*/
 
+	/* =========================================================== */
+	/* ================= Private Helper Functions ================ */
+	/* =========================================================== */
+	////////////////////////////////////////////////////////////
+	/// This will update m_sprite's current position based on
+	/// m_x & m_y ad well as m_x_offset & m_y_offset.
+	////////////////////////////////////////////////////////////
+	void update_sprite_position();
+
+	////////////////////////////////////////////////////////////
+	/// This will update the entity's m_x & m_y varibles based
+	/// on m_curr_direction. NOTE: this will not update the 
+	/// sprites position, use update_sprite_position() for that
+	////////////////////////////////////////////////////////////
+	void adjust_tile_position();
+
+	////////////////////////////////////////////////////////////
+	/// Based on a given direction, this method will calculate
+	/// the horizontal offset of the direction. For example if
+	/// Util::WEST is passed in this will evaluate to -1 and 0
+	/// for Util::NORTH
+	/// Params:
+	/// dir - The direction you want to get the offset of
+	////////////////////////////////////////////////////////////
+	int get_hor_offset(Direction dir) const;
+
+	////////////////////////////////////////////////////////////
+	/// Based on a given direction, this method will calculate
+	/// the vertical offset of the direction. For example if
+	/// Util::WEST is passed in this will evaluate to 0 and -1
+	/// for Util::NORTH
+	/// Params:
+	/// dir - The direction you want to get the offset of
+	////////////////////////////////////////////////////////////
+	int get_vert_offset(Direction dir) const;
+
+	////////////////////////////////////////////////////////////
+	/// This method handles the next movement after the current
+	/// movement is complete. If percentage is < 1.f then this 
+	/// method returns false and does nothing. Otherwise, this
+	/// ensures proper stopping & adjusting of movement (if the
+	/// sprite is stopping or changing direction) or smooth
+	/// movement (if the sprite is continuing in it's current
+	/// direction)
+	/// Params:
+	/// percentage - The percentage of the current movement's
+	/// completion
+	////////////////////////////////////////////////////////////
+	void check_percentage(float& percentage);
+public:
+	/* =========================================================== */
+	/* ============== Constructors and Destructors =============== */
+	/* =========================================================== */
+	////////////////////////////////////////////////////////////
+	/// Makes a new entity given some basic information. This
+	/// will also set the sprites position to be correct given
+	/// the x and y values, and will do the appropriate scaling
+	/// based on width & height
+	/// Params:
+	/// name - The name of the entity
+	/// entry_no - The number of the entity. This should be 
+	/// unique for every entity
+	/// x & y - The position of this entity (in tiles)
+	/// width & height - The size of this entity (in tiles)
+	////////////////////////////////////////////////////////////
+	Entity(const std::string& name, unsigned int entry_no, int x, int y, int width, int height);
+	~Entity() = default;
+
+
+	/* =========================================================== */
+	/* ======================== Functions ======================== */
+	/* =========================================================== */
+	////////////////////////////////////////////////////////////
+	/// Will save the direction passed in as the next movement.
+	/// If this entity isn't moving and a non-STATIONARY direction 
+	/// is passed in then this will also start the movement.
+	/// Params:
+	/// dir - The direction this entity should move in next
+	////////////////////////////////////////////////////////////
+	void set_movement(Direction dir = Util::STATIONARY);
+
+	////////////////////////////////////////////////////////////
+	/// Will update the position of the sprite if it is currently
+	/// moving.
+	/// Params:
+	/// delta_time - time since last frame
+	////////////////////////////////////////////////////////////
+	void update(const sf::Time& delta_time);
+
+	////////////////////////////////////////////////////////////
+	/// Draws this entity's sprite to the passed in window
+	/// Params:
+	/// window - the window you want to render to
+	////////////////////////////////////////////////////////////
+	void draw(sf::RenderWindow& window);
+
+
+	/* =========================================================== */
+	/* ========================= Getters ========================= */
+	/* =========================================================== */
+	////////////////////////////////////////////////////////////
+	/// Gets this entity's x position in tiles
+	////////////////////////////////////////////////////////////
 	int get_x() const;
-	int get_y() const;
-	const std::string& get_name() const;
 
+	////////////////////////////////////////////////////////////
+	/// Gets this entity's y position in tiles
+	////////////////////////////////////////////////////////////
+	int get_y() const;
+
+	////////////////////////////////////////////////////////////
+	/// Returns true if the entity is moving
+	////////////////////////////////////////////////////////////
 	bool is_moving() const;
 
-	bool set_movement(Util::Direction dir = Util::STATIONARY);
-	bool set_movement_dir(int dir);
-	/*int get_width() const;
-	int get_height() const;
-	float get_x_offset() const;
-	float get_y_offset() const;*/
+	////////////////////////////////////////////////////////////
+	/// Returns the name of this entity, which is not necessarily
+	/// unique
+	////////////////////////////////////////////////////////////
+	const std::string& get_name() const;
 };
 
 #endif

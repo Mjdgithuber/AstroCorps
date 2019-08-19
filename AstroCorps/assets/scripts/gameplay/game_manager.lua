@@ -1,4 +1,4 @@
--- setup.lua
+-- game_manager.lua
 
 -- Every game has exactly one tilemap
 local tile_map = nil
@@ -49,11 +49,13 @@ function start_game()
 end
 
 local function get_dirs()
+	-- get key states for WASD keys
 	local W = Keyboard[KEY_W]
 	local A = Keyboard[KEY_A]
 	local S = Keyboard[KEY_S]
 	local D = Keyboard[KEY_D]
 
+	-- A xor D
 	if A ~= D then
 		if A then
 			return WEST
@@ -62,6 +64,7 @@ local function get_dirs()
 		end
 	end
 
+	-- W xor S
 	if W ~= S then
 		if W then
 			return NORTH
@@ -70,6 +73,7 @@ local function get_dirs()
 		end
 	end
 
+	-- if no movement return STATIONARY
 	return STATIONARY
 end
 

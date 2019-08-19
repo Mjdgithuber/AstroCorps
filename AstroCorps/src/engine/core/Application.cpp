@@ -2,15 +2,14 @@
 
 #include "engine/common.h"
 #include "engine/main/tile_based/TileMap.h"
-#include "xml/Register.h"
-#include "managers/TextureManager.h"
+#include "engine/tools/xml/Register.h"
+#include "engine/tools/managers/TextureManager.h"
 #include "lua_interface/LuaTest.h"
 
 namespace Application {
 	/* Prototypes */
 	static void init();
 	static void cleanup();
-	Util::Direction process_direction_keys();
 	static void application_loop(sf::RenderWindow& window);
 	static void run();
 
@@ -88,28 +87,6 @@ namespace Application {
 
 		LOG_DEBUG("Application Cleaned Up");
 	}
-
-	Util::Direction process_direction_keys() {
-		using namespace Util;
-		bool W = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
-		bool A = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
-		bool S = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
-		bool D = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
-
-		if (A ^ D) {
-			if (A) return WEST;
-			else return EAST;
-		}
-
-		if (W ^ S) {
-			if (W) return NORTH;
-			else return SOUTH;
-		}
-
-		return STATIONARY;
-	}
-
-
 
 	void load_tile_map(TileMap* new_tile_map) {
 		current_tile_map = new_tile_map;

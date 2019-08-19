@@ -88,6 +88,14 @@ namespace Lua {
 			//parser_type["cach_next_sibling_element"] = &LuaXMLParser::cache_next_sibling_element;
 		}
 
+		void register_direction_utilities() {
+			lua_state["STATIONARY"] = Util::STATIONARY;
+			lua_state["NORTH"] = Util::NORTH;
+			lua_state["EAST"] = Util::EAST;
+			lua_state["SOUTH"] = Util::SOUTH;
+			lua_state["WEST"] = Util::WEST;
+		}
+
 		void register_tile_map() {
 			sol::usertype<TileMap> tile_map_type = lua_state.new_usertype<TileMap>("TileMap",
 				// send in the usable constructors
@@ -108,7 +116,7 @@ namespace Lua {
 			entity_type["get_name"] = &Entity::get_name;
 			entity_type["get_x"] = &Entity::get_x;
 			entity_type["get_y"] = &Entity::get_y;
-			entity_type["set_movement"] = &Entity::set_movement_dir;
+			entity_type["set_movement"] = &Entity::set_movement;
 		}
 	}
 
@@ -124,6 +132,7 @@ namespace Lua {
 		register_print_utilites();
 		register_file_utilites();
 		register_parser_utilities();
+		register_direction_utilities();
 		register_tile_map();
 		register_entity_type();
 	}
