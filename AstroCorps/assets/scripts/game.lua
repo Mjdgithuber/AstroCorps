@@ -22,6 +22,8 @@ function get_tile_map()
 end
 
 
+--[[ change entity system to use index instead of key!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ]]
+
 -- test function
 local function test_entity_system()
 	print()

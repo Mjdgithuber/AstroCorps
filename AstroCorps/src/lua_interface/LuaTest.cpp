@@ -131,4 +131,25 @@ namespace Lua {
 		load_script("main.lua");
 	}
 
+	void process_key(sf::Keyboard::Key code, bool pressed) {
+		switch (code) {
+		case sf::Keyboard::W:
+			lua_state["update_keyboard"]("W", pressed);
+			break;
+		case sf::Keyboard::A:
+			lua_state["update_keyboard"]("A", pressed);
+			break;
+		case sf::Keyboard::S:
+			lua_state["update_keyboard"]("S", pressed);
+			break;
+		case sf::Keyboard::D:
+			lua_state["update_keyboard"]("D", pressed);
+			break;
+		}
+	}
+
+	void update() {
+		lua_state["update_game"]();
+	}
+
 }

@@ -1,7 +1,14 @@
 -- main.lua
 
+local function init()
+	-- fill
+end
+
 local function start() 
 	INFO('Lua Started!')
+	
+	-- load keyboard file for input
+	load_file('utils/keyboard.lua')
 
 	-- load entity management system
 	load_file('entities/entity_manager.lua')
