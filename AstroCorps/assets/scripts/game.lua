@@ -48,13 +48,45 @@ function start_game()
 	test_entity_system()
 end
 
+local function get_dirs()
+	local W = Keyboard[KEY_W]
+	local A = Keyboard[KEY_A]
+	local S = Keyboard[KEY_S]
+	local D = Keyboard[KEY_D]
+
+	if A ~= D then
+		if A then
+			return WEST
+		else
+			return EAST
+		end
+	end
+
+	if W ~= S then
+		if W then
+			return NORTH
+		else
+			return SOUTH
+		end
+	end
+
+	return STATIONARY
+end
+
+local function update_player()
+	get_entity(0).cpp_entity:set_movement(get_dirs())
+end
+
 -- updates everything that needs it
 function update_game()
 	-- get the number of current entities
 	local max_index = get_number_of_entites() - 1
 
+	update_player()
+
 	-- update each entity
 	for i = 0, max_index, 1 do
+		--get_entity(i).cpp_entity:set_movement(1)
 		get_entity(i):update()
 	end
 end

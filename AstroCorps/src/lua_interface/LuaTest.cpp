@@ -108,6 +108,7 @@ namespace Lua {
 			entity_type["get_name"] = &Entity::get_name;
 			entity_type["get_x"] = &Entity::get_x;
 			entity_type["get_y"] = &Entity::get_y;
+			entity_type["set_movement"] = &Entity::set_movement_dir;
 		}
 	}
 

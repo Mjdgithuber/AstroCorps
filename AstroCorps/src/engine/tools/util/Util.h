@@ -24,7 +24,7 @@ namespace Util {
 	};
 
 	enum Direction {
-		STATIONARY,
+		STATIONARY = 0,
 		NORTH,
 		EAST,
 		SOUTH,

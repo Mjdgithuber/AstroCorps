@@ -136,12 +136,16 @@ namespace Application {
 					Lua::process_key(event.key.code, false);
 			}
 
+			if (current_tile_map != nullptr)
+				current_tile_map->update(delta_time);
+			Lua::update();
+
 			window.clear();
 
 			if (current_tile_map != nullptr)
 				current_tile_map->draw_map(window);
 
-			Lua::update();//
+			
 
 			window.display();
 		}

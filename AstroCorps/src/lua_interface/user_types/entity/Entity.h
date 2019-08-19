@@ -3,6 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 
+//#include "engine/common.h"
+#include "engine/tools/util/Util.h"
+
 class Entity {
 private:
 	// sprite to be drawn
@@ -15,10 +18,23 @@ private:
 	int m_width;
 	int m_height;
 
-	
+	/* For movement animation */
+	bool m_moving;
+	float m_speed;
+	float m_x_offset;
+	float m_y_offset;
 
-	/*std::string m_name;
+	Util::Direction m_curr_dir;
+	Util::Direction m_next_dir;
+	sf::Time m_elap; // elasped movement time
 
+	int get_hor_offset(Util::Direction dir) const;
+	int get_vert_offset(Util::Direction dir) const;
+	bool check_percentage(float& percentage);
+
+	void update_sprite_position();
+
+	/*
 	void update_sprite_position();
 
 	bool m_moving;*/
@@ -38,6 +54,11 @@ public:
 	int get_x() const;
 	int get_y() const;
 	const std::string& get_name() const;
+
+	bool is_moving() const;
+
+	bool set_movement(Util::Direction dir = Util::STATIONARY);
+	bool set_movement_dir(int dir);
 	/*int get_width() const;
 	int get_height() const;
 	float get_x_offset() const;
