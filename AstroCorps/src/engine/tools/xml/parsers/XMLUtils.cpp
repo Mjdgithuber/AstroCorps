@@ -9,11 +9,13 @@ namespace XML {
 	XMLNode* load_xml_file(XMLDocument& doc, const char* filepath) {
 		// attempt to load file
 		XMLError eResult = doc.LoadFile(filepath);
-		XMLCheckResult(eResult);
+		LOG_IF(eResult != XML_SUCCESS, CRIT_LEVEL, "Failed to load XML Doc '{0}'",
+			filepath);
 
 		// get the root of the document
 		XMLNode* root = doc.FirstChild();
-		XMLNullCheck(root, XML_ERROR_FILE_READ_ERROR);
+		LOG_IF(root == nullptr, CRIT_LEVEL, "Failed to get root of XML file '{0}'",
+			filepath);
 
 		// return the node
 		return root;

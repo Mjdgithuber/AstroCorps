@@ -353,5 +353,8 @@
     <ClInclude Include="src\engine\tools\xml\Register.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\engine\tools\log_system\Log.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

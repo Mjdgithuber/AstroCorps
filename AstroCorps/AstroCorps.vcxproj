@@ -117,6 +117,7 @@
     <ClInclude Include="src\engine\tools\libs\lua\include\forward.hpp" />
     <ClInclude Include="src\engine\tools\libs\lua\include\sol.hpp" />
     <ClInclude Include="src\engine\tools\log_system\Log.h" />
+    <ClInclude Include="src\engine\tools\log_system\Log.hpp" />
     <ClInclude Include="src\lua_interface\LuaTest.h" />
     <ClInclude Include="src\lua_interface\user_types\directory\Directory.h" />
     <ClInclude Include="src\lua_interface\user_types\entity\Entity.h" />

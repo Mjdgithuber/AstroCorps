@@ -16,17 +16,21 @@ namespace Register {
 		std::vector<sf::Texture> textures;
 	}
 
+	#define FALSE_WRAPPER(wrapped) if(!wrapped) return false
+
 	/* Load the registry */
-	void init(const char* register_filepath) {
-		XML::load_register(register_filepath);
+	bool init(const char* register_filepath) {
+		FALSE_WRAPPER(XML::load_register_file(register_filepath));
 
 		if (!inited) {
-			XML::load_tile_register(tilesheet_locations);
-			XML::load_texture_register(textures);
-			XML::load_tile_sheet_register(tile_sheet);
-			XML::load_font_register(fonts);
+			FALSE_WRAPPER(XML::read_tile_register(tilesheet_locations));
+			XML::read_texture_register(textures);
+			XML::read_tile_sheet_register(tile_sheet);
+			XML::read_font_register(fonts);
 		}
 		inited = true;
+
+		return true;
 	}
 
 	/* Returns the location of the tile's texture */
@@ -34,14 +38,17 @@ namespace Register {
 		return tilesheet_locations[reg_num];
 	}
 
+	/* Returns the font with the given register number */
 	const sf::Font& get_font(unsigned int reg_num) {
 		return fonts[reg_num];
 	}
 
+	/* Returns the tile sheet. NOTE: there is only one tile sheet */
 	const sf::Texture& get_tile_sheet() {
 		return tile_sheet;
 	}
 
+	/* Returns the texture with the given register number */
 	const sf::Texture& get_texture(unsigned int reg_num) {
 		return textures[reg_num];
 	}

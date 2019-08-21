@@ -6,7 +6,7 @@
 
 namespace XML {
 
-	bool load_register(const char* register_filepath);
+	bool load_register_file(const char* register_filepath);
 
 	////////////////////////////////////////////////////////////
 	/// This will load the Tile part of the Registry file. The
@@ -16,7 +16,7 @@ namespace XML {
 	/// locations - The place to store the location data 
 	/// register_path - The path to the register
 	////////////////////////////////////////////////////////////
-	bool load_tile_register(std::vector<Util::Point>& locations);
+	bool read_tile_register(std::vector<Util::Point>& locations);
 
 	////////////////////////////////////////////////////////////
 	/// This will load the Font part of the Registry file. The
@@ -27,11 +27,11 @@ namespace XML {
 	/// fonts - The place to store the font data 
 	/// register_path - The path to the register
 	////////////////////////////////////////////////////////////
-	bool load_font_register(std::vector<sf::Font>& fonts);
+	bool read_font_register(std::vector<sf::Font>& fonts);
 
-	bool load_texture_register(std::vector<sf::Texture>& textures);
+	bool read_texture_register(std::vector<sf::Texture>& textures);
 
-	bool load_tile_sheet_register(sf::Texture& texture);
+	bool read_tile_sheet_register(sf::Texture& texture);
 
 
 	/* Make a loader for each type of thingya */

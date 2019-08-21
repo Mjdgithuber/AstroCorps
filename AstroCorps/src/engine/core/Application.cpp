@@ -7,7 +7,7 @@
 
 namespace Application {
 	/* Prototypes */
-	static void init();
+	static bool init();
 	static void cleanup();
 	static void application_loop(sf::RenderWindow& window);
 	static void run();
@@ -52,8 +52,13 @@ namespace Application {
 		if (scaled_tile_size != tile_size * scale)
 			LOG_ERROR("Scaled Tile Size ({0}) must equal {1}", scaled_tile_size, (scale));
 
-		init();
+		// end if not inited correctly
+		if (!init()) return;
+		
+		// run application
 		run();
+
+		// clean all memory
 		cleanup();
 
 		LOG_INFO("Application Ended");
@@ -62,11 +67,11 @@ namespace Application {
 
 
 	////////////////////////////////////////STATIC/PRIVATE METHODS////////////////////////////////////////
-	static void init() {
+	static bool init() {
 		Log::init();
 		LOG_INFO("Initializing System");
 
-		Register::init("assets/register/register.xml");
+		if (!Register::init("assets/register/register.xml")) return false;
 
 		global_window = new sf::RenderWindow(sf::VideoMode(1000, 800), "Astro Corps"); //, sf::Style::Fullscreen
 		LOG_INFO("System Initialization Complete");
@@ -78,6 +83,8 @@ namespace Application {
 		/* Init and start Lua */
 		Lua::init();
 		Lua::start("assets/scripts/main.lua");
+
+		return true;
 	}
 
 	static void cleanup() {

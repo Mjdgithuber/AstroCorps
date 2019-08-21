@@ -1,6 +1,5 @@
 #include "Entity.h"
 #include "engine/common.h"
-#include "engine/tools/managers/TextureManager.h"
 #include "engine/tools/xml/Register.h"
 
 /* =========================================================== */
