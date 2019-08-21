@@ -14,19 +14,17 @@ namespace Register {
 		std::vector<sf::Font> fonts;
 		sf::Texture tile_sheet;
 		std::vector<sf::Texture> textures;
-		std::vector<std::string> components;
 	}
 
 	/* Load the registry */
-	void init() {
-		const char* register_filepath = "assets/register/register.xml";
+	void init(const char* register_filepath) {
+		XML::load_register(register_filepath);
 
 		if (!inited) {
-			XML::load_tile_register(tilesheet_locations, register_filepath);
-			XML::load_texture_register(textures, register_filepath);
-			XML::load_tile_sheet_register(tile_sheet, register_filepath);
-			XML::load_font_register(fonts, register_filepath);
-			XML::load_component_register(components, register_filepath);
+			XML::load_tile_register(tilesheet_locations);
+			XML::load_texture_register(textures);
+			XML::load_tile_sheet_register(tile_sheet);
+			XML::load_font_register(fonts);
 		}
 		inited = true;
 	}
@@ -38,10 +36,6 @@ namespace Register {
 
 	const sf::Font& get_font(unsigned int reg_num) {
 		return fonts[reg_num];
-	}
-
-	const std::string& get_component_name(unsigned int reg_num) {
-		return components[reg_num];
 	}
 
 	const sf::Texture& get_tile_sheet() {

@@ -24,9 +24,4 @@
     	<Item reg_num="0" name="Testing Item"></Item>
     	<Item reg_num="1" name="Another Item"></Item>
     </ItemRegister>
-    <ComponentRegister>
-    	<Component reg_num="0" name="Transform"></Component>
-    	<Component reg_num="1" name="Graphics"></Component>
-    	<Component reg_num="2" name="Movable"></Component>
-    </ComponentRegister>
 </AssetRegister>

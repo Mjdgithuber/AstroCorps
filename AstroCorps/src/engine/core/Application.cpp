@@ -66,7 +66,7 @@ namespace Application {
 		Log::init();
 		LOG_INFO("Initializing System");
 
-		Register::init();
+		Register::init("assets/register/register.xml");
 
 		global_window = new sf::RenderWindow(sf::VideoMode(1000, 800), "Astro Corps"); //, sf::Style::Fullscreen
 		LOG_INFO("System Initialization Complete");

@@ -14,7 +14,7 @@ namespace Register {
 	/// should only be called once and is therefore locked after
 	/// it is first called and will do nothing on subsequent calls.
 	////////////////////////////////////////////////////////////
-	void init();
+	void init(const char* register_filepath);
 
 	////////////////////////////////////////////////////////////
 	/// Given a register number of a tile, this will return a
@@ -30,8 +30,6 @@ namespace Register {
 	/// by reference.
 	////////////////////////////////////////////////////////////
 	const sf::Font& get_font(unsigned int reg_num);
-
-	const std::string& get_component_name(unsigned int reg_num);
 
 	const sf::Texture& get_tile_sheet();
 
