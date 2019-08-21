@@ -1,6 +1,7 @@
 #include "Entity.h"
 #include "engine/common.h"
 #include "engine/tools/managers/TextureManager.h"
+#include "engine/tools/xml/Register.h"
 
 /* =========================================================== */
 /* ============== Constructors and Destructors =============== */
@@ -12,7 +13,8 @@ Entity::Entity(const std::string& name, unsigned int entry_no, int x, int y, int
 	  m_moving(false), m_speed(.33f), m_x_offset(0.f), m_y_offset(0.f) {
 	
 	// Need to remove, just for testing ********************************
-	m_sprite.setTexture(TextureManager::get_entity_texture(Textures::Entity::TEST));
+	m_sprite.setTexture(Register::get_texture(0));
+	//m_sprite.setTexture(TextureManager::get_entity_texture(Textures::Entity::TEST));
 	m_sprite.setScale(Application::get_scale(), Application::get_scale());
 	m_sprite.setPosition((float) Application::get_scaled_tile_size() * x, (float) Application::get_scaled_tile_size() * y);
 }

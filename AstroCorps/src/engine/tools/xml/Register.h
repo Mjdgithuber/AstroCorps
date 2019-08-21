@@ -32,6 +32,10 @@ namespace Register {
 	const sf::Font& get_font(unsigned int reg_num);
 
 	const std::string& get_component_name(unsigned int reg_num);
+
+	const sf::Texture& get_tile_sheet();
+
+	const sf::Texture& get_texture(unsigned int reg_num);
 }
 
 #endif

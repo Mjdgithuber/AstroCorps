@@ -3,7 +3,6 @@
 #include "engine/common.h"
 #include "engine/tools/xml/Register.h"
 #include "engine/tools/xml/parsers/MapParser.h"
-#include "engine/tools/managers/TextureManager.h"
 
 /* =========================================================== */
 /* ============== Constructors and Destructors =============== */
@@ -49,7 +48,7 @@ void TileMap::load_map(const char* map_file) {
 	m_cols = tp->get_cols();
 
 	// get tile sheet ref for convenience
-	const sf::Texture& tile_sheet = TextureManager::get_tile_sheet(Textures::TileSheet::MASTER_TILE_SHEET);
+	const sf::Texture& tile_sheet = Register::get_tile_sheet();//TextureManager::get_tile_sheet(Textures::TileSheet::MASTER_TILE_SHEET);
 
 	// load the tile map
 	m_tiles.reserve(m_rows);

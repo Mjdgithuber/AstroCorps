@@ -95,7 +95,6 @@
     <ClCompile Include="src\lua_interface\LuaTest.cpp" />
     <ClCompile Include="src\lua_interface\user_types\directory\Directory.cpp" />
     <ClCompile Include="src\lua_interface\user_types\entity\Entity.cpp" />
-    <ClCompile Include="src\engine\tools\managers\TextureManager.cpp" />
     <ClCompile Include="src\lua_interface\user_types\parser\LuaXMLParser.cpp" />
     <ClCompile Include="src\engine\tools\xml\parsers\MapParser.cpp" />
     <ClCompile Include="src\engine\tools\xml\parsers\RegisterParser.cpp" />
@@ -121,7 +120,6 @@
     <ClInclude Include="src\lua_interface\LuaTest.h" />
     <ClInclude Include="src\lua_interface\user_types\directory\Directory.h" />
     <ClInclude Include="src\lua_interface\user_types\entity\Entity.h" />
-    <ClInclude Include="src\engine\tools\managers\TextureManager.h" />
     <ClInclude Include="src\lua_interface\user_types\parser\LuaXMLParser.h" />
     <ClInclude Include="src\lua_interface\user_types\parser\LuaXMLParser.hpp" />
     <ClInclude Include="src\engine\tools\xml\parsers\MapParser.h" />

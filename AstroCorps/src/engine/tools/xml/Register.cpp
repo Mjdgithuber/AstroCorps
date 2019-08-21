@@ -12,6 +12,7 @@ namespace Register {
 		bool inited = false;
 		std::vector<Util::Point> tilesheet_locations;
 		std::vector<sf::Font> fonts;
+		sf::Texture tile_sheet;
 		std::vector<sf::Texture> textures;
 		std::vector<std::string> components;
 	}
@@ -22,6 +23,8 @@ namespace Register {
 
 		if (!inited) {
 			XML::load_tile_register(tilesheet_locations, register_filepath);
+			XML::load_texture_register(textures, register_filepath);
+			XML::load_tile_sheet_register(tile_sheet, register_filepath);
 			XML::load_font_register(fonts, register_filepath);
 			XML::load_component_register(components, register_filepath);
 		}
@@ -39,5 +42,13 @@ namespace Register {
 
 	const std::string& get_component_name(unsigned int reg_num) {
 		return components[reg_num];
+	}
+
+	const sf::Texture& get_tile_sheet() {
+		return tile_sheet;
+	}
+
+	const sf::Texture& get_texture(unsigned int reg_num) {
+		return textures[reg_num];
 	}
 }

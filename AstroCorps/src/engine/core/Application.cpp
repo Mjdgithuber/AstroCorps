@@ -3,7 +3,6 @@
 #include "engine/common.h"
 #include "engine/main/tile_based/TileMap.h"
 #include "engine/tools/xml/Register.h"
-#include "engine/tools/managers/TextureManager.h"
 #include "lua_interface/LuaTest.h"
 
 namespace Application {
@@ -68,7 +67,6 @@ namespace Application {
 		LOG_INFO("Initializing System");
 
 		Register::init();
-		TextureManager::init();
 
 		global_window = new sf::RenderWindow(sf::VideoMode(1000, 800), "Astro Corps"); //, sf::Style::Fullscreen
 		LOG_INFO("System Initialization Complete");

@@ -105,7 +105,7 @@ namespace XML {
 		unsigned int current_reg_num = 0;
 		XMLElement* component_entry = component_register_head->FirstChildElement("Component");
 		while (component_entry != nullptr) {
-			// get font filepath
+			// get font name
 			unsigned int reg_num;
 			const char* component_name;
 			XMLNullCheck((component_name = component_entry->Attribute("name")), XML_NO_ATTRIBUTE);
@@ -124,6 +124,91 @@ namespace XML {
 		}
 
 		return true;
+	}
+
+	bool load_texture_register(std::vector<sf::Texture>& textures, const char* register_path) {
+		LOG_DEBUG("Loading Textures!");
+
+		// make a xml doc to load xml data DOM model
+		XMLDocument xmlDoc;
+
+		// load the file and get the root node
+		XMLNode* root = load_xml_file(xmlDoc, register_path);
+
+		XMLElement* texture_register_head = root->FirstChildElement("TextureRegister");
+		XMLNullCheck(texture_register_head, XML_NO_ATTRIBUTE);
+
+		// for error checking
+		unsigned int current_reg_num = 0;
+		XMLElement* texture_entry = texture_register_head->FirstChildElement("Texture");
+		while (texture_entry != nullptr) {
+			// get texture asset sheet filepath
+			unsigned int reg_num;
+			const char* texture_name;
+			const char* texture_filepath;
+			XMLNullCheck((texture_name = texture_entry->Attribute("name")), XML_NO_ATTRIBUTE);
+			XMLNullCheck((texture_filepath = texture_entry->Attribute("filepath")), XML_NO_ATTRIBUTE);
+			XMLCheckResult(texture_entry->QueryUnsignedAttribute("reg_num", &reg_num));
+
+			if (reg_num != current_reg_num++) {
+				print_register_error("TextureRegister", texture_name, reg_num, current_reg_num - 1);
+				return false;
+			}
+
+			// add font to vector and load the font file
+			textures.emplace_back();
+			bool loaded = textures.back().loadFromFile(texture_filepath);
+
+			if (!loaded) {
+				LOG_CRITICAL("Texture Register No. '{0}' name '{1}' failed to load with filepath '{2}'!", reg_num, texture_name, texture_filepath);
+				return false;
+			} else {
+				LOG_DEBUG("Texture Register No. '{0}' name '{1}' loaded successfully with filepath '{2}'!", reg_num, texture_name, texture_filepath);
+			}
+
+			// increment to next registry entry
+			texture_entry = texture_entry->NextSiblingElement("Texture");
+		}
+
+		return true;
+	}
+
+	bool load_tile_sheet_register(sf::Texture& texture, const char* register_path) {
+		LOG_DEBUG("Loading Tile Sheet!");
+
+		// make a xml doc to load xml data DOM model
+		XMLDocument xmlDoc;
+
+		// load the file and get the root node
+		XMLNode* root = load_xml_file(xmlDoc, register_path);
+
+		XMLElement* tile_sheet_register_head = root->FirstChildElement("TileSheetRegister");
+		XMLNullCheck(tile_sheet_register_head, XML_NO_ATTRIBUTE);
+
+		// for error checking
+		XMLElement* texture_sheet_entry = tile_sheet_register_head->FirstChildElement("Texture");
+
+		if (texture_sheet_entry != nullptr) {
+			// get texture asset sheet filepath
+			const char* texture_sheet_name;
+			const char* texture_sheet_filepath;
+			XMLNullCheck((texture_sheet_name = texture_sheet_entry->Attribute("name")), XML_NO_ATTRIBUTE);
+			XMLNullCheck((texture_sheet_filepath = texture_sheet_entry->Attribute("filepath")), XML_NO_ATTRIBUTE);
+
+			bool loaded = texture.loadFromFile(texture_sheet_filepath);
+
+			if (loaded) {
+				LOG_DEBUG("Texture Sheet named '{0}' with filepath '{1}' was successfully loaded!", texture_sheet_name, texture_sheet_filepath);
+				return true;
+			}
+			else {
+				LOG_CRITICAL("Texture Sheet named '{0}' with filepath '{1}' failed to load!", texture_sheet_name, texture_sheet_filepath);
+			}
+		} else {
+			LOG_CRITICAL("Tile Sheet Not Found!!!");
+		}
+
+		return false;
 	}
 
 }

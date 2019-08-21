@@ -37,6 +37,12 @@ namespace XML {
 	////////////////////////////////////////////////////////////
 	bool load_component_register(std::vector<std::string>& components, const char* register_path);
 
+	bool load_texture_register(std::vector<sf::Texture>& textures, const char* register_path);
+
+	bool load_tile_sheet_register(sf::Texture& texture, const char* register_path);
+
+
+	/* Make a loader for each type of thingya */
 }
 
 #endif
