@@ -1,34 +1,29 @@
 #ifndef __LOG__HPP__
 #define __LOG__HPP__
 
-template <typename... Args>
-static bool Log::log_if(bool condition, unsigned int level, const std::string& message, Args... args) {
+template <unsigned int LV, typename... Args>
+static bool Log::log_if(bool condition, const std::string& message, Args... args) {
+	// exit immediately if no logging is needed
 	if (!condition) return false;
 
-	switch (level) {
-	case INFO_LEVEL:
+	/* constxpr is used to determine control path
+	   at compile, so these if statements have no
+	   runtime cost whatsoever */
+	if constexpr (LV == INFO_LEVEL)
 		LOG_INFO(message, args...);
-		break;
-	case DEBUG_LEVEL:
+	else if constexpr (LV == DEBUG_LEVEL)
 		LOG_DEBUG(message, args...);
-		break;
-	case TRACE_LEVEL:
+	else if constexpr (LV == TRACE_LEVEL)
 		LOG_TRACE(message, args...);
-		break;
-	case WARN_LEVEL:
+	else if constexpr (LV == WARN_LEVEL)
 		LOG_WARN(message, args...);
-		break;
-	case ERROR_LEVEL:
+	else if constexpr (LV == ERROR_LEVEL)
 		LOG_ERROR(message, args...);
-		break;
-	case CRIT_LEVEL:
+	else if constexpr (LV == CRIT_LEVEL)
 		LOG_CRITICAL(message, args...);
-		break;
-	default:
+	else
 		LOG_WARN("Attempt to use log_if with message '{0}' with invlaid level '{1}'",
-			message, level);
-		break;
-	}
+			message, LV);
 
 	return true;
 }

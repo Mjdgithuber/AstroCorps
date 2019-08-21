@@ -9,12 +9,12 @@ namespace XML {
 	XMLNode* load_xml_file(XMLDocument& doc, const char* filepath) {
 		// attempt to load file
 		XMLError eResult = doc.LoadFile(filepath);
-		LOG_IF(eResult != XML_SUCCESS, CRIT_LEVEL, "Failed to load XML Doc '{0}'",
+		LOG_IF(CRIT_LEVEL, eResult != XML_SUCCESS, "Failed to load XML Doc '{0}'",
 			filepath);
 
 		// get the root of the document
 		XMLNode* root = doc.FirstChild();
-		LOG_IF(root == nullptr, CRIT_LEVEL, "Failed to get root of XML file '{0}'",
+		LOG_IF(CRIT_LEVEL, root == nullptr, "Failed to get root of XML file '{0}'",
 			filepath);
 
 		// return the node

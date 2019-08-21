@@ -15,9 +15,14 @@ public:
 	inline static std::shared_ptr<spdlog::logger>& get_logger() { return s_logger; }
 	inline static std::shared_ptr<spdlog::logger>& get_lua_logger() { return s_lua_logger; }
 
-	template <typename... Args>
-	static bool log_if(bool condition, unsigned int level, const std::string& message, Args... args);
+
+	template <unsigned int LV, typename... Args>
+	static bool log_if(bool condition, const std::string& message, Args... args);
 };
+
+/* Macros to both simply logging and allow removal
+   of all logging features when released to ensure
+   that no extra overhead affects runtime */
 
 #define INFO_LEVEL   0
 #define DEBUG_LEVEL  1
@@ -33,7 +38,7 @@ public:
 #define LOG_ERROR(...)        Log::get_logger()->error(__VA_ARGS__)
 #define LOG_CRITICAL(...)     Log::get_logger()->critical(__VA_ARGS__)
 
-#define LOG_IF(...)           if(Log::log_if(__VA_ARGS__)) return false
+#define LOG_IF(level, ...)    if(Log::log_if<level>(__VA_ARGS__)) return false
 
 #define LOG_LUA_INFO(...)     Log::get_lua_logger()->info(__VA_ARGS__)
 #define LOG_LUA_DEBUG(...)    Log::get_lua_logger()->debug(__VA_ARGS__)
@@ -42,7 +47,7 @@ public:
 #define LOG_LUA_ERROR(...)    Log::get_lua_logger()->error(__VA_ARGS__)
 #define LOG_LUA_CRITICAL(...) Log::get_lua_logger()->critical(__VA_ARGS__)
 
-/* Contains defition of log_if */
+/* Contains defition of log_if function */
 #include "Log.hpp"
 
 #endif

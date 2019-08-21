@@ -35,7 +35,7 @@ namespace XML {
 
 		// get the tile register head
 		XMLElement* tile_register_head = register_node->FirstChildElement("TileRegister");
-		LOG_IF(tile_register_head == nullptr, CRIT_LEVEL, 
+		LOG_IF(CRIT_LEVEL, tile_register_head == nullptr,
 			"TileRegister Element Not Found in Register");
 
 		// get the tile information
@@ -43,12 +43,12 @@ namespace XML {
 		while (tile_entry != nullptr) {
 			// get tilesheet x & y
 			unsigned int reg_num, x, y;
-			LOG_IF(tile_entry->QueryUnsignedAttribute("reg_num", &reg_num) != XML_SUCCESS,
-				CRIT_LEVEL, "Failed to find reg_num in a tile register entry");
-			LOG_IF(tile_entry->QueryUnsignedAttribute("spritesheet_x", &x) != XML_SUCCESS,
-				CRIT_LEVEL, "Failed to find spritesheet_x in tile with reg no {0}", reg_num);
-			LOG_IF(tile_entry->QueryUnsignedAttribute("spritesheet_y", &y) != XML_SUCCESS,
-				CRIT_LEVEL, "Failed to find spritesheet_y in tile with reg no {0}", reg_num);
+			LOG_IF(CRIT_LEVEL, tile_entry->QueryUnsignedAttribute("reg_num", &reg_num) != XML_SUCCESS,
+				"Failed to find reg_num in a tile register entry");
+			LOG_IF(CRIT_LEVEL, tile_entry->QueryUnsignedAttribute("spritesheet_x", &x) != XML_SUCCESS,
+				"Failed to find spritesheet_x in tile with reg no {0}", reg_num);
+			LOG_IF(CRIT_LEVEL, tile_entry->QueryUnsignedAttribute("spritesheet_y", &y) != XML_SUCCESS,
+				"Failed to find spritesheet_y in tile with reg no {0}", reg_num);
 			locations.emplace_back(x, y);
 
 			// increment to next registry entry
@@ -63,7 +63,7 @@ namespace XML {
 
 		// get the tile register head
 		XMLElement* font_register_head = register_node->FirstChildElement("FontRegister");
-		LOG_IF(font_register_head == nullptr, CRIT_LEVEL,
+		LOG_IF(CRIT_LEVEL, font_register_head == nullptr,
 			"FontRegister Tag Not Found in Register XML Document");
 
 		// for error checking
@@ -75,11 +75,11 @@ namespace XML {
 			// get font filepath
 			unsigned int reg_num;
 			const char* font_filepath, *font_name;
-			LOG_IF(font_entry->QueryUnsignedAttribute("reg_num", &reg_num) != XML_SUCCESS,
-				CRIT_LEVEL, "No reg_num for one of the fonts in FontRegister");
-			LOG_IF((font_filepath = font_entry->Attribute("filepath")) == nullptr, CRIT_LEVEL,
+			LOG_IF(CRIT_LEVEL, font_entry->QueryUnsignedAttribute("reg_num", &reg_num) != XML_SUCCESS,
+				"No reg_num for one of the fonts in FontRegister");
+			LOG_IF(CRIT_LEVEL, (font_filepath = font_entry->Attribute("filepath")) == nullptr,
 				"Font reg number '{0}' has no filepath attribute", reg_num);
-			LOG_IF((font_name = font_entry->Attribute("name")) == nullptr, CRIT_LEVEL,
+			LOG_IF(CRIT_LEVEL, (font_name = font_entry->Attribute("name")) == nullptr,
 				"Font reg number '{0}' has no name attribute", reg_num);
 
 			if (reg_num != current_reg_num++) {
