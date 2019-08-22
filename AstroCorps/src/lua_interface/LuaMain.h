@@ -10,6 +10,7 @@ namespace Lua {
 	void process_key(sf::Keyboard::Key code, bool pressed);
 	void update();
 	bool load_script(const std::string& script_file);
+	void lost_focus();
 
 }
 

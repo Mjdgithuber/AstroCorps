@@ -111,10 +111,12 @@ namespace Application {
 				// closed button was clicked
 				if (event.type == sf::Event::Closed)
 					window.close();
-				if (event.type == sf::Event::KeyPressed)
+				else if (event.type == sf::Event::KeyPressed)
 					Lua::process_key(event.key.code, true);
-				if (event.type == sf::Event::KeyReleased)
+				else if (event.type == sf::Event::KeyReleased)
 					Lua::process_key(event.key.code, false);
+				else if (event.type == sf::Event::LostFocus)
+					Lua::lost_focus();
 			}
 
 			if (current_tile_map != nullptr)

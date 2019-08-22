@@ -6,6 +6,8 @@ function update_keyboard(key, pressed)
 	-- get last keyboard state
 	local prev_val = Keyboard[_G['KEY_' .. key]]
 
+	if prev_val == nil then return end
+
 	-- check if it changed
 	if pressed ~= prev_val then
 		-- set the current key state to the new state
