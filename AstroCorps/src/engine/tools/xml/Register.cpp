@@ -24,9 +24,9 @@ namespace Register {
 
 		if (!inited) {
 			FALSE_WRAPPER(XML::read_tile_register(tilesheet_locations));
-			XML::read_texture_register(textures);
-			XML::read_tile_sheet_register(tile_sheet);
-			XML::read_font_register(fonts);
+			FALSE_WRAPPER(XML::read_texture_register(textures));
+			FALSE_WRAPPER(XML::read_tile_sheet_register(tile_sheet));
+			FALSE_WRAPPER(XML::read_font_register(fonts));
 		}
 		inited = true;
 

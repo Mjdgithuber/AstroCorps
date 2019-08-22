@@ -13,13 +13,6 @@
 namespace XML {
 	using namespace tinyxml2;
 
-	#ifndef XMLCheckResult
-		#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { LOG_ERROR("XML Error: {0}\n", a_eResult); return false; }
-	#endif
-	#ifndef XMLNullCheck
-		#define XMLNullCheck(ptr, error) if(ptr == nullptr) { LOG_ERROR("XML Null Ptr Error: {0}\n", error); }
-	#endif
-
 	////////////////////////////////////////////////////////////
 	/// Will attempt to open an XML document into the passed in
 	/// XMLDocument. If the filepath is invalid it will return

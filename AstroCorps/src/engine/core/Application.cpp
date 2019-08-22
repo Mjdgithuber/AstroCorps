@@ -20,7 +20,7 @@ namespace Application {
 		unsigned int scaled_tile_size;
 
 		// main window
-		sf::RenderWindow* global_window;
+		sf::RenderWindow* global_window = nullptr;
 
 		// current tile map
 		TileMap* current_tile_map;
@@ -52,11 +52,11 @@ namespace Application {
 		if (scaled_tile_size != tile_size * scale)
 			LOG_ERROR("Scaled Tile Size ({0}) must equal {1}", scaled_tile_size, (scale));
 
-		// end if not inited correctly
-		if (!init()) return;
-		
-		// run application
-		run();
+		// don't run if not inited correctly
+		if (init()) {
+			// run application
+			run();
+		}
 
 		// clean all memory
 		cleanup();

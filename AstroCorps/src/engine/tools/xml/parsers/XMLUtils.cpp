@@ -41,8 +41,10 @@ namespace XML {
 	   and height with the values of the element */
 	bool load_size_element(XMLElement* element, unsigned int& width, unsigned int& height) {
 		// get the width and height from the size element
-		XMLCheckResult(element->QueryUnsignedAttribute("width", &width));
-		XMLCheckResult(element->QueryUnsignedAttribute("height", &height));
+		LOG_IF(CRIT_LEVEL, element->QueryUnsignedAttribute("width", &width) != XML_SUCCESS,
+			"Attempted To Load Size Element With No width Tag");
+		LOG_IF(CRIT_LEVEL, element->QueryUnsignedAttribute("height", &height) != XML_SUCCESS,
+			"Attempted To Load Size Element With No height Tag");
 
 		return true;
 	}
@@ -52,8 +54,10 @@ namespace XML {
 	   and y with the values of the element */
 	bool load_location_element(XMLElement* element, unsigned int& x, unsigned int& y) {
 		// get the width and height from the size element
-		XMLCheckResult(element->QueryUnsignedAttribute("x", &x));
-		XMLCheckResult(element->QueryUnsignedAttribute("y", &y));
+		LOG_IF(CRIT_LEVEL, element->QueryUnsignedAttribute("x", &x) != XML_SUCCESS,
+			"Attempted To Load Location Element With No x Tag");
+		LOG_IF(CRIT_LEVEL, element->QueryUnsignedAttribute("y", &y) != XML_SUCCESS,
+			"Attempted To Load Location Element With No y Tag");
 
 		return true;
 	}

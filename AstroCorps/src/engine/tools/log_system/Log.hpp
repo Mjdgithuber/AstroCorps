@@ -25,7 +25,9 @@ static bool Log::log_if(bool condition, const std::string& message, Args... args
 		LOG_WARN("Attempt to use log_if with message '{0}' with invlaid level '{1}'",
 			message, LV);
 
-	return true;
+	// only return true if level if error or critical
+	if constexpr (LV >= ERROR_LEVEL) return true;
+	else return false;
 }
 
 #endif
