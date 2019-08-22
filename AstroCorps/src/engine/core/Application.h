@@ -1,7 +1,7 @@
 #ifndef __APPLICATION__H__
 #define __APPLICATION__H__
 
-#include "engine/main/tile_based/TileMap.h"
+#include "lua_interface/user_types/tile_map/TileMap.h"
 
 ////////////////////////////////////////////////////////////
 /// The application namespace holds all of the information
@@ -37,7 +37,7 @@ namespace Application {
 	unsigned int get_scaled_tile_size();
 
 	/* REGISTERED WITH LUA */
-	void load_tile_map(TileMap* new_tile_map);
+	void load_tile_map(Lua::TileMap* new_tile_map);
 }
 
 #endif

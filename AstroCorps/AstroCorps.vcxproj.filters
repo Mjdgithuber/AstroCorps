@@ -15,12 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\lua_interface\LuaTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lua_interface\user_types\parser\LuaXMLParser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\lua_interface\user_types\directory\Directory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -42,9 +36,6 @@
     <ClCompile Include="src\engine\main\tile_based\Tile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\main\tile_based\TileMap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\engine\main\tile_based\TilePackage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -63,17 +54,20 @@
     <ClCompile Include="src\engine\tools\xml\Register.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\lua_interface\LuaMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua_interface\user_types\parser\XMLParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua_interface\user_types\tile_map\TileMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua_interface\engine_functionality\EngineFunctionality.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\lua_interface\LuaTest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\lua_interface\user_types\parser\LuaXMLParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\lua_interface\user_types\parser\LuaXMLParser.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\lua_interface\user_types\directory\Directory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -326,9 +320,6 @@
     <ClInclude Include="src\engine\main\tile_based\Tile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\main\tile_based\TileMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\engine\main\tile_based\TilePackage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -354,6 +345,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\engine\tools\log_system\Log.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua_interface\LuaMain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua_interface\user_types\parser\XMLParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua_interface\user_types\parser\XMLParser.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua_interface\user_types\tile_map\TileMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua_interface\engine_functionality\EngineFunctionality.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

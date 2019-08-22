@@ -1,9 +1,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "engine/common.h"
-#include "engine/main/tile_based/TileMap.h"
 #include "engine/tools/xml/Register.h"
-#include "lua_interface/LuaTest.h"
+#include "lua_interface/LuaMain.h"
 
 namespace Application {
 	/* Prototypes */
@@ -23,7 +22,7 @@ namespace Application {
 		sf::RenderWindow* global_window = nullptr;
 
 		// current tile map
-		TileMap* current_tile_map;
+		Lua::TileMap* current_tile_map;
 	}
 
 	////////////////////////////////////PUBLIC DEFINTIONS////////////////////////////////////
@@ -93,7 +92,7 @@ namespace Application {
 		LOG_DEBUG("Application Cleaned Up");
 	}
 
-	void load_tile_map(TileMap* new_tile_map) {
+	void load_tile_map(Lua::TileMap* new_tile_map) {
 		current_tile_map = new_tile_map;
 	}
 

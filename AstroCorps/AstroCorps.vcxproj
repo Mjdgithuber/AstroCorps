@@ -88,14 +88,15 @@
   <ItemGroup>
     <ClCompile Include="src\engine\core\Driver.cpp" />
     <ClCompile Include="src\engine\main\tile_based\Tile.cpp" />
-    <ClCompile Include="src\engine\main\tile_based\TileMap.cpp" />
+    <ClCompile Include="src\lua_interface\engine_functionality\EngineFunctionality.cpp" />
+    <ClCompile Include="src\lua_interface\user_types\tile_map\TileMap.cpp" />
     <ClCompile Include="src\engine\main\tile_based\TilePackage.cpp" />
     <ClCompile Include="src\engine\core\Application.cpp" />
     <ClCompile Include="src\engine\tools\log_system\Log.cpp" />
-    <ClCompile Include="src\lua_interface\LuaTest.cpp" />
+    <ClCompile Include="src\lua_interface\LuaMain.cpp" />
     <ClCompile Include="src\lua_interface\user_types\directory\Directory.cpp" />
     <ClCompile Include="src\lua_interface\user_types\entity\Entity.cpp" />
-    <ClCompile Include="src\lua_interface\user_types\parser\LuaXMLParser.cpp" />
+    <ClCompile Include="src\lua_interface\user_types\parser\XMLParser.cpp" />
     <ClCompile Include="src\engine\tools\xml\parsers\MapParser.cpp" />
     <ClCompile Include="src\engine\tools\xml\parsers\RegisterParser.cpp" />
     <ClCompile Include="src\engine\tools\util\Util.cpp" />
@@ -106,7 +107,8 @@
   <ItemGroup>
     <ClInclude Include="src\engine\common.h" />
     <ClInclude Include="src\engine\main\tile_based\Tile.h" />
-    <ClInclude Include="src\engine\main\tile_based\TileMap.h" />
+    <ClInclude Include="src\lua_interface\engine_functionality\EngineFunctionality.h" />
+    <ClInclude Include="src\lua_interface\user_types\tile_map\TileMap.h" />
     <ClInclude Include="src\engine\main\tile_based\TilePackage.h" />
     <ClInclude Include="src\engine\core\Application.h" />
     <ClInclude Include="src\engine\tools\libs\lua\include\lauxlib.h" />
@@ -118,11 +120,11 @@
     <ClInclude Include="src\engine\tools\libs\lua\include\sol.hpp" />
     <ClInclude Include="src\engine\tools\log_system\Log.h" />
     <ClInclude Include="src\engine\tools\log_system\Log.hpp" />
-    <ClInclude Include="src\lua_interface\LuaTest.h" />
+    <ClInclude Include="src\lua_interface\LuaMain.h" />
     <ClInclude Include="src\lua_interface\user_types\directory\Directory.h" />
     <ClInclude Include="src\lua_interface\user_types\entity\Entity.h" />
-    <ClInclude Include="src\lua_interface\user_types\parser\LuaXMLParser.h" />
-    <ClInclude Include="src\lua_interface\user_types\parser\LuaXMLParser.hpp" />
+    <ClInclude Include="src\lua_interface\user_types\parser\XMLParser.h" />
+    <ClInclude Include="src\lua_interface\user_types\parser\XMLParser.hpp" />
     <ClInclude Include="src\engine\tools\xml\parsers\MapParser.h" />
     <ClInclude Include="src\engine\tools\xml\parsers\RegisterParser.h" />
     <ClInclude Include="src\engine\tools\libs\spdlog\async.h" />
