@@ -13,7 +13,7 @@ namespace Lua {
 		m_moving(false), m_speed(.33f), m_x_offset(0.f), m_y_offset(0.f) {
 
 		// Need to remove, just for testing ********************************
-		m_sprite.setTexture(Register::get_texture(0));
+		m_sprite.setTexture(Engine::Register::get_texture(0));
 		//m_sprite.setTexture(TextureManager::get_entity_texture(Textures::Entity::TEST));
 		m_sprite.setScale(Application::get_scale(), Application::get_scale());
 		m_sprite.setPosition((float)Application::get_scaled_tile_size() * x, (float)Application::get_scaled_tile_size() * y);
@@ -50,13 +50,15 @@ namespace Lua {
 	/* Will return the horizontal component of a
 	   given direction */
 	int Entity::get_hor_offset(Direction dir) const {
-		return ((m_curr_dir == Util::EAST) ? 1 : (m_curr_dir == Util::WEST ? -1 : 0));
+		return ((m_curr_dir == Engine::Util::EAST) ? 1 
+			: (m_curr_dir == Engine::Util::WEST ? -1 : 0));
 	}
 
 	/* Will return the vertical component of a
 	   given direction */
 	int Entity::get_vert_offset(Direction dir) const {
-		return ((m_curr_dir == Util::SOUTH) ? 1 : (m_curr_dir == Util::NORTH ? -1 : 0));
+		return ((m_curr_dir == Engine::Util::SOUTH) ? 1 : 
+			(m_curr_dir == Engine::Util::NORTH ? -1 : 0));
 	}
 
 	/* Will adjust the percentage as needed */
@@ -97,7 +99,8 @@ namespace Lua {
 		m_next_dir = dir;
 
 		// only change direction if not moving
-		if (m_curr_dir == Util::STATIONARY && m_next_dir != Util::STATIONARY) {
+		if (m_curr_dir == Engine::Util::STATIONARY && m_next_dir 
+			!= Engine::Util::STATIONARY) {
 			// update current direction & location
 			m_curr_dir = m_next_dir;
 			adjust_tile_position();
@@ -109,7 +112,7 @@ namespace Lua {
 
 	/* Will move the entity if it is currently moving */
 	void Entity::update(const sf::Time& delta_time) {
-		if (m_curr_dir != Util::STATIONARY) {
+		if (m_curr_dir != Engine::Util::STATIONARY) {
 			// caculate how much to offset by
 			m_elap += delta_time;
 			float percentage = m_elap.asSeconds() / m_speed;

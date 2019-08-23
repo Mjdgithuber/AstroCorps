@@ -1,9 +1,11 @@
 #include "util.h"
 
-namespace Util {
+namespace Engine {
+	namespace Util {
 
-	/* Inits the point object */
-	Point::Point(unsigned int x, unsigned int y) 
-		: x(x), y(y) {}
+		/* Inits the point object */
+		Point::Point(unsigned int x, unsigned int y)
+			: x(x), y(y) {}
 
+	}
 }

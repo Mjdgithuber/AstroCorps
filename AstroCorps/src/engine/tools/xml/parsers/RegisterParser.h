@@ -4,37 +4,39 @@
 #include "engine/common.h"
 #include "XMLUtils.h"
 
-namespace XML {
+namespace Engine {
+	namespace XML {
 
-	bool load_register_file(const char* register_filepath);
+		bool load_register_file(const char* register_filepath);
 
-	////////////////////////////////////////////////////////////
-	/// This will load the Tile part of the Registry file. The
-	/// registry allows the map files to be appropriately loaded
-	/// in a flexible manner.
-	/// Params:
-	/// locations - The place to store the location data 
-	/// register_path - The path to the register
-	////////////////////////////////////////////////////////////
-	bool read_tile_register(std::vector<Util::Point>& locations);
+		////////////////////////////////////////////////////////////
+		/// This will load the Tile part of the Registry file. The
+		/// registry allows the map files to be appropriately loaded
+		/// in a flexible manner.
+		/// Params:
+		/// locations - The place to store the location data 
+		/// register_path - The path to the register
+		////////////////////////////////////////////////////////////
+		bool read_tile_register(std::vector<Util::Point>& locations);
 
-	////////////////////////////////////////////////////////////
-	/// This will load the Font part of the Registry file. The
-	/// registry allows the fonts to be used all of the program
-	/// without having to needlessly create fonts whenever they
-	/// are used
-	/// Params:
-	/// fonts - The place to store the font data 
-	/// register_path - The path to the register
-	////////////////////////////////////////////////////////////
-	bool read_font_register(std::vector<sf::Font>& fonts);
+		////////////////////////////////////////////////////////////
+		/// This will load the Font part of the Registry file. The
+		/// registry allows the fonts to be used all of the program
+		/// without having to needlessly create fonts whenever they
+		/// are used
+		/// Params:
+		/// fonts - The place to store the font data 
+		/// register_path - The path to the register
+		////////////////////////////////////////////////////////////
+		bool read_font_register(std::vector<sf::Font>& fonts);
 
-	bool read_texture_register(std::vector<sf::Texture>& textures);
+		bool read_texture_register(std::vector<sf::Texture>& textures);
 
-	bool read_tile_sheet_register(sf::Texture& texture);
+		bool read_tile_sheet_register(sf::Texture& texture);
 
 
-	/* Make a loader for each type of thingya */
+		/* Make a loader for each type of thingya */
+	}
 }
 
 #endif

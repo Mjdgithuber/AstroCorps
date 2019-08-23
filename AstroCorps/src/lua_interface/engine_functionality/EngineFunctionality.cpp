@@ -28,11 +28,11 @@ namespace Lua {
 			/* Registers Direction in Lua script to ensure they
 			   are synchronized with each other */
 			void register_direction_utilities(sol::state& state) {
-				state["STATIONARY"] = Util::STATIONARY;
-				state["NORTH"] = Util::NORTH;
-				state["EAST"] = Util::EAST;
-				state["SOUTH"] = Util::SOUTH;
-				state["WEST"] = Util::WEST;
+				state["STATIONARY"] = Engine::Util::STATIONARY;
+				state["NORTH"] = Engine::Util::NORTH;
+				state["EAST"] = Engine::Util::EAST;
+				state["SOUTH"] = Engine::Util::SOUTH;
+				state["WEST"] = Engine::Util::WEST;
 			}
 		}
 

@@ -12,10 +12,10 @@ namespace Lua {
 
 		// makes a new T and attempts to load the attribute into it
 		T to_read;
-		XML::XMLError result = XML::load_attribute(m_cached_element, attribute.c_str(), to_read);
+		Engine::XML::XMLError result = Engine::XML::load_attribute(m_cached_element, attribute.c_str(), to_read);
 
 		// check if error occured
-		if (result != XML::XML_SUCCESS) {
+		if (result != Engine::XML::XML_SUCCESS) {
 			// logs error to console
 			LOG_ERROR("Lua Parser '{0}' called 'get_attribute()' and failed to find '{1}' from element '{2}' from file '{3}'",
 				m_name, attribute, m_cached_element->Name(), m_current_file);

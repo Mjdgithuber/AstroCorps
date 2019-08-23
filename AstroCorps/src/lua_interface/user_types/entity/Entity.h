@@ -115,7 +115,7 @@ namespace Lua {
 		/// Params:
 		/// dir - The direction this entity should move in next
 		////////////////////////////////////////////////////////////
-		void set_movement(Direction dir = Util::STATIONARY);
+		void set_movement(Direction dir = Engine::Util::STATIONARY);
 
 		////////////////////////////////////////////////////////////
 		/// Will update the position of the sprite if it is currently

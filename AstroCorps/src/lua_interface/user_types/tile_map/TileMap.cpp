@@ -39,7 +39,7 @@ namespace Lua {
 	/* Will load a map file into the tile map */
 	void TileMap::load_map(const char* map_file) {
 		// load map from xml file passed in
-		TilePackage* tp = XML::load_map(map_file);
+		Engine::TilePackage* tp = Engine::XML::load_map(map_file);
 
 		// make sure tiles is empty
 		m_tiles.clear();
@@ -49,7 +49,7 @@ namespace Lua {
 		m_cols = tp->get_cols();
 
 		// get tile sheet ref for convenience
-		const sf::Texture& tile_sheet = Register::get_tile_sheet();//TextureManager::get_tile_sheet(Textures::TileSheet::MASTER_TILE_SHEET);
+		const sf::Texture& tile_sheet = Engine::Register::get_tile_sheet();//TextureManager::get_tile_sheet(Textures::TileSheet::MASTER_TILE_SHEET);
 
 		// load the tile map
 		m_tiles.reserve(m_rows);
@@ -59,7 +59,7 @@ namespace Lua {
 		unsigned int tile_size = Application::get_unscaled_tile_size();
 
 		for (unsigned int r = 0; r < m_rows; r++) {
-			std::vector<Tile> tile_col;
+			std::vector<Engine::Tile> tile_col;
 			tile_col.reserve(m_cols);
 			for (unsigned int c = 0; c < m_cols; c++) {
 				// get tile info from packet
@@ -68,10 +68,10 @@ namespace Lua {
 				const std::string& script = tp->get_script(c, r);
 
 				// get register information for texture location
-				const Util::Point& location = Register::get_tilesheet_location(reg_num);
+				const Engine::Util::Point& location = Engine::Register::get_tilesheet_location(reg_num);
 
 				// make a new tile
-				Tile t(reg_num, mod_num, script);
+				Engine::Tile t(reg_num, mod_num, script);
 				sf::Sprite& sp = t.get_sprite();
 				sp.setTexture(tile_sheet);
 				sp.setTextureRect(sf::IntRect(tile_size * (location.x * 2 + (m_bordered ? 1 : 0)), 0, tile_size, tile_size));
@@ -110,10 +110,10 @@ namespace Lua {
 		for (unsigned int r = 0; r < m_rows; r++) {
 			for (unsigned int c = 0; c < m_cols; c++) {
 				// get the tile
-				Tile& t = m_tiles[r][c];
+				Engine::Tile& t = m_tiles[r][c];
 
 				// get it's texture location
-				const Util::Point& location = Register::get_tilesheet_location(t.get_register_number());
+				const Engine::Util::Point& location = Engine::Register::get_tilesheet_location(t.get_register_number());
 
 				// set the tile's texture
 				t.get_sprite().setTextureRect(
@@ -132,8 +132,8 @@ namespace Lua {
 
 	/* ========================= Getters ========================= */
 
-	Tile& TileMap::get_tile(unsigned int row, unsigned int col) { return m_tiles[row][col]; }
-	const Tile& TileMap::get_tile(unsigned int row, unsigned int col) const { return m_tiles[row][col]; }
+	Engine::Tile& TileMap::get_tile(unsigned int row, unsigned int col) { return m_tiles[row][col]; }
+	const Engine::Tile& TileMap::get_tile(unsigned int row, unsigned int col) const { return m_tiles[row][col]; }
 
 	unsigned int TileMap::get_rows() const { return m_rows; }
 	unsigned int TileMap::get_cols() const { return m_cols; }

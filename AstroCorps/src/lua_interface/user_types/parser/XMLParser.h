@@ -23,9 +23,9 @@ namespace Lua {
 		std::string m_current_file;
 
 		// core document varibles	
-		XML::XMLDocument m_doc;
-		XML::XMLNode* m_root_node;
-		XML::XMLElement* m_cached_element;
+		Engine::XML::XMLDocument m_doc;
+		Engine::XML::XMLNode* m_root_node;
+		Engine::XML::XMLElement* m_cached_element;
 
 		/* =========================================================== */
 		/* ================= Private Helper Functions ================ */

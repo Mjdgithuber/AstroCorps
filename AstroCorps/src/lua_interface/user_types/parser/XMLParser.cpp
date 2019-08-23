@@ -66,7 +66,7 @@ namespace Lua {
 		}
 
 		// attempt to load file
-		m_root_node = XML::load_xml_file(m_doc, filename);
+		m_root_node = Engine::XML::load_xml_file(m_doc, filename);
 		if (!m_root_node) {
 			LOG_ERROR("Lua Parser '{0}' attempted to open a malformed file '{1}'",
 				m_name, filename);
@@ -98,7 +98,7 @@ namespace Lua {
 
 		/* attempt to grab element while using temp to avoid
 		   overriding m_cached_element will a nullptr */
-		XML::XMLElement* temp = m_root_node->FirstChildElement(element);
+		Engine::XML::XMLElement* temp = m_root_node->FirstChildElement(element);
 		m_cached_element = (temp ? temp : m_cached_element);
 
 		// indicate no element was found
@@ -116,7 +116,7 @@ namespace Lua {
 			return false;
 
 		// check if current element has a child with the passed in name
-		XML::XMLElement* temp = (std::string(child) == "") ?
+		Engine::XML::XMLElement* temp = (std::string(child) == "") ?
 			(m_cached_element->FirstChildElement()) : // first child
 			(m_cached_element->FirstChildElement(child)); // child with given name
 		if (temp == nullptr) return false; // indicate no element was found
@@ -143,11 +143,11 @@ namespace Lua {
 		if (!m_open || !m_cached_element) return false;
 
 		// check by attempting to load into temp
-		XML::XMLError result = XML::load_attribute(m_cached_element, attribute.c_str(),
+		Engine::XML::XMLError result = Engine::XML::load_attribute(m_cached_element, attribute.c_str(),
 			std::string());
 
 		// if == success return true;
-		return result == XML::XML_SUCCESS;
+		return result == Engine::XML::XML_SUCCESS;
 	}
 
 
