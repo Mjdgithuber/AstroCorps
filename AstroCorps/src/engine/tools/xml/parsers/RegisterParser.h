@@ -32,7 +32,7 @@ namespace Engine {
 
 		bool read_texture_register(std::vector<sf::Texture>& textures);
 
-		bool read_tile_sheet_register(sf::Texture& texture);
+		bool read_tilesheet_register(sf::Texture& texture);
 
 
 		/* Make a loader for each type of thingya */

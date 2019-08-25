@@ -13,11 +13,11 @@ namespace Engine {
 			bool inited = false;
 			std::vector<Util::Point> tilesheet_locations;
 			std::vector<sf::Font> fonts;
-			sf::Texture tile_sheet;
+			sf::Texture tilesheet;
 			std::vector<sf::Texture> textures;
 		}
 
-#define FALSE_WRAPPER(wrapped) if(!wrapped) return false
+		#define FALSE_WRAPPER(wrapped) if(!wrapped) return false
 
 		/* Load the registry */
 		bool init(const char* register_filepath) {
@@ -26,7 +26,7 @@ namespace Engine {
 			if (!inited) {
 				FALSE_WRAPPER(XML::read_tile_register(tilesheet_locations));
 				FALSE_WRAPPER(XML::read_texture_register(textures));
-				FALSE_WRAPPER(XML::read_tile_sheet_register(tile_sheet));
+				FALSE_WRAPPER(XML::read_tilesheet_register(tilesheet));
 				FALSE_WRAPPER(XML::read_font_register(fonts));
 			}
 			inited = true;
@@ -44,9 +44,9 @@ namespace Engine {
 			return fonts[reg_num];
 		}
 
-		/* Returns the tile sheet. NOTE: there is only one tile sheet */
-		const sf::Texture& get_tile_sheet() {
-			return tile_sheet;
+		/* Returns the tile sheet. NOTE: there is only one tilesheet */
+		const sf::Texture& get_tilesheet() {
+			return tilesheet;
 		}
 
 		/* Returns the texture with the given register number */

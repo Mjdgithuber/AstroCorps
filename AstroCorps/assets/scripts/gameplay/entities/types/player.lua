@@ -15,7 +15,7 @@ PlayerMetatable.__index = PlayerMetatable
 -- to make a new player 
 local PlayerConstructor = {
 	new = function(name, x, y)
-		DEBUG('Creating new Player Entity')
+		DEBUG('Created Player, Name: ' .. name .. ' X: ' .. x .. ' Y: ' .. y)
 		
 		-- create new player
 		local player_en = setmetatable({}, PlayerMetatable)

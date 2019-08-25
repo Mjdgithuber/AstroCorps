@@ -44,7 +44,7 @@ namespace Engine {
 		/// textures. NOTE: as of current there is only one tile
 		/// sheet
 		////////////////////////////////////////////////////////////
-		const sf::Texture& get_tile_sheet();
+		const sf::Texture& get_tilesheet();
 
 		////////////////////////////////////////////////////////////
 		/// Given a register number of a texture this method will

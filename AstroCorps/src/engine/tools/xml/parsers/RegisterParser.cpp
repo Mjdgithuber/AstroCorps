@@ -144,18 +144,18 @@ namespace Engine {
 			return true;
 		}
 
-		bool read_tile_sheet_register(sf::Texture& texture) {
+		bool read_tilesheet_register(sf::Texture& texture) {
 			LOG_DEBUG("Loading Tile Sheet!");
 
 			// get head and log if not found
-			XMLElement* tile_sheet_register_head =
+			XMLElement* tilesheet_register_head =
 				register_node->FirstChildElement("TileSheetRegister");
-			LOG_IF(CRIT_LEVEL, tile_sheet_register_head == nullptr,
+			LOG_IF(CRIT_LEVEL, tilesheet_register_head == nullptr,
 				"TileSheetRegister Tag Not Found in XML register file!");
 
 			// for error checking
 			XMLElement* texture_sheet_entry =
-				tile_sheet_register_head->FirstChildElement("Texture");
+				tilesheet_register_head->FirstChildElement("Texture");
 
 			if (texture_sheet_entry != nullptr) {
 				// get texture asset sheet filepath
