@@ -49,7 +49,7 @@ namespace Lua {
 		m_cols = tp->get_cols();
 
 		// get tile sheet ref for convenience
-		const sf::Texture& tile_sheet = Engine::Register::get_tilesheet();//TextureManager::get_tile_sheet(Textures::TileSheet::MASTER_TILE_SHEET);
+		const sf::Texture& tile_sheet = Engine::Register::get_tilesheet();
 
 		// load the tile map
 		m_tiles.reserve(m_rows);

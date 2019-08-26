@@ -11,7 +11,9 @@ namespace Engine {
 		/* anonymous namespace to provide static encapsulation */
 		namespace {
 			bool inited = false;
-			std::vector<Util::Point> tilesheet_locations;
+			std::vector<std::pair<std::string, Util::Point>>
+				tilesheet_assets;
+			//std::vector<Util::Point> tilesheet_locations;
 			std::vector<sf::Font> fonts;
 			sf::Texture tilesheet;
 			std::vector<sf::Texture> textures;
@@ -24,7 +26,7 @@ namespace Engine {
 			FALSE_WRAPPER(XML::load_register_file(register_filepath));
 
 			if (!inited) {
-				FALSE_WRAPPER(XML::read_tile_register(tilesheet_locations));
+				FALSE_WRAPPER(XML::read_tile_register(tilesheet_assets));
 				FALSE_WRAPPER(XML::read_texture_register(textures));
 				FALSE_WRAPPER(XML::read_tilesheet_register(tilesheet));
 				FALSE_WRAPPER(XML::read_font_register(fonts));
@@ -34,9 +36,22 @@ namespace Engine {
 			return true;
 		}
 
-		/* Returns the location of the tile's texture */
+		/* Returns the location of the tile's texture baes on
+		   a register number */
 		const Util::Point& get_tilesheet_location(unsigned int reg_num) {
-			return tilesheet_locations[reg_num];
+			return tilesheet_assets[reg_num].second;
+		}
+
+		/* Returns the location of the tile's texture based on
+		   the name of the texture. NOTE: Register number should
+		   is perfered, but it makes sense to look something up
+		   by name under certain circumstances */
+		const Util::Point get_tilesheet_location(const std::string& name) {
+			for (unsigned int i = 0; i < tilesheet_assets.size(); i++) {
+				if (name == tilesheet_assets[i].first)
+					return tilesheet_assets[i].second;
+			}
+			return Util::Point(-1, -1);
 		}
 
 		/* Returns the font with the given register number */

@@ -29,6 +29,7 @@ namespace Engine {
 		/// location of
 		////////////////////////////////////////////////////////////
 		const Util::Point& get_tilesheet_location(unsigned int reg_num);
+		const Util::Point get_tilesheet_location(const std::string& name);
 
 		////////////////////////////////////////////////////////////
 		/// Given a register number of a font, this will return 

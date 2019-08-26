@@ -32,7 +32,8 @@ namespace Engine {
 		   uses to store the location of each tile's texture on the tile
 		   sheet. The register_path is the path the the register file
 		   containing the location data. */
-		bool read_tile_register(std::vector<Util::Point>& locations) {
+		bool read_tile_register(std::vector<std::pair<std::string, Util::Point>>& assets) {
+		//bool read_tile_register(std::vector<Util::Point>& locations) {
 			LOG_DEBUG("Loading Tile Register");
 
 			// get the tile register head
@@ -43,15 +44,19 @@ namespace Engine {
 			// get the tile information
 			XMLElement* tile_entry = tile_register_head->FirstChildElement("Tile");
 			while (tile_entry != nullptr) {
-				// get tilesheet x & y
+				// get tilesheet x & y and name + reg_num
 				unsigned int reg_num, x, y;
+				const char* name;
+
 				LOG_IF(CRIT_LEVEL, tile_entry->QueryUnsignedAttribute("reg_num", &reg_num) !=
 					XML_SUCCESS, "Failed to find reg_num in a tile register entry");
+				LOG_IF(CRIT_LEVEL, (name = tile_entry->Attribute("name")) == nullptr, "Failed to "
+					"find name attribute for tile entry reg_num \'{0}\'", reg_num);
 				LOG_IF(CRIT_LEVEL, tile_entry->QueryUnsignedAttribute("spritesheet_x", &x) !=
 					XML_SUCCESS, "Failed to find spritesheet_x in tile with reg no {0}", reg_num);
 				LOG_IF(CRIT_LEVEL, tile_entry->QueryUnsignedAttribute("spritesheet_y", &y) !=
 					XML_SUCCESS, "Failed to find spritesheet_y in tile with reg no {0}", reg_num);
-				locations.emplace_back(x, y);
+				assets.emplace_back(std::make_pair(name, Util::Point(x, y)));
 
 				// increment to next registry entry
 				tile_entry = tile_entry->NextSiblingElement("Tile");
