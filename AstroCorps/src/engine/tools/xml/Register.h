@@ -29,7 +29,15 @@ namespace Engine {
 		/// location of
 		////////////////////////////////////////////////////////////
 		const Util::Point& get_tilesheet_location(unsigned int reg_num);
-		const Util::Point get_tilesheet_location(const std::string& name);
+
+		////////////////////////////////////////////////////////////
+		/// Given a name of a tile, this will attempt to locate it 
+		/// in the vector and will return the location if it was 
+		/// found. Otherwise it will return -1, -1 and log an error.
+		/// Params:
+		/// name - the name of the tile you want the location of
+		////////////////////////////////////////////////////////////
+		Util::Point get_tilesheet_location(const std::string& name);
 
 		////////////////////////////////////////////////////////////
 		/// Given a register number of a font, this will return 

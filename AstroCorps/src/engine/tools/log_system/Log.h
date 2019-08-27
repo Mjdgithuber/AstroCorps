@@ -41,6 +41,7 @@ namespace Engine {
 #define LOG_CRITICAL(...)     Engine::Log::get_logger()->critical(__VA_ARGS__)
 
 #define LOG_IF(level, ...)    if(Engine::Log::log_if<level>(__VA_ARGS__)) return false
+#define LOG_IF_NR(level, ...) Engine::Log::log_if<level>(__VA_ARGS__)
 
 #define LOG_LUA_INFO(...)     Engine::Log::get_lua_logger()->info(__VA_ARGS__)
 #define LOG_LUA_DEBUG(...)    Engine::Log::get_lua_logger()->debug(__VA_ARGS__)

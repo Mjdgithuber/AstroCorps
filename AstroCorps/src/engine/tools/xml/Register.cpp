@@ -39,6 +39,11 @@ namespace Engine {
 		/* Returns the location of the tile's texture baes on
 		   a register number */
 		const Util::Point& get_tilesheet_location(unsigned int reg_num) {
+			LOG_IF_NR(ERROR_LEVEL, reg_num >= tilesheet_assets.size(), "Attemped "
+				"to call \'get_tilesheet_location\' with reg_num \'{0}\' when "
+				"there is only '{1}' possible reg_num's (starting a 0)", reg_num,
+				tilesheet_assets.size());
+
 			return tilesheet_assets[reg_num].second;
 		}
 
@@ -46,11 +51,17 @@ namespace Engine {
 		   the name of the texture. NOTE: Register number should
 		   is perfered, but it makes sense to look something up
 		   by name under certain circumstances */
-		const Util::Point get_tilesheet_location(const std::string& name) {
+		Util::Point get_tilesheet_location(const std::string& name) {
+			// attempt to locate texture with the name
 			for (unsigned int i = 0; i < tilesheet_assets.size(); i++) {
 				if (name == tilesheet_assets[i].first)
 					return tilesheet_assets[i].second;
 			}
+
+			// the name wasn't found
+			LOG_ERROR("Attempted to call get_tilesheet_location with invalid "
+				"texture name \'{0}\'", name);
+
 			return Util::Point(-1, -1);
 		}
 
