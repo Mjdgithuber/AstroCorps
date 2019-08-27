@@ -38,7 +38,7 @@ namespace Engine {
 
 			// get the tile register head
 			XMLElement* tile_register_head = register_node->FirstChildElement("TileRegister");
-			LOG_IF(CRIT_LEVEL, tile_register_head == nullptr,
+			LOG_IF_AR(CRIT_LEVEL, tile_register_head == nullptr,
 				"TileRegister Element Not Found in Register");
 
 			// get the tile information
@@ -48,13 +48,13 @@ namespace Engine {
 				unsigned int reg_num, x, y;
 				const char* name;
 
-				LOG_IF(CRIT_LEVEL, tile_entry->QueryUnsignedAttribute("reg_num", &reg_num) !=
+				LOG_IF_AR(CRIT_LEVEL, tile_entry->QueryUnsignedAttribute("reg_num", &reg_num) !=
 					XML_SUCCESS, "Failed to find reg_num in a tile register entry");
-				LOG_IF(CRIT_LEVEL, (name = tile_entry->Attribute("name")) == nullptr, "Failed to "
+				LOG_IF_AR(CRIT_LEVEL, (name = tile_entry->Attribute("name")) == nullptr, "Failed to "
 					"find name attribute for tile entry reg_num \'{0}\'", reg_num);
-				LOG_IF(CRIT_LEVEL, tile_entry->QueryUnsignedAttribute("spritesheet_x", &x) !=
+				LOG_IF_AR(CRIT_LEVEL, tile_entry->QueryUnsignedAttribute("spritesheet_x", &x) !=
 					XML_SUCCESS, "Failed to find spritesheet_x in tile with reg no {0}", reg_num);
-				LOG_IF(CRIT_LEVEL, tile_entry->QueryUnsignedAttribute("spritesheet_y", &y) !=
+				LOG_IF_AR(CRIT_LEVEL, tile_entry->QueryUnsignedAttribute("spritesheet_y", &y) !=
 					XML_SUCCESS, "Failed to find spritesheet_y in tile with reg no {0}", reg_num);
 				assets.emplace_back(std::make_pair(name, Util::Point(x, y)));
 
@@ -70,7 +70,7 @@ namespace Engine {
 
 			// get the tile register head
 			XMLElement* font_register_head = register_node->FirstChildElement("FontRegister");
-			LOG_IF(CRIT_LEVEL, font_register_head == nullptr,
+			LOG_IF_AR(CRIT_LEVEL, font_register_head == nullptr,
 				"FontRegister Tag Not Found in Register XML Document");
 
 			// for error checking
@@ -82,11 +82,11 @@ namespace Engine {
 				// get font filepath
 				unsigned int reg_num;
 				const char* font_filepath, *font_name;
-				LOG_IF(CRIT_LEVEL, font_entry->QueryUnsignedAttribute("reg_num", &reg_num) != XML_SUCCESS,
+				LOG_IF_AR(CRIT_LEVEL, font_entry->QueryUnsignedAttribute("reg_num", &reg_num) != XML_SUCCESS,
 					"No reg_num for one of the fonts in FontRegister");
-				LOG_IF(CRIT_LEVEL, (font_filepath = font_entry->Attribute("filepath")) == nullptr,
+				LOG_IF_AR(CRIT_LEVEL, (font_filepath = font_entry->Attribute("filepath")) == nullptr,
 					"Font reg number '{0}' has no filepath attribute", reg_num);
-				LOG_IF(CRIT_LEVEL, (font_name = font_entry->Attribute("name")) == nullptr,
+				LOG_IF_AR(CRIT_LEVEL, (font_name = font_entry->Attribute("name")) == nullptr,
 					"Font reg number '{0}' has no name attribute", reg_num);
 
 				if (reg_num != current_reg_num++) {
@@ -109,7 +109,7 @@ namespace Engine {
 			LOG_DEBUG("Loading Textures!");
 
 			XMLElement* texture_register_head = register_node->FirstChildElement("TextureRegister");
-			LOG_IF(CRIT_LEVEL, texture_register_head == nullptr,
+			LOG_IF_AR(CRIT_LEVEL, texture_register_head == nullptr,
 				"TextureRegister Tag Not Found in XML Register!");
 
 			// for error checking
@@ -120,11 +120,11 @@ namespace Engine {
 				unsigned int reg_num;
 				const char* texture_name;
 				const char* texture_filepath;
-				LOG_IF(CRIT_LEVEL, texture_entry->QueryUnsignedAttribute("reg_num", &reg_num) != XML_SUCCESS,
+				LOG_IF_AR(CRIT_LEVEL, texture_entry->QueryUnsignedAttribute("reg_num", &reg_num) != XML_SUCCESS,
 					"No reg_num tag found in one of the texture entries in texture register!");
-				LOG_IF(CRIT_LEVEL, (texture_name = texture_entry->Attribute("name")) == nullptr,
+				LOG_IF_AR(CRIT_LEVEL, (texture_name = texture_entry->Attribute("name")) == nullptr,
 					"Texture entry with reg_num = '{0}' has no name attribute!", reg_num);
-				LOG_IF(CRIT_LEVEL, (texture_filepath = texture_entry->Attribute("filepath")) == nullptr,
+				LOG_IF_AR(CRIT_LEVEL, (texture_filepath = texture_entry->Attribute("filepath")) == nullptr,
 					"Texture entry with reg_num = '{0}' has no filepath attribute!", reg_num);
 
 				if (reg_num != current_reg_num++) {
@@ -137,9 +137,9 @@ namespace Engine {
 				bool loaded = textures.back().loadFromFile(texture_filepath);
 
 				/* Log failure or success */
-				LOG_IF(CRIT_LEVEL, !loaded, "Texture Register No. '{0}' name '{1}' failed to "
+				LOG_IF_AR(CRIT_LEVEL, !loaded, "Texture Register No. '{0}' name '{1}' failed to "
 					"load with filepath '{2}'!", reg_num, texture_name, texture_filepath);
-				LOG_IF(TRACE_LEVEL, loaded, "Texture Register No. '{0}' name '{1}' loaded "
+				LOG_IF_AR(TRACE_LEVEL, loaded, "Texture Register No. '{0}' name '{1}' loaded "
 					"successfully with filepath '{2}'!", reg_num, texture_name, texture_filepath);
 
 				// increment to next registry entry
@@ -155,7 +155,7 @@ namespace Engine {
 			// get head and log if not found
 			XMLElement* tilesheet_register_head =
 				register_node->FirstChildElement("TileSheetRegister");
-			LOG_IF(CRIT_LEVEL, tilesheet_register_head == nullptr,
+			LOG_IF_AR(CRIT_LEVEL, tilesheet_register_head == nullptr,
 				"TileSheetRegister Tag Not Found in XML register file!");
 
 			// for error checking
@@ -166,15 +166,15 @@ namespace Engine {
 				// get texture asset sheet filepath
 				const char* texture_sheet_name;
 				const char* texture_sheet_filepath;
-				LOG_IF(CRIT_LEVEL, (texture_sheet_name = texture_sheet_entry->Attribute("name"))
+				LOG_IF_AR(CRIT_LEVEL, (texture_sheet_name = texture_sheet_entry->Attribute("name"))
 					== nullptr, "The Tile Sheet Has No Name Attribute!");
-				LOG_IF(CRIT_LEVEL, (texture_sheet_filepath = texture_sheet_entry->Attribute
+				LOG_IF_AR(CRIT_LEVEL, (texture_sheet_filepath = texture_sheet_entry->Attribute
 				("filepath")) == nullptr, "Tile Sheet '{0}' Has No Name Attribute!", texture_sheet_name);
 
 				bool loaded = texture.loadFromFile(texture_sheet_filepath);
 
 				/* Log success or failure. NOTE: LOG_IF will return false if logged */
-				LOG_IF(CRIT_LEVEL, !loaded, "Texture Sheet named '{0}' with filepath '{1}' "
+				LOG_IF_AR(CRIT_LEVEL, !loaded, "Texture Sheet named '{0}' with filepath '{1}' "
 					"failed to load!", texture_sheet_name, texture_sheet_filepath);
 				LOG_TRACE("Texture Sheet named '{0}' with filepath '{1}' was successfully "
 					"loaded!", texture_sheet_name, texture_sheet_filepath);

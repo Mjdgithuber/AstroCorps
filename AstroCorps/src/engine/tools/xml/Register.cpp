@@ -39,7 +39,7 @@ namespace Engine {
 		/* Returns the location of the tile's texture baes on
 		   a register number */
 		const Util::Point& get_tilesheet_location(unsigned int reg_num) {
-			LOG_IF_NR(ERROR_LEVEL, reg_num >= tilesheet_assets.size(), "Attemped "
+			LOG_IF(ERROR_LEVEL, reg_num >= tilesheet_assets.size(), "Attemped "
 				"to call \'get_tilesheet_location\' with reg_num \'{0}\' when "
 				"there is only '{1}' possible reg_num's (starting a 0)", reg_num,
 				tilesheet_assets.size());

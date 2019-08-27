@@ -40,8 +40,17 @@ namespace Engine {
 #define LOG_ERROR(...)        Engine::Log::get_logger()->error(__VA_ARGS__)
 #define LOG_CRITICAL(...)     Engine::Log::get_logger()->critical(__VA_ARGS__)
 
-#define LOG_IF(level, ...)    if(Engine::Log::log_if<level>(__VA_ARGS__)) return false
-#define LOG_IF_NR(level, ...) Engine::Log::log_if<level>(__VA_ARGS__)
+/* LOG_IF_AR - Automatically will return false if the condition
+     is true, the message gets logged before it returns.
+   LOG_IF - Just logs the message if the condition is true and
+     will not automatically return anything
+   USAGE:
+     LOG_IF('LEVEL', 'MESSAGE TO LOG', '...');
+     'LEVEL' - The level to log at like INFO_LEVEL & ERROR_LEVEL
+     'MESSAGE TO LOG' - E.G. "This is a message {0}, yep {1}"
+     '...' - {number} gets replaced with trailing paramters */
+#define LOG_IF_AR(level, ...) if(Engine::Log::log_if<level>(__VA_ARGS__)) return false
+#define LOG_IF(level, ...)    Engine::Log::log_if<level>(__VA_ARGS__)
 
 #define LOG_LUA_INFO(...)     Engine::Log::get_lua_logger()->info(__VA_ARGS__)
 #define LOG_LUA_DEBUG(...)    Engine::Log::get_lua_logger()->debug(__VA_ARGS__)
