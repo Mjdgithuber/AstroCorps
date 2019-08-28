@@ -85,6 +85,10 @@ namespace Lua {
 		/// completion
 		////////////////////////////////////////////////////////////
 		void check_percentage(float& percentage);
+
+
+
+		void set_texture_static_base(const Engine::Util::Point& location);
 	public:
 		/* =========================================================== */
 		/* ============== Constructors and Destructors =============== */
@@ -108,6 +112,17 @@ namespace Lua {
 		/* =========================================================== */
 		/* ======================== Functions ======================== */
 		/* =========================================================== */
+		
+
+
+		void set_texture_static(const std::string& name);
+		void set_texture_static(unsigned int reg_num);
+		void set_texture_sheet(unsigned int reg_num);
+
+
+
+		
+		
 		////////////////////////////////////////////////////////////
 		/// Will save the direction passed in as the next movement.
 		/// If this entity isn't moving and a non-STATIONARY direction 

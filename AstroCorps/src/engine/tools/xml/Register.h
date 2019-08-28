@@ -28,7 +28,7 @@ namespace Engine {
 		/// reg_num - The register number of tile you want the 
 		/// location of
 		////////////////////////////////////////////////////////////
-		const Util::Point& get_tilesheet_location(unsigned int reg_num);
+		const Util::Point& get_tile_sheet_location(unsigned int reg_num);
 
 		////////////////////////////////////////////////////////////
 		/// Given a name of a tile, this will attempt to locate it 
@@ -37,7 +37,7 @@ namespace Engine {
 		/// Params:
 		/// name - the name of the tile you want the location of
 		////////////////////////////////////////////////////////////
-		Util::Point get_tilesheet_location(const std::string& name);
+		Util::Point get_tile_sheet_location(const std::string& name);
 
 		////////////////////////////////////////////////////////////
 		/// Given a register number of a font, this will return 
@@ -51,17 +51,25 @@ namespace Engine {
 		////////////////////////////////////////////////////////////
 		/// Returns the tile sheet that contains all of the tile's
 		/// textures. NOTE: as of current there is only one tile
-		/// sheet
+		/// sheet. This differs from get_texture_sheet in that 
+		/// the tile sheet contains 1-2 images for every different
+		/// tile, and there is only one tile sheet while there is
+		/// no limit on the number of texture sheets.
 		////////////////////////////////////////////////////////////
-		const sf::Texture& get_tilesheet();
+		const sf::Texture& get_tile_sheet();
 
 		////////////////////////////////////////////////////////////
-		/// Given a register number of a texture this method will
-		/// return that texture by reference
+		/// Given a register number of a texture sheet this method 
+		/// will return that texture sheet by reference. NOTE: The
+		/// texture sheet is just loaded as a texture to allow the
+		/// caller to define what needs to be done with the texture.
+		/// For instance a texture sheet could just be a single
+		/// static image, or it could be a sprite sheet with all the
+		/// animations for some entity.
 		/// Params:
-		/// reg_num - The register number of the texture
+		/// reg_num - The register number of the texture sheet
 		////////////////////////////////////////////////////////////
-		const sf::Texture& get_texture(unsigned int reg_num);
+		const sf::Texture& get_texture_sheet(unsigned int reg_num);
 	}
 }
 

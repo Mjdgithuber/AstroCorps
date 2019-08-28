@@ -13,10 +13,43 @@ namespace Lua {
 		m_moving(false), m_speed(.33f), m_x_offset(0.f), m_y_offset(0.f) {
 
 		// Need to remove, just for testing ********************************
-		m_sprite.setTexture(Engine::Register::get_texture(0));
+		/*m_sprite.setTexture(Engine::Register::get_texture_sheet(0));
 		//m_sprite.setTexture(TextureManager::get_entity_texture(Textures::Entity::TEST));
 		m_sprite.setScale(Application::get_scale(), Application::get_scale());
-		m_sprite.setPosition((float)Application::get_scaled_tile_size() * x, (float)Application::get_scaled_tile_size() * y);
+		m_sprite.setPosition((float)Application::get_scaled_tile_size() * x, (float)Application::get_scaled_tile_size() * y);*/
+	}
+
+	void Entity::set_texture_static_base(const Engine::Util::Point& location) {
+		// get the tile sheet with the textures
+		m_sprite.setTexture(Engine::Register::get_tile_sheet());
+
+		// set scale and position
+		m_sprite.setScale(Application::get_scale(), Application::get_scale());
+		m_sprite.setPosition((float)Application::get_scaled_tile_size() * m_x, (float)Application::get_scaled_tile_size() * m_y);
+
+		// set the position of the texture
+		unsigned int tile_size = Application::get_unscaled_tile_size();
+
+		// set the tile's texture
+		m_sprite.setTextureRect(
+			sf::IntRect(tile_size * (location.x * 2), tile_size * (location.y * 2), tile_size, tile_size));
+	}
+
+	void Entity::set_texture_static(const std::string& name) {
+		// load texture based on string
+		set_texture_static_base(Engine::Register::get_tile_sheet_location(name));
+	}
+
+	void Entity::set_texture_static(unsigned int reg_num) {
+		// load texture based on reg_num
+		set_texture_static_base(Engine::Register::get_tile_sheet_location(reg_num));
+	}
+
+	void Entity::set_texture_sheet(unsigned int reg_num) {
+		// this function needs to be redone
+		m_sprite.setTexture(Engine::Register::get_texture_sheet(reg_num));
+		m_sprite.setScale(Application::get_scale(), Application::get_scale());
+		m_sprite.setPosition((float)Application::get_scaled_tile_size() * m_x, (float)Application::get_scaled_tile_size() * m_y);
 	}
 
 
@@ -172,6 +205,12 @@ namespace Lua {
 
 		// register functions
 		entity_type["set_movement"] = &Entity::set_movement;
+
+		// register texture setters
+		void(Entity::*STATIC_NAME)(const std::string&) = &Entity::set_texture_static;
+		void(Entity::*STATIC_NUM)(unsigned int) = &Entity::set_texture_static;
+		entity_type["set_texture_static"] = sol::overload(STATIC_NAME, STATIC_NUM);
+		entity_type["set_texture_sheet"] = &Entity::set_texture_sheet;
 
 		// register getters
 		entity_type["get_name"] = &Entity::get_name;

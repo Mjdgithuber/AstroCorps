@@ -21,6 +21,7 @@ local TileOverlayConstructor = {
 
 		-- Add C++ entity reference
 		overlay_en.cpp_entity = get_tile_map():new_entity(TileOverlayMetatable.entity_type, x, y, 1, 1)
+		overlay_en.cpp_entity:set_texture_static('TRANSLUCENT_GREEN')
 
 		-- return it
 		return overlay_en

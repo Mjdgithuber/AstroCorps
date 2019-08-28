@@ -49,7 +49,7 @@ namespace Lua {
 		m_cols = tp->get_cols();
 
 		// get tile sheet ref for convenience
-		const sf::Texture& tile_sheet = Engine::Register::get_tilesheet();
+		const sf::Texture& tile_sheet = Engine::Register::get_tile_sheet();
 
 		// load the tile map
 		m_tiles.reserve(m_rows);
@@ -68,7 +68,7 @@ namespace Lua {
 				const std::string& script = tp->get_script(c, r);
 
 				// get register information for texture location
-				const Engine::Util::Point& location = Engine::Register::get_tilesheet_location(reg_num);
+				const Engine::Util::Point& location = Engine::Register::get_tile_sheet_location(reg_num);
 
 				// make a new tile
 				Engine::Tile t(reg_num, mod_num, script);
@@ -113,7 +113,7 @@ namespace Lua {
 				Engine::Tile& t = m_tiles[r][c];
 
 				// get it's texture location
-				const Engine::Util::Point& location = Engine::Register::get_tilesheet_location(t.get_register_number());
+				const Engine::Util::Point& location = Engine::Register::get_tile_sheet_location(t.get_register_number());
 
 				// set the tile's texture
 				t.get_sprite().setTextureRect(
