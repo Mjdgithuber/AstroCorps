@@ -17,8 +17,7 @@ namespace Engine {
 		/// locations - The place to store the location data 
 		/// register_path - The path to the register
 		////////////////////////////////////////////////////////////
-		bool read_tile_register(std::vector<std::pair<std::string, Util::Point>>& assets);
-		//bool read_tile_register(std::vector<Util::Point>& locations);
+		bool read_tile_location_register(std::vector<std::pair<std::string, Util::Point>>& assets);
 
 		////////////////////////////////////////////////////////////
 		/// This will load the Font part of the Registry file. The
@@ -33,9 +32,9 @@ namespace Engine {
 		
 		
 		
-		bool read_texture_register(std::vector<sf::Texture>& textures);
+		bool read_texture_sheet_register(std::vector<sf::Texture>& textures);
 
-		bool read_tilesheet_register(sf::Texture& texture);
+		bool read_tile_sheet_register(sf::Texture& texture);
 
 
 		/* Make a loader for each type of thingya */

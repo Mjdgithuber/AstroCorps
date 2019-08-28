@@ -27,9 +27,9 @@ namespace Engine {
 			FALSE_WRAPPER(XML::load_register_file(register_filepath));
 
 			if (!inited) {
-				FALSE_WRAPPER(XML::read_tile_register(tile_sheet_assets));
-				FALSE_WRAPPER(XML::read_texture_register(textures));
-				FALSE_WRAPPER(XML::read_tilesheet_register(tile_sheet));
+				FALSE_WRAPPER(XML::read_tile_location_register(tile_sheet_assets));
+				FALSE_WRAPPER(XML::read_texture_sheet_register(textures));
+				FALSE_WRAPPER(XML::read_tile_sheet_register(tile_sheet));
 				FALSE_WRAPPER(XML::read_font_register(fonts));
 			}
 			inited = true;
@@ -41,9 +41,8 @@ namespace Engine {
 		   a register number */
 		const Util::Point& get_tile_sheet_location(unsigned int reg_num) {
 			LOG_IF(ERROR_LEVEL, reg_num >= tile_sheet_assets.size(), "Attemped "
-				"to call \'get_tilesheet_location\' with reg_num \'{0}\' when "
-				"there is only '{1}' possible reg_num's (starting a 0)", reg_num,
-				tile_sheet_assets.size());
+				"to call 'get_tilesheet_location' with reg_num '{0}' when "
+				"when maximum reg_num is '{1}'", reg_num, tile_sheet_assets.size() - 1);
 
 			return tile_sheet_assets[reg_num].second;
 		}
@@ -61,13 +60,17 @@ namespace Engine {
 
 			// the name wasn't found
 			LOG_ERROR("Attempted to call get_tilesheet_location with invalid "
-				"texture name \'{0}\'", name);
+				"texture name '{0}'", name);
 
 			return Util::Point(-1, -1);
 		}
 
 		/* Returns the font with the given register number */
 		const sf::Font& get_font(unsigned int reg_num) {
+			LOG_IF(CRIT_LEVEL, reg_num >= fonts.size(), "Attempted to retrieve "
+				" font reg_num '{0}' when maximum reg_num is '{1}'",
+				reg_num, fonts.size() - 1);
+
 			return fonts[reg_num];
 		}
 
@@ -78,6 +81,10 @@ namespace Engine {
 
 		/* Returns the texture with the given register number */
 		const sf::Texture& get_texture_sheet(unsigned int reg_num) {
+			LOG_IF(CRIT_LEVEL, reg_num >= textures.size(), "Attempted to retrieve "
+				" texture_sheet reg_num '{0}' when maximum reg_num is '{1}'",
+				reg_num, textures.size() - 1);
+
 			return textures[reg_num];
 		}
 	}

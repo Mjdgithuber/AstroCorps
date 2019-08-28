@@ -6,21 +6,21 @@
 	<TileSheetRegister>
 		<Texture name="TILESHEET" filepath="assets/spritesheets/mapsheet.png"></Texture>
 	</TileSheetRegister>
-	<TextureRegister>
+	<TextureSheetRegister>
 		<Texture reg_num="0" name="TEST_ENTITY" filepath="assets/entities/testentity.png"></Texture>
-	</TextureRegister>
+		<Texture reg_num="1" name="TRANSLUCENT_GREEN" filepath="assets/entities/green_mod.png"></Texture>
+	</TextureSheetRegister>
     <ModifierRegister>
         <Modifier reg_num="0" name="SOLID"></Modifier>
         <Modifier reg_num="1" name="CLEAR"></Modifier>
         <Modifier reg_num="2" name="EXTERNAL"></Modifier>
     </ModifierRegister>
-    <TileRegister>
+    <TileLocationRegister>
         <Tile reg_num="0" name="NULL" spritesheet_x="0" spritesheet_y="0"></Tile>
         <Tile reg_num="1" name="GRASS" spritesheet_x="1" spritesheet_y="0"></Tile>
         <Tile reg_num="2" name="TREE" spritesheet_x="2" spritesheet_y="0"></Tile>
         <Tile reg_num="3" name="MOON" spritesheet_x="3" spritesheet_y="0"></Tile>
-        <Tile reg_num="4" name="TRANSLUCENT_GREEN" spritesheet_x="0" spritesheet_y="9"></Tile>
-    </TileRegister>
+    </TileLocationRegister>
     <ItemRegister font_reg_num="0">
     	<Item reg_num="0" name="Testing Item"></Item>
     	<Item reg_num="1" name="Another Item"></Item>

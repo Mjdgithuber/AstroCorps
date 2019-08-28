@@ -6,6 +6,8 @@
 #include "engine/tools/util/Util.h"
 #include "engine/tools/libs/lua/include/sol.hpp"
 
+
+/* Vector of different movement states and what not each holding some frams ADD*** */
 namespace Lua {
 	class Entity {
 	private:
@@ -112,16 +114,18 @@ namespace Lua {
 		/* =========================================================== */
 		/* ======================== Functions ======================== */
 		/* =========================================================== */
-		
-
-
-		void set_texture_static(const std::string& name);
-		void set_texture_static(unsigned int reg_num);
-		void set_texture_sheet(unsigned int reg_num);
-
-
-
-		
+		////////////////////////////////////////////////////////////
+		/// In order for an entity to render to the window it must
+		/// be associated with a texture sheet. A texture sheet is
+		/// a texture that holds everything needed to render a 
+		/// specific entity, for example it could hold every frame
+		/// for movement in each direction as well as a firing 
+		/// animation. The register file holds all the needed info
+		/// on how to interpret each texture sheet
+		/// Params:
+		/// reg_num - The register number of the texture sheet
+		////////////////////////////////////////////////////////////
+		void set_texture_sheet(unsigned int reg_num);		
 		
 		////////////////////////////////////////////////////////////
 		/// Will save the direction passed in as the next movement.

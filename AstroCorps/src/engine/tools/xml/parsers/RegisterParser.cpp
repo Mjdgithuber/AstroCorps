@@ -32,14 +32,16 @@ namespace Engine {
 		   uses to store the location of each tile's texture on the tile
 		   sheet. The register_path is the path the the register file
 		   containing the location data. */
-		bool read_tile_register(std::vector<std::pair<std::string, Util::Point>>& assets) {
-		//bool read_tile_register(std::vector<Util::Point>& locations) {
-			LOG_DEBUG("Loading Tile Register");
+		bool read_tile_location_register(std::vector<std::pair<std::string, Util::Point>>& assets) {
+			LOG_DEBUG("Loading Tile Location Register");
 
 			// get the tile register head
-			XMLElement* tile_register_head = register_node->FirstChildElement("TileRegister");
+			XMLElement* tile_register_head = register_node->FirstChildElement("TileLocationRegister");
 			LOG_IF_AR(CRIT_LEVEL, tile_register_head == nullptr,
-				"TileRegister Element Not Found in Register");
+				"TileLocationRegister Element Not Found in Register");
+
+			// for error checking
+			unsigned int current_reg_num = 0;
 
 			// get the tile information
 			XMLElement* tile_entry = tile_register_head->FirstChildElement("Tile");
@@ -57,6 +59,14 @@ namespace Engine {
 				LOG_IF_AR(CRIT_LEVEL, tile_entry->QueryUnsignedAttribute("spritesheet_y", &y) !=
 					XML_SUCCESS, "Failed to find spritesheet_y in tile with reg no {0}", reg_num);
 				assets.emplace_back(std::make_pair(name, Util::Point(x, y)));
+
+				if (reg_num != current_reg_num++) {
+					print_register_error("TileLocationRegister", name, reg_num, current_reg_num - 1);
+					return false;
+				}
+
+				LOG_TRACE("Tile Location Register reg_no '{0}' named '{1}' loaded successfully!",
+					reg_num, name);
 
 				// increment to next registry entry
 				tile_entry = tile_entry->NextSiblingElement("Tile");
@@ -98,6 +108,9 @@ namespace Engine {
 				fonts.emplace_back();
 				fonts.back().loadFromFile(font_filepath);
 
+				LOG_TRACE("Font Register reg_no '{0}' named '{1}' with file path '{2}' loaded successfully!",
+					reg_num, font_name, font_filepath);
+
 				// increment to next registry entry
 				font_entry = font_entry->NextSiblingElement("Font");
 			}
@@ -105,12 +118,15 @@ namespace Engine {
 			return true;
 		}
 
-		bool read_texture_register(std::vector<sf::Texture>& textures) {
-			LOG_DEBUG("Loading Textures!");
+		bool read_texture_sheet_register(std::vector<sf::Texture>& textures) {
+			LOG_DEBUG("Loading Texture Sheets!");
 
-			XMLElement* texture_register_head = register_node->FirstChildElement("TextureRegister");
+			XMLElement* texture_register_head = register_node->FirstChildElement("TextureSheetRegister");
 			LOG_IF_AR(CRIT_LEVEL, texture_register_head == nullptr,
-				"TextureRegister Tag Not Found in XML Register!");
+				"TextureSheetRegister Tag Not Found in XML Register!");
+
+			/* Should migrate to linked list instead of vector */
+			textures.reserve(10);
 
 			// for error checking
 			unsigned int current_reg_num = 0;
@@ -139,8 +155,8 @@ namespace Engine {
 				/* Log failure or success */
 				LOG_IF_AR(CRIT_LEVEL, !loaded, "Texture Register No. '{0}' name '{1}' failed to "
 					"load with filepath '{2}'!", reg_num, texture_name, texture_filepath);
-				LOG_IF_AR(TRACE_LEVEL, loaded, "Texture Register No. '{0}' name '{1}' loaded "
-					"successfully with filepath '{2}'!", reg_num, texture_name, texture_filepath);
+				LOG_TRACE("Texture Sheet Register No. '{0}' name '{1}' loaded successfully with filepath "
+					"'{2}'!", reg_num, texture_name, texture_filepath);
 
 				// increment to next registry entry
 				texture_entry = texture_entry->NextSiblingElement("Texture");
@@ -149,7 +165,7 @@ namespace Engine {
 			return true;
 		}
 
-		bool read_tilesheet_register(sf::Texture& texture) {
+		bool read_tile_sheet_register(sf::Texture& texture) {
 			LOG_DEBUG("Loading Tile Sheet!");
 
 			// get head and log if not found
