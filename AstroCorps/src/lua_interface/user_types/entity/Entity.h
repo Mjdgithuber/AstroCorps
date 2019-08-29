@@ -88,9 +88,6 @@ namespace Lua {
 		////////////////////////////////////////////////////////////
 		void check_percentage(float& percentage);
 
-
-
-		void set_texture_static_base(const Engine::Util::Point& location);
 	public:
 		/* =========================================================== */
 		/* ============== Constructors and Destructors =============== */
