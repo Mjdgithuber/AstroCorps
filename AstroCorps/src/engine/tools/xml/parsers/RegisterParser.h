@@ -1,6 +1,8 @@
 #ifndef __REGISTER__PARSER__H__
 #define __REGISTER__PARSER__H__
 
+#include <list>
+
 #include "engine/common.h"
 #include "XMLUtils.h"
 
@@ -32,7 +34,7 @@ namespace Engine {
 		
 		
 		
-		bool read_texture_sheet_register(std::vector<sf::Texture>& textures);
+		bool read_texture_sheet_register(std::list<sf::Texture>& textures);
 
 		bool read_tile_sheet_register(sf::Texture& texture);
 

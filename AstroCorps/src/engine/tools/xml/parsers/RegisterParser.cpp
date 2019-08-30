@@ -118,15 +118,12 @@ namespace Engine {
 			return true;
 		}
 
-		bool read_texture_sheet_register(std::vector<sf::Texture>& textures) {
+		bool read_texture_sheet_register(std::list<sf::Texture>& textures) {
 			LOG_DEBUG("Loading Texture Sheets!");
 
 			XMLElement* texture_register_head = register_node->FirstChildElement("TextureSheetRegister");
 			LOG_IF_AR(CRIT_LEVEL, texture_register_head == nullptr,
 				"TextureSheetRegister Tag Not Found in XML Register!");
-
-			/* Should migrate to linked list instead of vector */
-			textures.reserve(10);
 
 			// for error checking
 			unsigned int current_reg_num = 0;
