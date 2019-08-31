@@ -58,14 +58,14 @@ namespace Lua {
 	void lost_focus() {
 		// set all keys to be unpressed
 		for(unsigned int i = 0; i < 26; i++)
-			lua_state["update_keyboard"]((char)(65 + i), false);
+			lua_state["Keyboard"]["update_keyboard"]((char)(65 + i), false);
 	}
 
 	void process_key(sf::Keyboard::Key code, bool pressed) {
 		/* calls update_keyboard in Lua. NOTE: 65 + code
 		   converts the Key into it's char representation
 		   65 is the char 'A', the Key A is equal to 0 */
-		lua_state["update_keyboard"]((char)(65 + code), pressed);
+		lua_state["Keyboard"]["update_keyboard"]((char)(65 + code), pressed);
 	}
 
 	void update() {
