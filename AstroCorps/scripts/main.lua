@@ -17,7 +17,7 @@ local function start()
 	load_file('gameplay/game_manager.lua')
 
 	-- start game (from setup.lua)
-	start_game()
+	GameManager.start_game()
 end
 
 start()

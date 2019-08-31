@@ -69,7 +69,7 @@ namespace Lua {
 	}
 
 	void update() {
-		lua_state["update_game"]();
+		lua_state["GameManager"]["update_game"]();
 	}
 
 }

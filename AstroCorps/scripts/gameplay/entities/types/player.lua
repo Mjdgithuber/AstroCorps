@@ -21,7 +21,7 @@ local PlayerConstructor = {
 		local player_en = setmetatable({}, PlayerMetatable)
 
 		-- Add C++ entity reference
-		player_en.cpp_entity = get_tile_map():new_entity(name, x, y, 1, 1)
+		player_en.cpp_entity = GameManager.get_tile_map():new_entity(name, x, y, 1, 1)
 		player_en.cpp_entity:set_texture_sheet(0)
 
 		-- return it

@@ -1,11 +1,39 @@
 -- game_manager.lua
 
+-- global GameManager table to access public methods
+GameManager = {
+	start_game = nil,
+	update_game = nil,
+	get_tile_map = nil
+}
+
+-- forward declare local methods
+local load_map
+local test_entity_system
+local get_dirs
+local update_player
+
+-- function to start the game
+local started = false
+GameManager.start_game = function()
+	-- ensure that game is started only once
+	if started then return end
+	started = true
+	
+	INFO('Game has started')
+
+	-- JUST FOR TESTING REMOVE LATER
+	load_map()
+	test_entity_system()
+end
+
+
 -- Every game has exactly one tilemap
 local tile_map = nil
 
 -- loads a new tile map
 -- TODO: take in string of map file
-local function load_map()
+load_map = function()
 	DEBUG('Lua init called')
 
 	tile_map = TileMap.new()
@@ -17,39 +45,43 @@ local function load_map()
 end
 
 -- global function to get the current tile map
-function get_tile_map()
+GameManager.get_tile_map = function()
 	return tile_map
 end
 
 
 --[[ change entity system to use index instead of key!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ]]
 
+-- updates everything that needs it
+GameManager.update_game = function()
+	-- get the number of current entities
+	local max_index = get_number_of_entites() - 1
+
+	update_player()
+
+	-- update each entity
+	for i = 0, max_index, 1 do
+		--get_entity(i).cpp_entity:set_movement(1)
+		get_entity(i):update()
+	end
+end
+
 -- test function
-local function test_entity_system()
+test_entity_system = function()
 	print()
 	INFO('Testing entity system')
 	add_entity(EntityCreator.Player.new('Emma', 1, 4))
 	add_entity(EntityCreator.Player.new('Leo', 2, 1))
 	add_entity(EntityCreator.TileOverlay.new('Is a texture', 0, 0))
 	get_entity(0):update()
-	update_game()
+	GameManager.update_game()
 	INFO('Testing Done!\n')
 end
 
 
-local started = false
-function start_game()
-	-- ensure that game is started only once
-	if started then return end
-	started = true
 
-	INFO('Game has started')
 
-	load_map()
-	test_entity_system()
-end
-
-local function get_dirs()
+get_dirs = function()
 	-- get key states for WASD keys
 	local W = Keyboard[KEY_W]
 	local A = Keyboard[KEY_A]
@@ -78,20 +110,7 @@ local function get_dirs()
 	return STATIONARY
 end
 
-local function update_player()
+update_player = function()
 	get_entity(0).cpp_entity:set_movement(get_dirs())
 end
 
--- updates everything that needs it
-function update_game()
-	-- get the number of current entities
-	local max_index = get_number_of_entites() - 1
-
-	update_player()
-
-	-- update each entity
-	for i = 0, max_index, 1 do
-		--get_entity(i).cpp_entity:set_movement(1)
-		get_entity(i):update()
-	end
-end
