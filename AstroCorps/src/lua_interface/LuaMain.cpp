@@ -9,7 +9,7 @@
 
 namespace Lua {
 	namespace {
-		const char* const SCRIPT_FOLDER = "assets/scripts/";
+		const char* const SCRIPT_FOLDER = "scripts/";
 		sol::state lua_state;
 
 		/* Checks to see if script file is well formed */

@@ -43,7 +43,7 @@ setmetatable(EntityCreator, metatable)
 -- add each type to EntityCreator
 local function load_entites()
 	-- get types dir
-	local dir = Directory.new('assets/scripts/gameplay/entities/types')
+	local dir = Directory.new('scripts/gameplay/entities/types')
 
 	-- get the number of entity types
 	local size = dir:number_of_files()
