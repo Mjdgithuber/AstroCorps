@@ -4,9 +4,15 @@ namespace Engine {
 	namespace XML {
 
 		namespace {
+			/* xmlDoc - The document that is loaded with xml stored
+			   DOM format
+			   register_node - The parent node of the document */
 			XMLDocument xmlDoc;
 			XMLNode* register_node;
 
+			/* Will print an error about register numbers (reg_nums)
+			   note being consecutive, for another layer of error 
+			   checking */
 			void print_register_error(const std::string& reg, const std::string& name,
 				unsigned int received, unsigned int expected) {
 				LOG_ERROR("!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!");
@@ -18,6 +24,9 @@ namespace Engine {
 			}
 		}
 
+		/* Opens the register file and stores both the document
+		   and the document's node for accessing the elements
+		   of the file */
 		bool load_register_file(const char* register_filepath) {
 			LOG_DEBUG("Loading Register!");
 
@@ -46,10 +55,10 @@ namespace Engine {
 			// get the tile information
 			XMLElement* tile_entry = tile_register_head->FirstChildElement("Tile");
 			while (tile_entry != nullptr) {
-				// get tilesheet x & y and name + reg_num
 				unsigned int reg_num, x, y;
 				const char* name;
 
+				// get tilesheet x & y and name + reg_num with error checking 
 				LOG_IF_AR(CRIT_LEVEL, tile_entry->QueryUnsignedAttribute("reg_num", &reg_num) !=
 					XML_SUCCESS, "Failed to find reg_num in a tile register entry");
 				LOG_IF_AR(CRIT_LEVEL, (name = tile_entry->Attribute("name")) == nullptr, "Failed to "
@@ -60,6 +69,7 @@ namespace Engine {
 					XML_SUCCESS, "Failed to find spritesheet_y in tile with reg no {0}", reg_num);
 				assets.emplace_back(std::make_pair(name, Util::Point(x, y)));
 
+				// ensure register numbers are consecutive
 				if (reg_num != current_reg_num++) {
 					print_register_error("TileLocationRegister", name, reg_num, current_reg_num - 1);
 					return false;
@@ -72,9 +82,12 @@ namespace Engine {
 				tile_entry = tile_entry->NextSiblingElement("Tile");
 			}
 
+			// indicate tile locations were read successfully
 			return true;
 		}
 
+		/* This will load all of the fonts in the registry
+		   file in to the passed in vector */
 		bool read_font_register(std::vector<sf::Font>& fonts) {
 			LOG_DEBUG("Loading Fonts!");
 
@@ -89,9 +102,10 @@ namespace Engine {
 			// get the tile information
 			XMLElement* font_entry = font_register_head->FirstChildElement("Font");
 			while (font_entry != nullptr) {
-				// get font filepath
 				unsigned int reg_num;
 				const char* font_filepath, *font_name;
+
+				// get font filepath, name, and reg_num with error checking
 				LOG_IF_AR(CRIT_LEVEL, font_entry->QueryUnsignedAttribute("reg_num", &reg_num) != XML_SUCCESS,
 					"No reg_num for one of the fonts in FontRegister");
 				LOG_IF_AR(CRIT_LEVEL, (font_filepath = font_entry->Attribute("filepath")) == nullptr,
@@ -99,6 +113,7 @@ namespace Engine {
 				LOG_IF_AR(CRIT_LEVEL, (font_name = font_entry->Attribute("name")) == nullptr,
 					"Font reg number '{0}' has no name attribute", reg_num);
 
+				// ensure register numbers are consecutive
 				if (reg_num != current_reg_num++) {
 					print_register_error("FontRegister", font_name, reg_num, current_reg_num - 1);
 					return false;
@@ -118,6 +133,11 @@ namespace Engine {
 			return true;
 		}
 
+		/* Will load all of the texture sheets into the passed in
+		   list of textures. A list is used instead of a vectore 
+		   because textures are heavy assets and opengl doesn't
+		   like it when you try to copy/move them which happens
+		   when a vector expands. */
 		bool read_texture_sheet_register(std::list<sf::Texture>& textures) {
 			LOG_DEBUG("Loading Texture Sheets!");
 
@@ -129,10 +149,11 @@ namespace Engine {
 			unsigned int current_reg_num = 0;
 			XMLElement* texture_entry = texture_register_head->FirstChildElement("Texture");
 			while (texture_entry != nullptr) {
-				// get texture asset sheet filepath
 				unsigned int reg_num;
 				const char* texture_name;
 				const char* texture_filepath;
+
+				// get texture sheet name, num, and filepath with error checking
 				LOG_IF_AR(CRIT_LEVEL, texture_entry->QueryUnsignedAttribute("reg_num", &reg_num) != XML_SUCCESS,
 					"No reg_num tag found in one of the texture entries in texture register!");
 				LOG_IF_AR(CRIT_LEVEL, (texture_name = texture_entry->Attribute("name")) == nullptr,
@@ -140,6 +161,7 @@ namespace Engine {
 				LOG_IF_AR(CRIT_LEVEL, (texture_filepath = texture_entry->Attribute("filepath")) == nullptr,
 					"Texture entry with reg_num = '{0}' has no filepath attribute!", reg_num);
 
+				// ensure register numbers are consecutive
 				if (reg_num != current_reg_num++) {
 					print_register_error("TextureRegister", texture_name, reg_num, current_reg_num - 1);
 					return false;
@@ -158,10 +180,12 @@ namespace Engine {
 				// increment to next registry entry
 				texture_entry = texture_entry->NextSiblingElement("Texture");
 			}
-
 			return true;
 		}
 
+		/* Reads the tile sheet and stores it into the passed in 
+		   texture. Includes verbose error checking for better
+		   debugging */
 		bool read_tile_sheet_register(sf::Texture& texture) {
 			LOG_DEBUG("Loading Tile Sheet!");
 
@@ -176,21 +200,22 @@ namespace Engine {
 				tilesheet_register_head->FirstChildElement("Texture");
 
 			if (texture_sheet_entry != nullptr) {
-				// get texture asset sheet filepath
-				const char* texture_sheet_name;
-				const char* texture_sheet_filepath;
-				LOG_IF_AR(CRIT_LEVEL, (texture_sheet_name = texture_sheet_entry->Attribute("name"))
+				const char* name;
+				const char* filepath;
+
+				// get texture sheet filepath and name with error checking
+				LOG_IF_AR(CRIT_LEVEL, (name = texture_sheet_entry->Attribute("name"))
 					== nullptr, "The Tile Sheet Has No Name Attribute!");
-				LOG_IF_AR(CRIT_LEVEL, (texture_sheet_filepath = texture_sheet_entry->Attribute
-				("filepath")) == nullptr, "Tile Sheet '{0}' Has No Name Attribute!", texture_sheet_name);
+				LOG_IF_AR(CRIT_LEVEL, (filepath = texture_sheet_entry->Attribute("filepath"))
+					== nullptr, "Tile Sheet '{0}' Has No Name Attribute!", name);
 
-				bool loaded = texture.loadFromFile(texture_sheet_filepath);
+				bool loaded = texture.loadFromFile(filepath);
 
-				/* Log success or failure. NOTE: LOG_IF will return false if logged */
+				/* Log success or failure. NOTE: LOG_IF_AR will return false if logged */
 				LOG_IF_AR(CRIT_LEVEL, !loaded, "Texture Sheet named '{0}' with filepath '{1}' "
-					"failed to load!", texture_sheet_name, texture_sheet_filepath);
+					"failed to load!", name, filepath);
 				LOG_TRACE("Texture Sheet named '{0}' with filepath '{1}' was successfully "
-					"loaded!", texture_sheet_name, texture_sheet_filepath);
+					"loaded!", name, filepath);
 
 				return true;
 			}

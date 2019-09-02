@@ -9,6 +9,13 @@
 namespace Engine {
 	namespace XML {
 
+		////////////////////////////////////////////////////////////
+		/// This will load an xml file given the path to the register
+		/// file. This will cache the root node to avoid having to
+		/// reopen the register for each operation
+		/// Params:
+		/// register_filepath - The path the the main register file
+		////////////////////////////////////////////////////////////
 		bool load_register_file(const char* register_filepath);
 
 		////////////////////////////////////////////////////////////
@@ -32,14 +39,23 @@ namespace Engine {
 		////////////////////////////////////////////////////////////
 		bool read_font_register(std::vector<sf::Font>& fonts);
 		
-		
-		
+		////////////////////////////////////////////////////////////
+		/// This will read and store all needed information about 
+		/// the various texture sheets found in the register file
+		/// Params:
+		/// textures - The list to store texture sheets in
+		////////////////////////////////////////////////////////////		
 		bool read_texture_sheet_register(std::list<sf::Texture>& textures);
 
+		////////////////////////////////////////////////////////////
+		/// This will load the tile sheet, which contains the assets
+		/// for all of the tiles. NOTE: the tile sheet is loaded as
+		/// one large texture in which contains all the tiles
+		/// Params:
+		/// texture - The texture to store the tile sheet in
+		////////////////////////////////////////////////////////////
 		bool read_tile_sheet_register(sf::Texture& texture);
 
-
-		/* Make a loader for each type of thingya */
 	}
 }
 
