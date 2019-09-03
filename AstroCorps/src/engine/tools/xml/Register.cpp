@@ -9,57 +9,75 @@
 
 namespace Engine {
 	namespace Register {
-		/* anonymous namespace to provide static encapsulation */
+
+		/* Anonymous namespace to provide static encapsulation */
 		namespace {
+			/* To ensure register is only loaded once */
 			bool inited = false;
 			
-			std::vector<std::pair<std::string, Util::Point>>
-				tile_sheet_assets;
-			std::list<sf::Font> fonts;
+			/* The tile_sheet is a single texture that holds
+			   every tile's texture. The tile_assets list holds
+			   every tile's name and location on the tile_sheet */
 			sf::Texture tile_sheet;
-			std::list<sf::Texture> textures;
+			std::vector<std::pair<std::string, Util::Point>>
+				tile_assets;
+			
+			/* A list that holds all loaded fonts */
+			std::list<sf::Font> fonts;
+			
+			/* A list that holds all loaded texture_sheet, a
+			   texture_sheet is a singe texture that holds all 
+			   the info about a certain entity's texture such 
+			   as animations */
+			std::list<sf::Texture> texture_sheets;
 		}
 
-		#define FALSE_WRAPPER(wrapped) if(!wrapped) return false
+		/* Allows the returning of false only if the condition
+		   is also false. NOTE: this will never return true! */
+		#define FALSE_WRAPPER(condition) if(!condition) return false
 
 		/* Load the registry */
-		bool init(const char* register_filepath) {
-			FALSE_WRAPPER(XML::load_register_file(register_filepath));
-
+		bool init(const char* register_filepath) {			
 			if (!inited) {
-				FALSE_WRAPPER(XML::read_tile_location_register(tile_sheet_assets));
-				FALSE_WRAPPER(XML::read_texture_sheet_register(textures));
+				// load register and read each component
+				FALSE_WRAPPER(XML::load_register_file(register_filepath));
+				FALSE_WRAPPER(XML::read_tile_location_register(tile_assets));
+				FALSE_WRAPPER(XML::read_texture_sheet_register(texture_sheets));
 				FALSE_WRAPPER(XML::read_tile_sheet_register(tile_sheet));
 				FALSE_WRAPPER(XML::read_font_register(fonts));
 			}
-			inited = true;
 
-			return true;
+			return (inited = true);
+		}
+
+		/* Returns the tile sheet. NOTE: there is only one tilesheet */
+		const sf::Texture& get_tile_sheet() {
+			return tile_sheet;
 		}
 
 		/* Returns the location of the tile's texture baes on
 		   a register number */
-		const Util::Point& get_tile_sheet_location(unsigned int reg_num) {
-			LOG_IF(ERROR_LEVEL, reg_num >= tile_sheet_assets.size(), "Attemped "
-				"to call 'get_tilesheet_location' with reg_num '{0}' when "
-				"when maximum reg_num is '{1}'", reg_num, tile_sheet_assets.size() - 1);
+		const Util::Point& get_tile_location(unsigned int reg_num) {
+			LOG_IF(ERROR_LEVEL, reg_num >= tile_assets.size(), "Attemped "
+				"to call 'get_tile_location' with reg_num '{0}' when "
+				"when maximum reg_num is '{1}'", reg_num, tile_assets.size() - 1);
 
-			return tile_sheet_assets[reg_num].second;
+			return tile_assets[reg_num].second;
 		}
 
 		/* Returns the location of the tile's texture based on
 		   the name of the texture. NOTE: Register number should
 		   is perfered, but it makes sense to look something up
 		   by name under certain circumstances */
-		Util::Point get_tile_sheet_location(const std::string& name) {
+		Util::Point get_tile_location(const std::string& name) {
 			// attempt to locate texture with the name
-			for (unsigned int i = 0; i < tile_sheet_assets.size(); i++) {
-				if (name == tile_sheet_assets[i].first)
-					return tile_sheet_assets[i].second;
+			for (unsigned int i = 0; i < tile_assets.size(); i++) {
+				if (name == tile_assets[i].first)
+					return tile_assets[i].second;
 			}
 
 			// the name wasn't found
-			LOG_ERROR("Attempted to call get_tilesheet_location with invalid "
+			LOG_ERROR("Attempted to call get_tile_location with invalid "
 				"texture name '{0}'", name);
 
 			return Util::Point(-1, -1);
@@ -78,19 +96,14 @@ namespace Engine {
 			return *itr;
 		}
 
-		/* Returns the tile sheet. NOTE: there is only one tilesheet */
-		const sf::Texture& get_tile_sheet() {
-			return tile_sheet;
-		}
-
 		/* Returns the texture with the given register number */
 		const sf::Texture& get_texture_sheet(unsigned int reg_num) {
-			LOG_IF(CRIT_LEVEL, reg_num >= textures.size(), "Attempted to retrieve "
+			LOG_IF(CRIT_LEVEL, reg_num >= texture_sheets.size(), "Attempted to retrieve "
 				" texture_sheet reg_num '{0}' when maximum reg_num is '{1}'",
-				reg_num, textures.size() - 1);
+				reg_num, texture_sheets.size() - 1);
 
 			// locate texture in list
-			auto itr = textures.begin();
+			auto itr = texture_sheets.begin();
 			for (unsigned int i = 0; i < reg_num; i++) itr++;
 
 			return *itr;
