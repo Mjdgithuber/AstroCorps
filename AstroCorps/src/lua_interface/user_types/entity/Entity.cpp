@@ -49,15 +49,15 @@ namespace Lua {
 	/* Will return the horizontal component of a
 	   given direction */
 	int Entity::get_hor_offset(Direction dir) const {
-		return ((m_curr_dir == Engine::Util::EAST) ? 1 
-			: (m_curr_dir == Engine::Util::WEST ? -1 : 0));
+		return ((dir == Engine::Util::EAST) ? 1
+			: (dir == Engine::Util::WEST ? -1 : 0));
 	}
 
 	/* Will return the vertical component of a
 	   given direction */
 	int Entity::get_vert_offset(Direction dir) const {
-		return ((m_curr_dir == Engine::Util::SOUTH) ? 1 : 
-			(m_curr_dir == Engine::Util::NORTH ? -1 : 0));
+		return ((dir == Engine::Util::SOUTH) ? 1 :
+			(dir == Engine::Util::NORTH ? -1 : 0));
 	}
 
 	/* Will adjust the percentage as needed */

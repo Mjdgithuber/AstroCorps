@@ -69,18 +69,24 @@ namespace Engine {
 		   the name of the texture. NOTE: Register number should
 		   is perfered, but it makes sense to look something up
 		   by name under certain circumstances */
-		Util::Point get_tile_location(const std::string& name) {
-			// attempt to locate texture with the name
+		const Util::Point& get_tile_location(const std::string& name) {
+			bool found = false;
+			
+			// locate object
+			auto itr = tile_assets.begin();
 			for (unsigned int i = 0; i < tile_assets.size(); i++) {
-				if (name == tile_assets[i].first)
-					return tile_assets[i].second;
+				if (name == itr->first) {
+					found = true;
+					break;
+				}
+				itr++;
 			}
 
-			// the name wasn't found
-			LOG_ERROR("Attempted to call get_tile_location with invalid "
+			// log error if element wan't found!!
+			LOG_IF(ERROR_LEVEL, "Attempted to call get_tile_location with invalid "
 				"texture name '{0}'", name);
 
-			return Util::Point(-1, -1);
+			return itr->second;
 		}
 
 		/* Returns the font with the given register number */

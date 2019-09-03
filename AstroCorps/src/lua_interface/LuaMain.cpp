@@ -52,7 +52,7 @@ namespace Lua {
 	}
 	
 	void start(const char* path) {
-		load_script("main.lua");
+		load_script(path);
 	}
 
 	void lost_focus() {

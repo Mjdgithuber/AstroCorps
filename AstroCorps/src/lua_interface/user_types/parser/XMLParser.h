@@ -94,7 +94,7 @@ namespace Lua {
 		/// Attempts to cache the root node in elemental form. This
 		/// is because cache_element gets a child of the root node.
 		////////////////////////////////////////////////////////////
-		bool cache_root_element(const char* element);
+		bool cache_root_element();
 
 		////////////////////////////////////////////////////////////
 		/// Attempts to cache an element of the given element name.

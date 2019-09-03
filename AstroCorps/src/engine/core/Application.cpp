@@ -81,7 +81,7 @@ namespace Application {
 
 		/* Init and start Lua */
 		Lua::init();
-		Lua::start("assets/scripts/main.lua");
+		Lua::start("main.lua");
 
 		return true;
 	}

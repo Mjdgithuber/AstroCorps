@@ -80,10 +80,11 @@ namespace Lua {
 		return (m_open = true);
 	}
 
-	bool XMLParser::cache_root_element(const char* element) {
+	bool XMLParser::cache_root_element() {
 		// ensure there is an open file
 		if (!check_if_open("cache_root_element(const char* element)"))
 			return false;
+
 		// return true
 		return (m_cached_element = m_root_node->ToElement());
 	}
@@ -141,10 +142,12 @@ namespace Lua {
 	bool XMLParser::check_attribute(const std::string& attribute) {
 		// return false if no file/element is loaded
 		if (!m_open || !m_cached_element) return false;
+		
+		std::string temp;
 
 		// check by attempting to load into temp
 		Engine::XML::XMLError result = Engine::XML::load_attribute(m_cached_element, attribute.c_str(),
-			std::string());
+			temp);
 
 		// if == success return true;
 		return result == Engine::XML::XML_SUCCESS;
