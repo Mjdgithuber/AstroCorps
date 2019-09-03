@@ -87,8 +87,9 @@ namespace Engine {
 		}
 
 		/* This will load all of the fonts in the registry
-		   file in to the passed in vector */
-		bool read_font_register(std::vector<sf::Font>& fonts) {
+		   file in to the passed in list. This function uses
+		   a list because fonts are heavy resources */
+		bool read_font_register(std::list<sf::Font>& fonts) {
 			LOG_DEBUG("Loading Fonts!");
 
 			// get the tile register head

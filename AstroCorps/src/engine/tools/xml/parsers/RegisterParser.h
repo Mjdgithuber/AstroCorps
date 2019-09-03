@@ -33,15 +33,21 @@ namespace Engine {
 		/// registry allows the fonts to be used all of the program
 		/// without having to needlessly create fonts whenever they
 		/// are used
+		/// NOTE: this function uses a list instead of a vector 
+		/// because Fonts are heavy and opengl doesn't like it
+		/// when you try to copy them (when expanding)
 		/// Params:
 		/// fonts - The place to store the font data 
 		/// register_path - The path to the register
 		////////////////////////////////////////////////////////////
-		bool read_font_register(std::vector<sf::Font>& fonts);
+		bool read_font_register(std::list<sf::Font>& fonts);
 		
 		////////////////////////////////////////////////////////////
 		/// This will read and store all needed information about 
-		/// the various texture sheets found in the register file
+		/// the various texture sheets found in the register file.
+		/// NOTE: this function uses a list instead of a vector 
+		/// because Textures are heavy and opengl doesn't like
+		/// it when you try to copy them (when expanding)
 		/// Params:
 		/// textures - The list to store texture sheets in
 		////////////////////////////////////////////////////////////		

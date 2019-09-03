@@ -15,7 +15,7 @@ namespace Engine {
 			
 			std::vector<std::pair<std::string, Util::Point>>
 				tile_sheet_assets;
-			std::vector<sf::Font> fonts;
+			std::list<sf::Font> fonts;
 			sf::Texture tile_sheet;
 			std::list<sf::Texture> textures;
 		}
@@ -71,7 +71,11 @@ namespace Engine {
 				" font reg_num '{0}' when maximum reg_num is '{1}'",
 				reg_num, fonts.size() - 1);
 
-			return fonts[reg_num];
+			// locate specific font in list
+			auto itr = fonts.begin();
+			for (unsigned int i = 0; i < reg_num; i++) itr++;
+
+			return *itr;
 		}
 
 		/* Returns the tile sheet. NOTE: there is only one tilesheet */
