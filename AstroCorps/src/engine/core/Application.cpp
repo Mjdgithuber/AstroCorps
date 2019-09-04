@@ -13,6 +13,9 @@ namespace Application {
 
 	/* application wide constants */
 	namespace {
+		// abort signal
+		bool abort;
+
 		// size of tiles
 		float scale;
 		unsigned int tile_size;
@@ -67,6 +70,9 @@ namespace Application {
 
 	////////////////////////////////////////STATIC/PRIVATE METHODS////////////////////////////////////////
 	static bool init() {
+		// resets abort flag
+		abort = false;
+
 		Engine::Log::init();
 		LOG_INFO("Initializing System");
 
@@ -103,6 +109,9 @@ namespace Application {
 
 		// main loop
 		while (window.isOpen()) {
+			// end game in case of error
+			if (abort) break;
+
 			sf::Time delta_time = frame_timer.restart();
 			//std::cout << 1.f / delta_time.asSeconds() << "\n";
 
@@ -128,8 +137,6 @@ namespace Application {
 			if (current_tile_map != nullptr)
 				current_tile_map->draw_map(window);
 
-			
-
 			window.display();
 		}
 
@@ -143,5 +150,17 @@ namespace Application {
 		//(*global_window).setFramerateLimit(10);
 
 		application_loop(*global_window);
+	}
+
+	/* Used to stop the application. NOTE: this will signal
+	   an abort instead of just exiting, so things should
+	   still get cleaned up depending on the error */
+	void signal_abort(const std::string& reason) {
+		abort = true;
+
+		LOG_CRITICAL("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+			"\nABORT SIGNALED!\nA FATAL ERROR HAS OCCURRED!\nSTOPPING "
+			"APPLICATION IMMEDIATELY!\nREASON: '{0}'\n"
+			"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", reason);
 	}
 }

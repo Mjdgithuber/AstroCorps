@@ -1,6 +1,8 @@
 #ifndef __APPLICATION__H__
 #define __APPLICATION__H__
 
+#include <string>
+
 #include "lua_interface/user_types/tile_map/TileMap.h"
 
 ////////////////////////////////////////////////////////////
@@ -38,6 +40,15 @@ namespace Application {
 
 	/* REGISTERED WITH LUA */
 	void load_tile_map(Lua::TileMap* new_tile_map);
+
+	////////////////////////////////////////////////////////////
+	/// Stops the application as soon as possible. This flag
+	/// is checked multiple times through out the application
+	/// cycle to ensure fast responce time. NOTE: This is only
+	/// to be used in the case of a fatal error in the game's
+	/// execution
+	////////////////////////////////////////////////////////////
+	void signal_abort(const std::string& reason);
 }
 
 #endif
