@@ -38,7 +38,13 @@ namespace Application {
 	////////////////////////////////////////////////////////////
 	unsigned int get_scaled_tile_size();
 
-	/* REGISTERED WITH LUA */
+	////////////////////////////////////////////////////////////
+	/// This will load the current tile map to be displayed to
+	/// the screen. NOTE: this function is directly registered
+	/// to lua to allow it's use in scripts
+	/// Params:
+	/// new_tile_map - The tile map to currently render
+	////////////////////////////////////////////////////////////
 	void load_tile_map(Lua::TileMap* new_tile_map);
 
 	////////////////////////////////////////////////////////////
