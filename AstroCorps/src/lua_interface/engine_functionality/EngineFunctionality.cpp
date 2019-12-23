@@ -34,6 +34,11 @@ namespace Lua {
 				state["SOUTH"] = Engine::Util::SOUTH;
 				state["WEST"] = Engine::Util::WEST;
 			}
+
+			void register_mouse_buttons(sol::state& state) {
+				state["LEFT_MOUSE_BUTTON"] = Engine::Util::LEFT_MOUSE_BUTTON;
+				state["RIGHT_MOUSE_BUTTON"] = Engine::Util::RIGHT_MOUSE_BUTTON;
+			}
 		}
 
 		/* Register Engine Functions */
@@ -41,6 +46,7 @@ namespace Lua {
 			register_print_utilites(state);
 			register_application_utilites(state);
 			register_direction_utilities(state);
+			register_mouse_buttons(state);
 		}
 	}
 }

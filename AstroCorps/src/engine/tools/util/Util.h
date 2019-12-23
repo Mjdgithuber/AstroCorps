@@ -32,6 +32,11 @@ namespace Engine {
 			WEST
 		};
 
+		enum MOUSE_BUTTON {
+			LEFT_MOUSE_BUTTON = 0,
+			RIGHT_MOUSE_BUTTON
+		};
+
 	}
 }
 

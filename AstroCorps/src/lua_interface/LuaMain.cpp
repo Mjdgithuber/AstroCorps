@@ -72,4 +72,8 @@ namespace Lua {
 		lua_state["GameManager"]["update_game"]();
 	}
 
+	void process_click(int type) {
+		lua_state["GameManager"]["on_click"](type);
+	}
+
 }

@@ -126,6 +126,21 @@ namespace Application {
 					Lua::process_key(event.key.code, false);
 				else if (event.type == sf::Event::LostFocus)
 					Lua::lost_focus();
+				else if (event.type == sf::Event::MouseButtonPressed) {
+					if (event.mouseButton.button == sf::Mouse::Left) {
+						int x = event.mouseButton.x;
+						int y = event.mouseButton.y;
+
+						int tile_x = x / scaled_tile_size;
+						int tile_y = y / scaled_tile_size;
+
+						LOG_DEBUG("Click: {0}, {1}", tile_x, tile_y);
+						Lua::process_click(Engine::Util::LEFT_MOUSE_BUTTON);
+						
+					} else {
+						Lua::process_click(Engine::Util::RIGHT_MOUSE_BUTTON);
+					}
+				}
 			}
 
 			if (current_tile_map != nullptr)

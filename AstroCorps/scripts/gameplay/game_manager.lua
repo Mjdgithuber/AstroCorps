@@ -66,6 +66,16 @@ GameManager.update_game = function()
 	end
 end
 
+GameManager.on_click = function(type)
+	if type == LEFT_MOUSE_BUTTON then 
+		INFO('LEFT clicked')
+	else
+		INFO('Right Clicked')
+	end
+
+	INFO('Emma: ' .. type)
+end
+
 -- test function
 test_entity_system = function()
 	print()
